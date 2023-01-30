@@ -36,6 +36,18 @@ void Renderer::SetSourcePos(Vector2 newPos)
 	sourceRect.y = newPos.y;
 }
 
+void Renderer::OverrideSourcePixelScale(Vector2 scale)
+{
+	sourceRect.w *= scale.x;
+	sourceRect.h *= scale.y;
+}
+
+void Renderer::OverrideTargetPixelSize(Vector2 scale)
+{
+	targetRect.w = sourceRect.w * scale.x;
+	targetRect.h = sourceRect.h * scale.y;
+}
+
 void Renderer::SetPosition(Vector2 newPos)
 {
 	targetRect.x = newPos.x;
@@ -53,6 +65,11 @@ void Renderer::SetScale(Vector2 scl)
 	targetRect.h = scl.y;
 	sourceRect.w = scl.x;
 	sourceRect.h = scl.y;
+}
+
+Vector2 Renderer::GetTexturePixelSize()
+{
+	return Vector2(targetRect.w, targetRect.h);
 }
 
 //SDL_Color Renderer::GetColor()

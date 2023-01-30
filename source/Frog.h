@@ -3,6 +3,7 @@
 #include "Food.h"
 #include "Vector2.h"
 #include "InputManager.h"
+#include "CollisionHandler.h"
 //#include "AnimatedImageRenderer.h"
 #include <vector>
 

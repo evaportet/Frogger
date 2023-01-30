@@ -20,6 +20,8 @@ private:
 	unordered_map<Sint32, KeyState> keys;
 	int mouseX, mouseY;
 	bool quitEvent;
+	bool resizeEvent;
+	SDL_Event windowEvent;
 	InputManager() : quitEvent(false), mouseX(0), mouseY(0) {};
 	static InputManager* instance;
 public:
@@ -29,4 +31,5 @@ public:
 	int GetMouseX();
 	int GetMouseY();
 	bool GetQuitEvent();
+	bool GetResizeEvent(int&, int&);
 };

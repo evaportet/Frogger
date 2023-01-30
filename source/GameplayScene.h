@@ -1,9 +1,11 @@
 #pragma once
 #include "Scene.h"
+#include "RenderManager.h"
 #include "InputManager.h"
 #include "SceneManager.h"
 #include "GameObject.h"
 #include "Frog.h"
+#include "Log.h"
 #include "Tile.h"
 #include "EndTile.h"
 #include "Spawner.h"
@@ -17,6 +19,7 @@ private:
 	Tile map;
 	EndTile endPositions[5];
 	Frog player;
+	Log log;
 	int level;
 	int score;
 	

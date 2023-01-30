@@ -4,16 +4,16 @@ RenderManager* RenderManager::instance = nullptr;
 
 RenderManager::RenderManager()
 {
-	windowWidth = 272;
-	windowHeight = 208;
+	windowWidth = 816;
+	windowHeight = 624;
 
-	int result = SDL_Init(SDL_INIT_VIDEO);
+	int result = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 
 	bool success = result >= 0;
 	if (!success)
 		throw SDL_GetError();
 
-	result = SDL_CreateWindowAndRenderer(windowWidth, windowHeight, SDL_WINDOW_SHOWN, &window, &renderer);
+	result = SDL_CreateWindowAndRenderer(windowWidth, windowHeight, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE, &window, &renderer);
 
 	success = result >= 0;
 	if (!success)
@@ -40,6 +40,8 @@ void RenderManager::ClearScreen()
 
 void RenderManager::RenderScreen()
 {
+	IM->GetResizeEvent(windowWidth, windowHeight);
+
 	SM->GetCurrentScene()->Render();
 	SDL_RenderPresent(renderer);
 }

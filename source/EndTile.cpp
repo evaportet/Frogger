@@ -23,6 +23,7 @@ EndTile::EndTile(Vector2 pos)
 	renderer.SetPosition(collider.GetTopLeft());
 	renderer.SetScale(transform.scale);
 	renderer.SetSourcePos(Vector2(100,0));
+	renderer.OverrideTargetPixelSize(Vector2(3, 3));
 }
 
 void EndTile::Update()

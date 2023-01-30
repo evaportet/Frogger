@@ -8,7 +8,8 @@ enum class ColliderType {
 	SNK,
 	END,
 	FOOD,
-	SAVE
+	SAVE,
+	WINDOW
 };
 
 enum class CollisionResult {
@@ -16,7 +17,8 @@ enum class CollisionResult {
 	BORDER,
 	END,
 	FOOD,
-	SAFE
+	SAFE,
+	NONE
 };
 
 enum class EndState {

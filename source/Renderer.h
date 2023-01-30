@@ -23,6 +23,8 @@ public:
 	virtual void Render() = 0;
 	SDL_Texture* GetTexture();
 	void SetSourcePos(Vector2 newPos);
+	void OverrideSourcePixelScale(Vector2 scale);
+	void OverrideTargetPixelSize(Vector2 scale);
 	//void SetColor(SDL_Color clr);
 	//void SetAlpha(float alph);
 	void SetPosition(Vector2 newPos);
@@ -30,4 +32,6 @@ public:
 	void SetScale(Vector2 scl);
 	//SDL_Color GetColor();
 	/*float GetAlpha();*/
+	Vector2 GetTexturePixelSize();
+
 };

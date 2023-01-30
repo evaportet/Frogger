@@ -10,9 +10,11 @@ GameEngine::GameEngine()
 void GameEngine::Init()
 {
     //Time
-    TM->GetInstance();
+    TM;
     //Render
-    RM->GetInstance();
+    RM;
+    //Collisions
+    CH;
 
     //Load Audio
     //AudioManager::GetInstance()->LoadClip("randomSFX");

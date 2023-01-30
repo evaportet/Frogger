@@ -32,6 +32,11 @@ void InputManager::Listen()
 		{
 			quitEvent = true;
 		}
+		else if (evt.window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
+			//Update Mouse??
+			resizeEvent = true;
+			windowEvent = evt;
+		}
 		else if (evt.type == SDL_KEYDOWN)
 		{
 			keys[evt.key.keysym.sym] = (KeyState)(DOWN | PRESSED);
@@ -72,4 +77,14 @@ int InputManager::GetMouseY()
 bool InputManager::GetQuitEvent()
 {
 	return quitEvent;
+}
+
+bool InputManager::GetResizeEvent(int& newWidth, int& newHeight)
+{
+	if (!resizeEvent)
+		return resizeEvent;
+
+	newWidth = windowEvent.window.data1;
+	newHeight = windowEvent.window.data2;
+	return resizeEvent;
 }

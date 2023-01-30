@@ -12,6 +12,7 @@ Tile::Tile(Vector2 size, Vector2 pos, ColliderType ct, std::string path)
 	transform.rotation = 0;
 
 	collider = Collider(pos, size, ct);
+	CH->AddCollider(&collider);
 
 	renderer.Load(path);
 	renderer.SetPosition(collider.GetTopLeft());
