@@ -23,8 +23,9 @@ GameplayScene::GameplayScene()
 
 void GameplayScene::Update(float dt)
 {
-	player.Update();
 	log.Update();
+	player.Update();
+
 
 	for (int i = 0; i <= 4; i++)
 	{

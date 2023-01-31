@@ -10,8 +10,10 @@
 class Frog : public GameObject
 {
 private:
+	Vector2 spawnPos;
 	bool moves;
 	bool hasFood;
+	int lives;
 	Food* food;
 	void Movement();
 
@@ -23,5 +25,6 @@ public:
 	void Update()override; 
 	void Render()override; 
 	void AddFood(Food* food); 
+	void HandleHits(std::list<CollisionResult> hits);
 };
 

@@ -6,26 +6,33 @@ Frog::Frog()
 
 Frog::Frog(Vector2 size, Vector2 pos, ColliderType ct, std::string path)
 {
+	spawnPos = pos;
 	transform.position = pos;
 	transform.scale = size;
 	transform.rotation = 0;
 
-	collider = Collider(pos, size, ct);
+	collider = Collider(pos, size*3, ct);
 	CH->SetPlayerCollider(&collider);
 	renderer.Load(path);
 	renderer.SetPosition(collider.GetTopLeft());
 	renderer.SetScale(transform.scale);
+	renderer.SetPosition(pos);
 	renderer.SetSourcePos(Vector2(0, 0));
 	renderer.OverrideTargetPixelSize(Vector2(3, 3));
 
 	food = nullptr;
 	hasFood = false;
 	moves = false;
+	lives = 3;
 }
 
 void Frog::Respawn()
 {
 	//frogTransform.position()
+	SetPosition(spawnPos);
+	renderer.SetPosition(spawnPos);
+	lives--;
+	printf_s("Current lives : %d", lives);
 }
 
 void Frog::Movement()
@@ -73,6 +80,8 @@ void Frog::Update()
 {
 	Movement();
 	CH->SetPlayerCollider(&collider);
+	//CH->StorePlayerHits();
+	HandleHits(CH->GetPlayerHits());
 }
 
 void Frog::Render()
@@ -82,4 +91,33 @@ void Frog::Render()
 
 void Frog::AddFood(Food* food)
 {
+}
+
+void Frog::HandleHits(std::list<CollisionResult> hits)
+{
+	for (CollisionResult& hit : hits)
+	{
+		switch (hit)
+		{
+		case CollisionResult::DIE:
+			//Respawn || GameOver
+			Respawn();
+			break;
+		case CollisionResult::BORDER:
+			//BlockMovement
+			break;
+		case CollisionResult::END:
+			//Respawn || Win
+			break;
+		case CollisionResult::FOOD:
+			//Add food
+			break;
+		case CollisionResult::SAFE:
+		case CollisionResult::NONE:
+			break;
+		default:
+			break;
+		}
+	}
+	CH->CrearPlayerHits();
 }

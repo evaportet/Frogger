@@ -50,8 +50,8 @@ void Renderer::OverrideTargetPixelSize(Vector2 scale)
 
 void Renderer::SetPosition(Vector2 newPos)
 {
-	targetRect.x = newPos.x;
-	targetRect.y = newPos.y;
+	targetRect.x = newPos.x - targetRect.w/2;
+	targetRect.y = newPos.y - targetRect.h/2;
 }
 
 //void Renderer::SetRotation(float rot)

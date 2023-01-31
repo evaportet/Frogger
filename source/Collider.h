@@ -4,6 +4,7 @@
 
 class Collider {
 private:
+	Vector2 centerPivot;
 	Vector2 topLeft;
 	Vector2 size;
 	ColliderType type;
@@ -14,6 +15,7 @@ public:
 	void SetType(ColliderType t);
 	void SetCenter(Vector2 newCenter);
 	Vector2 GetTopLeft();
+	Vector2 GetCenterPivot();
 	Vector2 GetSize();
 	ColliderType GetType();
 };
