@@ -41,7 +41,8 @@ void RenderManager::ClearScreen()
 void RenderManager::RenderScreen()
 {
 	IM->GetResizeEvent(windowWidth, windowHeight);
-
+	
+	ClearScreen();
 	SM->GetCurrentScene()->Render();
 	SDL_RenderPresent(renderer);
 }

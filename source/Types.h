@@ -29,10 +29,22 @@ enum class EndState {
 };
 
 enum class SpawnerType {
-	CAR1,
-	CAR2,
-	CAR3,
-	LOG1,
-	LOG2,
-	LOG3
+	TRUCK,
+	RACING0,
+	FAMILY,
+	FARMING,
+	RACING1,
+	LOG,
+	TURTLES,
+	NONE
 };
+
+enum CarType
+{
+	TRUCK,
+	RACING0,
+	FAMILY,
+	FARMING,
+	RACING1
+};
+

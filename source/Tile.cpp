@@ -17,12 +17,13 @@ Tile::Tile(Vector2 size, Vector2 pos, ColliderType ct, std::string path)
 	renderer.Load(path);
 	renderer.SetPosition(collider.GetTopLeft());
 	renderer.SetScale(transform.scale);
-	renderer.SetSourcePos(Vector2(0, 0));
+	renderer.SetSourcePos(Vector2(0, 0));	
 }
 
 void Tile::Update()
 {
-
+	SetPosition(transform.position + Vector2(speed, 0));
+	renderer.SetPosition(collider.GetTopLeft());
 }
 
 void Tile::Render()

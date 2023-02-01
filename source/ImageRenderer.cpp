@@ -37,5 +37,6 @@ void ImageRenderer::Update()
 
 void ImageRenderer::Render()
 {
+	//TODO RC_Ex
 	SDL_RenderCopy(RM->GetRenderer(), texture, &sourceRect, &targetRect);
 }

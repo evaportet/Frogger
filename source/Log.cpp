@@ -15,7 +15,7 @@ Log::Log(int length, Vector2 pos, float spd)
 	collider = Collider(pos, Vector2(transform.scale.x * length*2, transform.scale.y), ColliderType::LOG);
 	CH->AddCollider(&collider);
 	speed = spd;
-
+	SetSpeed(spd);
 	renderer.Load("resources/assets/Log.png");
 	renderer.SetPosition(collider.GetCenterPivot());
 	renderer.SetScale(transform.scale);
@@ -32,7 +32,7 @@ void Log::Update()
 	if (CH->PlayerCollision(&collider))
 	{
 		printf_s("Aki con el player");
-		//TODO: comunicar al player X
+		//TODO: acabar comunicar al player X
 		CH->OnPlayerCollision(&collider);
 	}
 	

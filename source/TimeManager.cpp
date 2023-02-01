@@ -22,8 +22,8 @@ TimeManager* TimeManager::GetInstance()
 
 void TimeManager::Update()
 {
-    deltaTime += SDL_GetTicks() - elapsedTime;
-    elapsedTime = SDL_GetTicks();
+    deltaTime = float(SDL_GetTicks()) - elapsedTime;
+    elapsedTime = float(SDL_GetTicks());
 }
 
 float TimeManager::GetCurrentTimeInMiliseconds()

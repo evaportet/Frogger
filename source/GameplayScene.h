@@ -4,6 +4,7 @@
 #include "InputManager.h"
 #include "SceneManager.h"
 #include "GameObject.h"
+#include "LevelLoader.h"
 #include "Frog.h"
 #include "Log.h"
 #include "Tile.h"

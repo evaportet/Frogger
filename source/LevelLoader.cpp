@@ -1,6 +1,6 @@
 #include "LevelLoader.h"
 
-std::vector<Spawner*> LevelLoader::LoadLevel(std::string path)
+bool LevelLoader::LoadLevel(std::string path, std::vector<Spawner*>& spawns, std::vector<Tile*>& tiles)
 {
 	rapidxml::xml_document<> doc;
 	std::ifstream file("resources/Files/sample_level.xml");
@@ -9,15 +9,6 @@ std::vector<Spawner*> LevelLoader::LoadLevel(std::string path)
 	file.close();
 	std::string content(buffer.str());
 	doc.parse<0>(&content[0]);
-
-	enum CarType
-	{
-		TRUCK,
-		RACING0,
-		FAMILY,
-		FARMING,
-		RACING1
-	};
 
 	std::vector<Spawner*> level;
 
@@ -44,22 +35,22 @@ std::vector<Spawner*> LevelLoader::LoadLevel(std::string path)
 		}
 		else if (strcmp(pNode->name(), "LogRiver") == 0)
 		{
-			int minLength;
-			int maxLength;
-			int min;
-			int max;
-			int cocodrChance;
-			int snakeChance;
+			int minLength=0;
+			int maxLength=0;
+			int min=0;
+			int max=0;
+			int cocodrChance=0;
+			int snakeChance=0;
 
 			minLength = std::stoi(pNode->first_attribute("minLength")->value());
 			maxLength = std::stoi(pNode->first_attribute("maxLength")->value());
 
-			for (rapidxml::xml_node<>* pSubNode = pNode->first_node(); pSubNode; pNode = pSubNode->next_sibling())
+			for (rapidxml::xml_node<>* pSubNode = pNode->first_node(); pSubNode; pSubNode = pSubNode->next_sibling())
 			{
 				if (strcmp(pSubNode->name(), "SpawnRate") == 0)
 				{
-					min = std::stoi(pNode->first_attribute("min")->value());
-					min = std::stoi(pNode->first_attribute("max")->value());
+					min = std::stoi(pSubNode->first_attribute("min")->value());
+					max = std::stoi(pSubNode->first_attribute("max")->value());
 				}
 				else if (strcmp(pSubNode->name(), "CrocodileChance") == 0)
 				{
@@ -81,11 +72,11 @@ std::vector<Spawner*> LevelLoader::LoadLevel(std::string path)
 		}
 		else if (strcmp(pNode->name(), "TurtlesRiver") == 0)
 		{
-			int minLength;
-			int maxLength;
-			int min;
-			int max;
-			float diveChance;
+			int minLength=0;
+			int maxLength=0;
+			int min=1;
+			int max=0;
+			float diveChance=0;
 
 			minLength = std::stoi(pNode->first_attribute("minLength")->value());
 			maxLength = std::stoi(pNode->first_attribute("maxLength")->value());
@@ -94,12 +85,12 @@ std::vector<Spawner*> LevelLoader::LoadLevel(std::string path)
 			{
 				if (strcmp(pSubNode->name(), "SpawnRate") == 0)
 				{
-					min = std::stoi(pNode->first_attribute("min")->value());
-					min = std::stoi(pNode->first_attribute("max")->value());
+					min = std::stoi(pSubNode->first_attribute("min")->value());
+					max = std::stoi(pSubNode->first_attribute("max")->value());
 				}
 				else if (strcmp(pSubNode->name(), "DiveChance") == 0)
 				{
-					diveChance = std::stoi(pSubNode->value());
+					diveChance = std::stof(pSubNode->value());
 				}
 			}
 			//set turtles spawner
@@ -113,88 +104,50 @@ std::vector<Spawner*> LevelLoader::LoadLevel(std::string path)
 		}
 		else if (strcmp(pNode->name(), "Road") == 0)
 		{
-			CarType type;
+			SpawnerType type = SpawnerType::NONE;
 			if(strcmp(pNode->first_attribute("cardID")->value(), "truck0") == 0)
 			{
-				type = TRUCK;
+				type = SpawnerType::TRUCK;
 			}
 			else if(strcmp(pNode->first_attribute("cardID")->value(), "racing1") == 0)
 			{
-				type = RACING1;
+				type = SpawnerType::RACING1;
 			}
 			else if(strcmp(pNode->first_attribute("cardID")->value(), "family0") == 0)
 			{
-				type = FAMILY;
+				type = SpawnerType::FAMILY;
 			}
 			else if(strcmp(pNode->first_attribute("cardID")->value(), "farming0") == 0)
 			{
-				type = FARMING;
+				type = SpawnerType::FARMING;
 			}
 			else if(strcmp(pNode->first_attribute("cardID")->value(), "racing0") == 0)
 			{
-				type = RACING0;
+				type = SpawnerType::RACING0;
 			}
 			
-			int min;
-			int max;
-			int speed;
+			int min=0;
+			int max=0;
+			int speed=0;
 			for (rapidxml::xml_node<>* pSubNode = pNode->first_node(); pSubNode; pSubNode = pSubNode->next_sibling())
 			{
 				if (strcmp(pSubNode->name(), "SpawnRate") == 0)
 				{
-					min = std::stoi(pNode->first_attribute("min")->value());
-					min = std::stoi(pNode->first_attribute("max")->value());
+					min = std::stoi(pSubNode->first_attribute("min")->value());
+					max = std::stoi(pSubNode->first_attribute("max")->value());
 				}
 				else if (strcmp(pSubNode->name(), "Speed") == 0)
 				{
 					speed = std::stoi(pSubNode->value());
 				}
-
 			}
 			//set spawner
-
+			Spawner* carSpawner = new Spawner(float(min + rand() % max), type, Vector2(5, RM->windowHeight - 55), Vector2(speed/70.f, 0));
+			spawns.emplace_back(carSpawner);
 			//set road tiles
+			Tile* road = new Tile(Vector2(RM->windowWidth, 14), Vector2(0, RM->windowHeight - 55), ColliderType::SAVE, "resources/Assets/Log.png");
+			tiles.emplace_back(road);
 		}
-
-		
-		
-		
 	}
-
-
-
-
-
-
-
-
-
-
-
-	for (rapidxml::xml_node<>* pNode = pRoot->first_node("MaxTime"); pNode; pNode = pNode->next_sibling())
-		//sscanf_s(pNode->first_attribute("MaxTime")->value(), "%d", &_MaxTime);
-
-	
-		//SAFEZONE
-		//ROAD
-		for (rapidxml::xml_node<>* pNode = pRoot->first_node("Road"); pNode; pNode = pNode->next_sibling())
-		{
-			//sscanf_s(pNode->first_attribute("Road")->value(), "%d", &_Road);
-
-			for (rapidxml::xml_node<>* pChild = pNode->first_node(); pChild; pChild = pChild->next_sibling())
-			{
-				std::string childName = pChild->name();
-				if (childName == "SpawnRate")
-				{
-					//if ((std::string)pNode->name() == "SpawnRate")
-					//sscanf_s(pNode->first_attribute("min")->value(), "%d", &minSpawnRate);
-					//sscanf_s(pNode->first_attribute("max")->value(), "%d", &_maxSpawnRate);
-				}
-				else if (childName == "Speed")
-				{
-					//sscanf_s(pNode->first_attribute("Speed")->value(), "%d", &speed);
-				}
-			}	
-		}
-	return level;
+	return true;
 }

@@ -22,7 +22,6 @@ void GameEngine::Init()
 
     //Create and add Scenes
     SM->AddScene("Splash Screen", new SplashScreenScene());
-    //SM->SetScene("Splash Screen");
     SM->AddScene("MainMenu", new MainMenuScene());
     SM->AddScene("Gameplay", new GameplayScene());
     SM->SetScene("Gameplay");
@@ -53,7 +52,7 @@ void GameEngine::Run()
     }
 }
 
-//Calls destructors and ends subprocess (i.e. SDL)
+//Calls destructors
 void GameEngine::Quit()
 {
 

@@ -7,13 +7,16 @@
 #include "../dep/inc/xml/rapidxml_print.hpp"
 #include "../dep/inc/xml/rapidxml_utils.hpp"
 #include "Spawner.h"
+#include "Tile.h"
+#include "Types.h"
+#include "RenderManager.h"
 #include <vector>
 #include <cstdlib>
-#include "Spawner.h"
 
 
 class LevelLoader {
 public:
-	LevelLoader();
-	std::vector<Spawner*> LoadLevel(std::string path);
+	LevelLoader() = default;
+	//static std::vector<Spawner*> LoadLevel(std::string path);
+	static bool LoadLevel(std::string path, std::vector<Spawner*>& spawners, std::vector<Tile*>& tiles);
 };

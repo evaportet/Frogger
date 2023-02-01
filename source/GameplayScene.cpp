@@ -17,12 +17,18 @@ GameplayScene::GameplayScene()
 		endPositions[i] = EndTile(Vector2(120 + 48*3*i, 40));
 	}
 	
+	LevelLoader::LoadLevel("resources/Files/sample_level.xml", spawners, row_tiles);
 	/*Log newCar = Log(2, Vector2(-10, 150), 2.0f);
 	gameObjects.push_back(newCar);*/
 }
 
 void GameplayScene::Update(float dt)
 {
+	for (auto& spawner : spawners)
+	{
+		spawner->Update();
+	}
+
 	log.Update();
 	player.Update();
 
@@ -43,6 +49,17 @@ void GameplayScene::Render()
 	//RM->ClearScreen();
 	map.Render();
 	log.Render();
+
+	for (auto& element : row_tiles)
+	{
+		element->Render();
+	}
+
+	for (auto& spawner : spawners)
+	{
+		spawner->Render();
+	}
+
 	player.Render();
 
 	for (int i = 0; i <= 4; i++)
