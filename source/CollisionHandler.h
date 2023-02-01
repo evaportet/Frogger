@@ -30,5 +30,5 @@ public:
 	bool InScreen(Collider* element);
 	bool InBounds(Collider* element);
 	list<CollisionResult> GetPlayerHits();
-	void CrearPlayerHits();
+	void ClearPlayerHits();
 };

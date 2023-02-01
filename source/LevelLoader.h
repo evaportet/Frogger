@@ -15,5 +15,5 @@
 class LevelLoader {
 public:
 	LevelLoader();
-	std::vector<Spawner> LoadLevel(std::string path);
+	std::vector<Spawner*> LoadLevel(std::string path);
 };

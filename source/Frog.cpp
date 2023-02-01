@@ -119,5 +119,5 @@ void Frog::HandleHits(std::list<CollisionResult> hits)
 			break;
 		}
 	}
-	CH->CrearPlayerHits();
+	CH->ClearPlayerHits();
 }

@@ -14,13 +14,14 @@
 
 class GameplayScene : public Scene {
 private:
-	std::vector<GameObject> gameObjects;
-	std::vector<Spawner> spawners;
+	std::vector<Tile*> row_tiles;
+	std::vector<Spawner*> spawners;
 	Tile map;
 	EndTile endPositions[5];
 	Frog player;
 	Log log;
 	int level;
+	float time;
 	int score;
 	
 public:

@@ -172,7 +172,8 @@ bool CollisionHandler::InBounds(Collider* element)
 	Vector2 eSize = element->GetSize();
 
 	return (screenTop.x < eTop.x &&
-		screenTop.x + screenSize.x > eSize.x &&
+		screenTop.x + screenSize.x > eTop.x + eSize.x &&
+
 		screenTop.y < eTop.y &&
 		screenTop.y + screenSize.y > eSize.y);
 }
@@ -182,7 +183,7 @@ list<CollisionResult> CollisionHandler::GetPlayerHits()
 	return playerHits;
 }
 
-void CollisionHandler::CrearPlayerHits()
+void CollisionHandler::ClearPlayerHits()
 {
 	playerHits.clear();
 }
