@@ -6,6 +6,12 @@ AudioManager::AudioManager()
 {
 	assert(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) != -1);
 						 //frequency
+	LoadSFX("Dead");
+	LoadSFX("Jump");
+	LoadMusic("GameplayMusic");
+	LoadMusic("MenuMusic");
+	LoadSFX("GetEnd");
+	
 	muted = false;
 }
 
@@ -25,7 +31,7 @@ void AudioManager::LoadSFX(std::string name)
 	assert(sfx.find(name) == sfx.end());
 
 	//cargamos al audio
-	Mix_Chunk* loadedChunk = Mix_LoadWAV(("resources/Audio/SFX/" + name + ".wav").c_str());
+	Mix_Chunk* loadedChunk = Mix_LoadWAV(("resources/Audio/" + name + ".wav").c_str());
 
 	assert(loadedChunk != nullptr); //xcopy
 
@@ -38,7 +44,7 @@ void AudioManager::LoadMusic(std::string name)
 	assert(music.find(name) == music.end());
 
 	//cargamos al audio
-	Mix_Music* loadedMusic = Mix_LoadMUS(("resources/Audio/Music/" + name + ".wav").c_str());
+	Mix_Music* loadedMusic = Mix_LoadMUS(("resources/Audio/" + name + ".wav").c_str());
 
 	assert(loadedMusic != nullptr);
 
@@ -63,19 +69,19 @@ void AudioManager::UnLoadMusic(std::string name)
 
 void AudioManager::PlaySFX(std::string name, int repetitions)
 {
-	assert(sfx.find(name) != sfx.end()); //los assert bloquean el code
+	assert(sfx.find(name) != sfx.end()); 
 
+	if (!muted)
 	Mix_PlayChannel(-1, sfx[name], repetitions);
-					//channel, chunk, loop
-					//if channel = -1, play first channel, se puede spammear
-					//if loops = 0, hace loop`constante
+				
 
 }
 
 void AudioManager::PlayMusic(std::string name)
 {
-	assert(music.find(name) != music.end()); //los assert bloquean el code
+	assert(music.find(name) != music.end()); 
 
+	if (!muted)
 	Mix_FadeInMusic(music[name], -1, 200);
 								     //ms de fade in
 }

@@ -10,7 +10,7 @@ protected:
 	SDL_Texture* texture;
 	//SDL_Color color;
 	//float alpha;
-	//float rotation;
+	float rotation;
 	Vector2 scale;
 	SDL_Rect targetRect;
 	SDL_Rect sourceRect;
@@ -28,7 +28,7 @@ public:
 	//void SetColor(SDL_Color clr);
 	//void SetAlpha(float alph);
 	void SetPosition(Vector2 newPos);
-	//void SetRotation(float rot);
+	void SetRotation(float rot);
 	void SetScale(Vector2 scl);
 	//SDL_Color GetColor();
 	/*float GetAlpha();*/

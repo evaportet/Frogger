@@ -5,8 +5,8 @@
 #include "SceneManager.h"
 #include "GameObject.h"
 #include "LevelLoader.h"
+#include "CollisionHandler.h"
 #include "Frog.h"
-#include "Log.h"
 #include "Tile.h"
 #include "EndTile.h"
 #include "Spawner.h"
@@ -20,7 +20,7 @@ private:
 	Tile map;
 	EndTile endPositions[5];
 	Frog player;
-	Log log;
+	Collider water;
 	int level;
 	float time;
 	int score;

@@ -8,7 +8,7 @@ Car::Car()
 
 }
 
-Car::Car(int length, Vector2 pos, Vector2 size, float spd, ColliderType ct, std::string path)
+Car::Car(int length, Vector2 rectPos, Vector2 pos, Vector2 size, float spd, ColliderType ct, std::string path)
 {
 	transform.position = pos;
 	transform.scale = size;
@@ -20,7 +20,7 @@ Car::Car(int length, Vector2 pos, Vector2 size, float spd, ColliderType ct, std:
 	renderer.Load(path);
 	renderer.SetPosition(collider.GetTopLeft());
 	renderer.SetScale(transform.scale);
-	renderer.SetSourcePos(Vector2(0, 0));
+	renderer.SetSourcePos(rectPos);
 	renderer.OverrideTargetPixelSize(Vector2(3, 3));
 
 	/*transform.position = pos;
@@ -60,6 +60,8 @@ void Car::Update()
 {
 	SetPosition(transform.position + Vector2(speed, 0));
 	renderer.SetPosition(collider.GetTopLeft());
+	CH->OnPlayerCollision(&collider);
+
 	/*durationCar = (clock() - startCar) / CLOCKS_PER_SEC;
 
 	if (durationCar >= FRAMERATE)

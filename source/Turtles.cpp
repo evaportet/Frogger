@@ -20,11 +20,15 @@ Turtles::Turtles(int length, Vector2 pos, float spd)
 	renderer.Load("resources/assets/Turtles.png");
 	renderer.SetPosition(collider.GetTopLeft());
 	renderer.SetScale(transform.scale);
+	renderer.OverrideTargetPixelSize(Vector2(3, 3));
 }
 
 void Turtles::Update()
 {
 	durationTurtles = (clock() - startTurtles) / CLOCKS_PER_SEC;
+	SetPosition(transform.position + Vector2(speed, 0));
+	renderer.SetPosition(transform.position + Vector2(speed, 0));
+	CH->OnPlayerCollision(&collider);
 
 	if (durationTurtles >= FRAMERATE)
 	{
@@ -40,4 +44,5 @@ void Turtles::Update()
 void Turtles::Render()
 {
 	renderer.Render();
+
 }

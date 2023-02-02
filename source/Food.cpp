@@ -18,6 +18,7 @@ Food::Food(Log* atachedLog, Vector2 pos, float spd)
 void Food::Update()
 {
 	durationFood = (clock() - startFood) / CLOCKS_PER_SEC;
+	CH->OnPlayerCollision(&collider);
 
 	if (durationFood >= FRAMERATE)
 	{

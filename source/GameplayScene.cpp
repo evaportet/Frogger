@@ -4,22 +4,21 @@ GameplayScene::GameplayScene()
 {
 	score = 0;
 	level = 1;
-	/*LoadLevelFromFile("1");*/
 	
-	map = Tile(Vector2(RM->windowWidth, RM->windowHeight), Vector2(RM->windowWidth/2, RM->windowHeight/2), ColliderType::SAVE, "resources/Assets/Map.png");
-
-	player = Frog(Vector2(16, 16), Vector2(RM->windowWidth/2, RM->windowHeight -30), ColliderType::SAVE, "resources/Assets/Frog.png");
-
-	log = Log(1, Vector2(RM->windowWidth/2, RM->windowHeight/2), 0.002/*0.010*/);
+	map = Tile(Vector2(RM->windowWidth, RM->windowHeight), Vector2(RM->windowWidth/2, RM->windowHeight/2), ColliderType::SAVE, "resources/Assets/NewMap.png");
+										
+	player = Frog(Vector2(16, 16), Vector2(RM->windowWidth/2-20, RM->windowHeight -105), ColliderType::SAVE, "resources/Assets/Frog.png");
 	
+	//water = Collider(Vector2(256 / 2, 80 / 2), Vector2(256, 80), ColliderType::DMG);
+	//CH->AddCollider(&water);
+	//	//8, 14
+
 	for (int i = 0; i <= 4; i++)
 	{
 		endPositions[i] = EndTile(Vector2(120 + 48*3*i, 40));
 	}
 	
 	LevelLoader::LoadLevel("resources/Files/sample_level.xml", spawners, row_tiles);
-	/*Log newCar = Log(2, Vector2(-10, 150), 2.0f);
-	gameObjects.push_back(newCar);*/
 }
 
 void GameplayScene::Update(float dt)
@@ -29,9 +28,8 @@ void GameplayScene::Update(float dt)
 		spawner->Update();
 	}
 
-	log.Update();
 	player.Update();
-
+	//CH->OnPlayerCollision(&water);
 
 	for (int i = 0; i <= 4; i++)
 	{
@@ -48,7 +46,6 @@ void GameplayScene::Render()
 {
 	//RM->ClearScreen();
 	map.Render();
-	log.Render();
 
 	for (auto& element : row_tiles)
 	{
@@ -85,6 +82,7 @@ void GameplayScene::Render()
 
 void GameplayScene::OnEnter()
 {
+	AM->PlayMusic("GameplayMusic");
 }
 
 void GameplayScene::OnExit()

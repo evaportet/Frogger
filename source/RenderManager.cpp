@@ -4,8 +4,8 @@ RenderManager* RenderManager::instance = nullptr;
 
 RenderManager::RenderManager()
 {
-	windowWidth = 816;
-	windowHeight = 624;
+	windowWidth = 272*3;
+	windowHeight = 223*3;
 
 	int result = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 

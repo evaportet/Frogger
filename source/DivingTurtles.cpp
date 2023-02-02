@@ -20,6 +20,7 @@ DivingTurtles::DivingTurtles(int length, Vector2 pos, float spd, float srfD, flo
 void DivingTurtles::Update()
 {
 	currentDuration = (clock() - startDiving) / CLOCKS_PER_SEC;
+	CH->OnPlayerCollision(&collider);
 
 	if (currentDuration >= surfaceDuration && collider.GetType() == ColliderType::LOG)
 	{

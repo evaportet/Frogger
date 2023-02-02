@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "CollisionHandler.h"
 
 class EndTile : public GameObject{
 private:

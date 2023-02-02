@@ -20,7 +20,7 @@ bool LevelLoader::LoadLevel(std::string path, std::vector<Spawner*>& spawns, std
 	pNode = pNode->next_sibling(); //Layout
 	pNode = pNode->first_node();
 
-	for (; pNode; pNode = pNode->next_sibling())
+	for (int i=0; pNode; pNode = pNode->next_sibling(), i++)
 	{
 		//NODE
 		if (strcmp(pNode->name(), "EndZone") == 0)
@@ -63,11 +63,19 @@ bool LevelLoader::LoadLevel(std::string path, std::vector<Spawner*>& spawns, std
 				}
 
 			}
+			//Log spawner
+			Spawner* logSpawner = new Spawner(float(min + rand() % max), SpawnerType::LOG, Vector2(RM->windowWidth - 90, 240), Vector2(-2 / 70.f, 0));
+			spawns.emplace_back(logSpawner);
+			Spawner* logSpawner2 = new Spawner(float(min + rand() % max), SpawnerType::LOG, Vector2(RM->windowWidth - 90, 195), Vector2(-2 / 70.f, 0));
+			spawns.emplace_back(logSpawner2);
+			Spawner* logSpawner3 = new Spawner(float(min + rand() % max), SpawnerType::LOG, Vector2(RM->windowWidth - 90, 95), Vector2(-2 / 70.f, 0));
+			spawns.emplace_back(logSpawner3);
 			//Set crocodile Spawner
 			
 			//Set snake Spawner
 
 			//Set river Tiles
+
 
 		}
 		else if (strcmp(pNode->name(), "TurtlesRiver") == 0)
@@ -94,6 +102,10 @@ bool LevelLoader::LoadLevel(std::string path, std::vector<Spawner*>& spawns, std
 				}
 			}
 			//set turtles spawner
+			Spawner* turtleSpawner = new Spawner(float(min + rand() % max), SpawnerType::TURTLES, Vector2(RM->windowWidth-90 , 290), Vector2(-1 / 70.f, 0));
+			spawns.emplace_back(turtleSpawner);
+			Spawner* turtleSpawner2 = new Spawner(float(min + rand() % max), SpawnerType::TURTLES, Vector2(RM->windowWidth - 90, 140), Vector2(-1 / 70.f, 0));
+			spawns.emplace_back(turtleSpawner2);
 
 			//set river tiles
 		}
@@ -142,11 +154,11 @@ bool LevelLoader::LoadLevel(std::string path, std::vector<Spawner*>& spawns, std
 				}
 			}
 			//set spawner
-			Spawner* carSpawner = new Spawner(float(min + rand() % max), type, Vector2(5, RM->windowHeight - 55), Vector2(speed/70.f, 0));
+			Spawner* carSpawner = new Spawner(float(min + rand() % max), type, Vector2(50, 145 + 37*i), Vector2(speed/70.f, 0));
 			spawns.emplace_back(carSpawner);
 			//set road tiles
-			Tile* road = new Tile(Vector2(RM->windowWidth, 14), Vector2(0, RM->windowHeight - 55), ColliderType::SAVE, "resources/Assets/Log.png");
-			tiles.emplace_back(road);
+			/*Tile* road = new Tile(Vector2(RM->windowWidth, 14), Vector2(100, 16 + 16 * i), ColliderType::SAVE, "resources/Assets/Log.png");
+			tiles.emplace_back(road);*/
 		}
 	}
 	return true;

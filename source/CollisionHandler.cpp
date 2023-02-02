@@ -62,20 +62,20 @@ void CollisionHandler::OnPlayerCollision(Collider* other)
 		{
 		case ColliderType::DMG:
 		case ColliderType::SNK:
-			//PlayerCollider->Respawn();
-			playerHits.emplace_back(CollisionResult::DIE);			
+			playerHits.emplace_back(CollisionResult::DIE);
 			break;
 		case ColliderType::LOG:
 		case ColliderType::SAVE:
-
+			playerHits.emplace_back(CollisionResult::SAFE);
 			break;
 		case ColliderType::END:
-			
+			playerHits.emplace_back(CollisionResult::END);
 			break;
 		case ColliderType::FOOD:
-			
+			playerHits.emplace_back(CollisionResult::FOOD);
 			break;
-		default: CollisionResult::NONE;
+
+		default: CollisionResult::NONE; break;
 		}
 	}
 }
@@ -158,10 +158,10 @@ bool CollisionHandler::InScreen(Collider* element)
 	Vector2 eTop = element->GetTopLeft();
 	Vector2 eSize = element->GetSize();
 
-	return (screenTop.x <= (eTop.x + eSize.x) &&
-		screenTop.x + screenSize.x >= eTop.x &&
-		screenTop.y <= (eTop.y + eSize.y) &&
-		screenTop.y + screenSize.y >= eTop.y);
+	return (screenTop.x+50 <= (eTop.x + eSize.x) &&
+		screenTop.x + screenSize.x-50 >= eTop.x &&
+		screenTop.y+50 <= (eTop.y + eSize.y) &&
+		screenTop.y + screenSize.y-50 >= eTop.y);
 }
 
 bool CollisionHandler::InBounds(Collider* element)

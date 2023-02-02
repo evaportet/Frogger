@@ -11,14 +11,15 @@ Frog::Frog(Vector2 size, Vector2 pos, ColliderType ct, std::string path)
 	transform.scale = size;
 	transform.rotation = 0;
 
-	collider = Collider(pos, size*3, ct);
+	collider = Collider(pos+Vector2(0,50), size, ct);
 	CH->SetPlayerCollider(&collider);
 	renderer.Load(path);
-	renderer.SetPosition(collider.GetTopLeft());
+	//renderer.SetPosition(collider.GetTopLeft());
 	renderer.SetScale(transform.scale);
 	renderer.SetPosition(pos);
 	renderer.SetSourcePos(Vector2(0, 0));
 	renderer.OverrideTargetPixelSize(Vector2(3, 3));
+	renderer.SetRotation(transform.rotation);
 
 	food = nullptr;
 	hasFood = false;
@@ -30,9 +31,8 @@ void Frog::Respawn()
 {
 	//frogTransform.position()
 	SetPosition(spawnPos);
-	renderer.SetPosition(spawnPos);
+	renderer.SetPosition(spawnPos + Vector2(0, 20));
 	lives--;
-	printf_s("Current lives : %d", lives);
 }
 
 void Frog::Movement()
@@ -41,33 +41,42 @@ void Frog::Movement()
 
 	if (IM->CheckKeyState(SDLK_UP, DOWN))
 	{
+		AM->PlaySFX("Jump", 0);
 		newMovement = Vector2(transform.position.x, transform.position.y - 20);
 		SetPosition(newMovement);
 		renderer.SetPosition(newMovement);
+		SetRotation(0);
+		renderer.SetRotation(0);
 	}
 
 	if (IM->CheckKeyState(SDLK_DOWN, DOWN))
 	{
+		AM->PlaySFX("Jump", 0);
 		newMovement = Vector2(transform.position.x, transform.position.y + 20);
 		SetPosition(newMovement);
 		renderer.SetPosition(newMovement);
-		//sprite rotation 180
+		SetRotation(180);
+		renderer.SetRotation(180);
 	}
 
 	if (IM->CheckKeyState(SDLK_LEFT, DOWN))
 	{
+		AM->PlaySFX("Jump", 0);
 		newMovement = Vector2(transform.position.x - 20, transform.position.y );
 		SetPosition(newMovement);
 		renderer.SetPosition(newMovement);
-		//sprite rotation 270
+		SetRotation(270);
+		renderer.SetRotation(270);
 	}
 
 	if (IM->CheckKeyState(SDLK_RIGHT, DOWN))
 	{
+		AM->PlaySFX("Jump", 0);
 		newMovement = Vector2(transform.position.x + 20, transform.position.y);
 		SetPosition(newMovement);
 		renderer.SetPosition(newMovement);
-		//sprite rotation 90
+		SetRotation(90);
+		renderer.SetRotation(90);
 	}
 }
 
@@ -101,12 +110,15 @@ void Frog::HandleHits(std::list<CollisionResult> hits)
 		{
 		case CollisionResult::DIE:
 			//Respawn || GameOver
+			AM->PlaySFX("Dead", 0);
 			Respawn();
 			break;
 		case CollisionResult::BORDER:
 			//BlockMovement
 			break;
 		case CollisionResult::END:
+			AM->LoadSFX("GetEnd");
+			Respawn();
 			//Respawn || Win
 			break;
 		case CollisionResult::FOOD:

@@ -10,6 +10,5 @@ public:
 	void Update() override;
 	void Render() override;
 	//bool CheckIfInBoundaries() override;
-
-	Vector2 spawnPos;
+	//Vector2 spawnPos;
 };

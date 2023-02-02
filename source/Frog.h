@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "AudioManager.h"
 #include "Food.h"
 #include "Vector2.h"
 #include "InputManager.h"

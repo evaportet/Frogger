@@ -18,6 +18,7 @@ Snake::Snake(Log* atachedLog, Vector2 pos, float spd)
 void Snake::Update()
 {
 	durationSnake = (clock() - startSnake) / CLOCKS_PER_SEC;
+	CH->OnPlayerCollision(&collider);
 
 	if (durationSnake >= FRAMERATE)
 	{

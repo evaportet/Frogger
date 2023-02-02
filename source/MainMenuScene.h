@@ -11,7 +11,10 @@ private:
 	UItext sampleText;
 	TTF_Font* font;
 	float buttonAngle;
+	bool exit;
+	bool audio;
 public:
+	MainMenuScene();
 	virtual void Update(float dt) override;
 	virtual void Render() override;
 	virtual void OnEnter() override;

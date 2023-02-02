@@ -21,10 +21,10 @@ void GameEngine::Init()
     //AudioManager::GetInstance()->LoadMusic("randomSong");
 
     //Create and add Scenes
-    SM->AddScene("Splash Screen", new SplashScreenScene());
+    SM->AddScene("SplashScreen", new SplashScreenScene());
     SM->AddScene("MainMenu", new MainMenuScene());
     SM->AddScene("Gameplay", new GameplayScene());
-    SM->SetScene("Gameplay");
+    SM->SetScene("SplashScreen");
 }
 
 #pragma endregion

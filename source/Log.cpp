@@ -7,12 +7,11 @@ Log::Log()
 
 Log::Log(int length, Vector2 pos, float spd)
 {
-	spawnPos = pos;
 	transform.position = pos;
 	transform.scale = Vector2(48, 16);
 	transform.rotation = 0;
 
-	collider = Collider(pos, Vector2(transform.scale.x * length*2, transform.scale.y), ColliderType::LOG);
+	collider = Collider(pos, Vector2(transform.scale.x, transform.scale.y), ColliderType::LOG);
 	CH->AddCollider(&collider);
 	speed = spd;
 	SetSpeed(spd);
@@ -31,8 +30,6 @@ void Log::Update()
 	
 	if (CH->PlayerCollision(&collider))
 	{
-		printf_s("Aki con el player");
-		//TODO: acabar comunicar al player X
 		CH->OnPlayerCollision(&collider);
 	}
 	
@@ -42,8 +39,8 @@ void Log::Update()
 	{
 		//system("pause");
 		//delete or reset object
-		SetPosition(spawnPos);
-		renderer.SetPosition(spawnPos);
+		SetPosition(transform.position);
+		renderer.SetPosition(transform.position);
 		//exit(2);
 	}
 		

@@ -24,11 +24,13 @@ EndTile::EndTile(Vector2 pos)
 	renderer.SetScale(transform.scale);
 	renderer.SetSourcePos(Vector2(100,0));
 	renderer.OverrideTargetPixelSize(Vector2(3, 3));
+	renderer.SetRotation(transform.rotation);
 }
 
 void EndTile::Update()
 {
 	currentDuration = (clock() - startEndTile) / CLOCKS_PER_SEC;
+	CH->OnPlayerCollision(&collider);
 
 	if (currentDuration >= duration && state != EndState::FULL)
 	{

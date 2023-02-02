@@ -54,10 +54,10 @@ void Renderer::SetPosition(Vector2 newPos)
 	targetRect.y = newPos.y - targetRect.h/2;
 }
 
-//void Renderer::SetRotation(float rot)
-//{
-//	rotation = rot;
-//}
+void Renderer::SetRotation(float rot)
+{
+	rotation = rot;
+}
 
 void Renderer::SetScale(Vector2 scl)
 {

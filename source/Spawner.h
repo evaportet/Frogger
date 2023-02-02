@@ -2,6 +2,8 @@
 #include "GameObject.h"
 #include "Tile.h"
 #include "Car.h"
+#include "Turtles.h"
+#include "Log.h"
 #include"Vector2.h"
 #include"Types.h"
 #include"TimeManager.h"

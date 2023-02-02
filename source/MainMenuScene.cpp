@@ -1,5 +1,13 @@
 #include "MainMenuScene.h"
 
+
+MainMenuScene::MainMenuScene()
+{
+	exit = false;
+	audio = true;
+
+}
+
 void MainMenuScene::Update(float dt)
 {
 	//Check if the mouse is inside the render rect
@@ -20,7 +28,7 @@ void MainMenuScene::Update(float dt)
 	{
 		buttonAngle += 0.1f;
 		if (IM->CheckKeyState(SDLK_j, PRESSED))
-			SM->SetScene("Splash Screen");
+			SM->SetScene("SplashScreen");
 	}
 	else
 		buttonAngle = 0;
