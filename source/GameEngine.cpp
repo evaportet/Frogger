@@ -46,6 +46,11 @@ void GameEngine::Run()
 
         isRunning = !IM->GetQuitEvent();
         SM->GetCurrentScene()->Update(TM->GetDeltaTimeMS());
+        if (SM->GetHasChangedScene())
+        {
+            SM->ResetChangedScene();
+            continue;
+        }
 
         //Render
         RM->RenderScreen();
@@ -55,5 +60,5 @@ void GameEngine::Run()
 //Calls destructors
 void GameEngine::Quit()
 {
-
+    
 }

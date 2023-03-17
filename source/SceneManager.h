@@ -13,14 +13,19 @@ public:
 	//Getters
 	Scene* GetScene(std::string name);
 	Scene* GetCurrentScene();
+	bool GetHasChangedScene();
 	//Setters
 	void SetScene(std::string name);
 	//Singleton
 	static SceneManager* GetInstance();
+
+	void ResetChangedScene();
+	
 private:
 	SceneManager();
 	static SceneManager* instance;
 	//Scene management
 	std::map<std::string, Scene*> scenes;
 	Scene* currentScene;
+	bool hasChangedScene;
 };

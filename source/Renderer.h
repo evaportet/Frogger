@@ -8,6 +8,7 @@
 class Renderer {
 protected:
 	SDL_Texture* texture;
+	//SDL_Renderer* renderer;
 	//SDL_Color color;
 	//float alpha;
 	float rotation;

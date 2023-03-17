@@ -25,11 +25,13 @@ private:
 	InputManager() : quitEvent(false), mouseX(0), mouseY(0) {};
 	static InputManager* instance;
 public:
+	bool mousePressed;
 	static InputManager* GetInstance();
 	void Listen();
 	bool CheckKeyState(Sint32 key, KeyState state);
 	int GetMouseX();
 	int GetMouseY();
 	bool GetQuitEvent();
+	void SetQuitEvent(bool newQuitState);
 	bool GetResizeEvent(int&, int&);
 };

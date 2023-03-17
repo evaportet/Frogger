@@ -108,6 +108,12 @@
     <ClCompile Include="source\Frog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\Button.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UIText.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\GameObject.h">
@@ -128,13 +134,10 @@
     <ClInclude Include="source\SplashScreenScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="source\UItext.h">
+    <ClInclude Include="source\UIText.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="source\Interpollator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="source\GameScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="source\Collider.h">
@@ -210,6 +213,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="source\Frog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Button.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

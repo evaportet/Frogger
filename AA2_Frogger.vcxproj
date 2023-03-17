@@ -185,6 +185,7 @@ xcopy /d /y "$(SolutionDir)\resources\*.*" "$(TargetDir)\resources\"</Command>
   <ItemGroup>
     <ClCompile Include="source\AnimatedImageRenderer.cpp" />
     <ClCompile Include="source\AudioManager.cpp" />
+    <ClCompile Include="source\Button.cpp" />
     <ClCompile Include="source\Car.cpp" />
     <ClCompile Include="source\Collider.cpp" />
     <ClCompile Include="source\CollisionHandler.cpp" />
@@ -213,11 +214,13 @@ xcopy /d /y "$(SolutionDir)\resources\*.*" "$(TargetDir)\resources\"</Command>
     <ClCompile Include="source\TimeManager.cpp" />
     <ClCompile Include="source\Transform.cpp" />
     <ClCompile Include="source\Turtles.cpp" />
+    <ClCompile Include="source\UIText.cpp" />
     <ClCompile Include="source\Vector2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\AnimatedImageRenderer.h" />
     <ClInclude Include="source\AudioManager.h" />
+    <ClInclude Include="source\Button.h" />
     <ClInclude Include="source\Car.h" />
     <ClInclude Include="source\Collider.h" />
     <ClInclude Include="source\CollisionHandler.h" />
@@ -228,7 +231,6 @@ xcopy /d /y "$(SolutionDir)\resources\*.*" "$(TargetDir)\resources\"</Command>
     <ClInclude Include="source\GameEngine.h" />
     <ClInclude Include="source\GameObject.h" />
     <ClInclude Include="source\GameplayScene.h" />
-    <ClInclude Include="source\GameScene.h" />
     <ClInclude Include="source\ImageRenderer.h" />
     <ClInclude Include="source\InputManager.h" />
     <ClInclude Include="source\Interpollator.h" />
@@ -248,7 +250,7 @@ xcopy /d /y "$(SolutionDir)\resources\*.*" "$(TargetDir)\resources\"</Command>
     <ClInclude Include="source\Transform.h" />
     <ClInclude Include="source\Turtles.h" />
     <ClInclude Include="source\Types.h" />
-    <ClInclude Include="source\UItext.h" />
+    <ClInclude Include="source\UIText.h" />
     <ClInclude Include="source\Vector2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

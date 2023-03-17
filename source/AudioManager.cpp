@@ -11,6 +11,7 @@ AudioManager::AudioManager()
 	LoadMusic("GameplayMusic");
 	LoadMusic("MenuMusic");
 	LoadSFX("GetEnd");
+	LoadSFX("Button");
 	
 	muted = false;
 }

@@ -45,6 +45,14 @@ void InputManager::Listen()
 		{
 			keys[evt.key.keysym.sym] = (KeyState)(UP | PRESSED);
 		}
+		else if (evt.type == SDL_MOUSEBUTTONDOWN)
+		{
+			mousePressed = true;
+		}
+		else if (evt.type == SDL_MOUSEBUTTONUP)
+		{
+			mousePressed = false;
+		}
 	}
 }
 
@@ -77,6 +85,11 @@ int InputManager::GetMouseY()
 bool InputManager::GetQuitEvent()
 {
 	return quitEvent;
+}
+
+void InputManager::SetQuitEvent(bool newQuitState)
+{
+	quitEvent = newQuitState;
 }
 
 bool InputManager::GetResizeEvent(int& newWidth, int& newHeight)

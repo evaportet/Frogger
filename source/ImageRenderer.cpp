@@ -24,7 +24,7 @@ void ImageRenderer::Load(std::string path)
 
 	texture = SDL_CreateTextureFromSurface(RM->GetRenderer(), surface);
 	assert(texture);
-	
+
 	SDL_QueryTexture(texture, nullptr, nullptr, &sourceRect.w, &sourceRect.h);
 
 	SDL_FreeSurface(surface);

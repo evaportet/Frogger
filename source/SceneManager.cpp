@@ -4,7 +4,7 @@ SceneManager* SceneManager::instance = nullptr;
 
 SceneManager::SceneManager()
 {
-
+	hasChangedScene = false;
 }
 
 void SceneManager::AddScene(std::string name, Scene* s) {
@@ -35,10 +35,21 @@ void SceneManager::SetScene(std::string name) {
 	bool sceneFound = scene != scenes.end();
 	assert(sceneFound);
 	if (sceneFound) {
+		hasChangedScene = true;
 		if(currentScene != nullptr)
 			currentScene->OnExit();
 		currentScene = scene->second;
 		currentScene->OnEnter();
 	}
+}
+
+bool SceneManager::GetHasChangedScene()
+{
+	return hasChangedScene;
+}
+
+void SceneManager::ResetChangedScene()
+{
+	hasChangedScene = false;
 }
 

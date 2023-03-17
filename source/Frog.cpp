@@ -11,7 +11,7 @@ Frog::Frog(Vector2 size, Vector2 pos, ColliderType ct, std::string path)
 	transform.scale = size;
 	transform.rotation = 0;
 
-	collider = Collider(pos+Vector2(0,50), size, ct);
+	collider = Collider(pos, size, ct);
 	CH->SetPlayerCollider(&collider);
 	renderer.Load(path);
 	//renderer.SetPosition(collider.GetTopLeft());
@@ -49,7 +49,7 @@ void Frog::Movement()
 		renderer.SetRotation(0);
 	}
 
-	if (IM->CheckKeyState(SDLK_DOWN, DOWN))
+	else if (IM->CheckKeyState(SDLK_DOWN, DOWN))
 	{
 		AM->PlaySFX("Jump", 0);
 		newMovement = Vector2(transform.position.x, transform.position.y + 20);
@@ -59,7 +59,7 @@ void Frog::Movement()
 		renderer.SetRotation(180);
 	}
 
-	if (IM->CheckKeyState(SDLK_LEFT, DOWN))
+	else if (IM->CheckKeyState(SDLK_LEFT, DOWN))
 	{
 		AM->PlaySFX("Jump", 0);
 		newMovement = Vector2(transform.position.x - 20, transform.position.y );
@@ -69,7 +69,7 @@ void Frog::Movement()
 		renderer.SetRotation(270);
 	}
 
-	if (IM->CheckKeyState(SDLK_RIGHT, DOWN))
+	else if (IM->CheckKeyState(SDLK_RIGHT, DOWN))
 	{
 		AM->PlaySFX("Jump", 0);
 		newMovement = Vector2(transform.position.x + 20, transform.position.y);
@@ -117,7 +117,7 @@ void Frog::HandleHits(std::list<CollisionResult> hits)
 			//BlockMovement
 			break;
 		case CollisionResult::END:
-			AM->LoadSFX("GetEnd");
+			AM->PlaySFX("GetEnd", 0);
 			Respawn();
 			//Respawn || Win
 			break;
