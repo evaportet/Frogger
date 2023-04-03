@@ -11,7 +11,7 @@ Spawner::Spawner(float spwnRatio, SpawnerType t, Vector2 startPos, Vector2 start
 	switch (t)
 	{
 	case SpawnerType::TRUCK: {
-		Car* newTile = new Car(1, Vector2(33, 0), startPos, Vector2(31, 16), startSpd.x, ColliderType::DMG, "resources/Assets/Cars.png");
+		Car* newTile = new Car(1, Vector2(34, 0), startPos, Vector2(27, 16), startSpd.x, ColliderType::DMG, "resources/Assets/Cars.png");
 		gameObjects.emplace_back(newTile);
 	}break;
 	case SpawnerType::RACING0: {

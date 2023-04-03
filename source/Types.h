@@ -8,7 +8,9 @@ enum class ColliderType {
 	SNK,
 	END,
 	FOOD,
-	SAVE,
+	SAFE,
+	PLATFORM,
+	WATER,
 	WINDOW
 };
 
@@ -18,6 +20,8 @@ enum class CollisionResult {
 	END,
 	FOOD,
 	SAFE,
+	ON_PLATFORM,
+	DROWNED,
 	NONE
 };
 

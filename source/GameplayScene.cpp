@@ -5,13 +5,13 @@ GameplayScene::GameplayScene()
 	score = 0;
 	level = 1;
 	
-	map = Tile(Vector2(RM->windowWidth, RM->windowHeight), Vector2(RM->windowWidth/2, RM->windowHeight/2), ColliderType::SAVE, "resources/Assets/NewMap.png");
+	map = Tile(Vector2(RM->windowWidth, RM->windowHeight), Vector2(RM->windowWidth/2, RM->windowHeight/2), ColliderType::SAFE, "resources/Assets/NewMap.png");
 										
-	player = Frog(Vector2(16, 16), Vector2(RM->windowWidth/2-20, RM->windowHeight -105), ColliderType::SAVE, "resources/Assets/Frog.png");
+	player = Frog(Vector2(16, 16), Vector2(RM->windowWidth/2-20, RM->windowHeight - 110), ColliderType::SAFE, "resources/Assets/Frog.png");
 	
-	//water = Collider(Vector2(256 / 2, 80 / 2), Vector2(256, 80), ColliderType::DMG);
-	//CH->AddCollider(&water);
-	//	//8, 14
+	water = Collider(Vector2(8 + 256 / 2, 24 + 80 / 2), Vector2(256*2.5f, 190*2.5f), ColliderType::WATER);
+	CH->AddCollider(&water);
+	//8, 14
 
 	for (int i = 0; i <= 4; i++)
 	{
@@ -28,23 +28,21 @@ void GameplayScene::Update(float dt)
 		spawner->Update();
 	}
 
+	CH->OnPlayerCollision(&water);
+	/*if (CH->PlayerCollision(&water))
+	{
+		printf_s("AAAAAAAAAAAA");
+	}*/
 	player.Update();
-	//CH->OnPlayerCollision(&water);
 
 	for (int i = 0; i <= 4; i++)
 	{
 		endPositions[i].Update();
 	}
-
-	/*for (int i = 0; i <= gameObjects.size(); i++)
-	{
-		gameObjects[i].Update();
-	}*/
 }
 
 void GameplayScene::Render()
 {
-	//RM->ClearScreen();
 	map.Render();
 
 	for (auto& element : row_tiles)
@@ -75,9 +73,6 @@ void GameplayScene::Render()
 		if (gameObjects[i].GetCollider().GetType() == ColliderType::SNK || gameObjects[i].GetCollider().GetType() == ColliderType::FOOD)
 			gameObjects[i].Render();
 	}*/
-
-
-	//RM->RenderScreen();
 }
 
 void GameplayScene::OnEnter()

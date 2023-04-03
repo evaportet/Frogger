@@ -9,7 +9,7 @@ Button::Button(int _width, int _height, int x, int y, std::string text)
 	height = _height*2;
 	transform.position.x = x;
 	transform.position.y = y;
-	//collider = Collider(Vector2(x, y), Vector2(width, height), ColliderType::SAVE);
+	//collider = Collider(Vector2(x, y), Vector2(width, height), ColliderType::SAFE);
 	sampleText = UIText(20*2, 20*2, x+10, y+4);
 
 	sampleText.SetText(text);

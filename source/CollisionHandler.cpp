@@ -19,9 +19,15 @@ void CollisionHandler::StorePlayerHits()
 			case ColliderType::SNK:
 				playerHits.emplace_back(CollisionResult::DIE);
 				break;
-			case ColliderType::LOG:
-			case ColliderType::SAVE:
+			case ColliderType::WATER:
+				playerHits.emplace_back(CollisionResult::DROWNED);
+				break;
+			//case ColliderType::LOG:
+			case ColliderType::SAFE:
 				playerHits.emplace_back(CollisionResult::SAFE);
+				break;
+			case ColliderType::PLATFORM:
+				playerHits.emplace_back(CollisionResult::ON_PLATFORM);
 				break;
 			case ColliderType::END:
 				playerHits.emplace_back(CollisionResult::END);
@@ -64,9 +70,15 @@ void CollisionHandler::OnPlayerCollision(Collider* other)
 		case ColliderType::SNK:
 			playerHits.emplace_back(CollisionResult::DIE);
 			break;
-		case ColliderType::LOG:
-		case ColliderType::SAVE:
+		case ColliderType::WATER:
+			playerHits.emplace_back(CollisionResult::DROWNED);
+			break;
+		//case ColliderType::LOG:
+		case ColliderType::SAFE:
 			playerHits.emplace_back(CollisionResult::SAFE);
+			break;
+		case ColliderType::PLATFORM:
+			playerHits.emplace_back(CollisionResult::ON_PLATFORM);
 			break;
 		case ColliderType::END:
 			playerHits.emplace_back(CollisionResult::END);
@@ -90,9 +102,15 @@ CollisionResult CollisionHandler::PlayerCollisionType(Collider* other)
 		case ColliderType::SNK:
 			return CollisionResult::DIE;
 			break;
+		case ColliderType::WATER:
+			 return CollisionResult::DROWNED;
+			break;
 		case ColliderType::LOG:
-		case ColliderType::SAVE:
+		case ColliderType::SAFE:
 			return CollisionResult::SAFE;
+			break;
+		case ColliderType::PLATFORM:
+			return CollisionResult::ON_PLATFORM;
 			break;
 		case ColliderType::END:
 			return CollisionResult::END;
@@ -124,9 +142,15 @@ CollisionResult CollisionHandler::Update()
 			case ColliderType::SNK:
 				return CollisionResult::DIE;
 				break;
-			case ColliderType::LOG:
-			case ColliderType::SAVE:
+			case ColliderType::WATER:
+				return CollisionResult::DROWNED;
+				break;
+			//case ColliderType::LOG:
+			case ColliderType::SAFE:
 				return CollisionResult::SAFE;
+				break;
+			case ColliderType::PLATFORM:
+				return CollisionResult::ON_PLATFORM;
 				break;
 			case ColliderType::END:
 				return CollisionResult::END;
@@ -186,4 +210,14 @@ list<CollisionResult> CollisionHandler::GetPlayerHits()
 void CollisionHandler::ClearPlayerHits()
 {
 	playerHits.clear();
+}
+
+void CollisionHandler::StoreAttachedVel(float v)
+{
+	platformSpeed = v;
+}
+
+float CollisionHandler::GetAttachedVel()
+{
+	return platformSpeed;
 }

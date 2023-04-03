@@ -15,10 +15,10 @@ Car::Car(int length, Vector2 rectPos, Vector2 pos, Vector2 size, float spd, Coll
 	transform.rotation = 0;
 	speed = spd;
 	SetSpeed(spd);
-	collider = Collider(pos, size * 3, ct);
+	collider = Collider(pos, size * 2.15f, ct);
 	CH->AddCollider(&collider);
 	renderer.Load(path);
-	renderer.SetPosition(collider.GetTopLeft());
+	renderer.SetPosition(pos);
 	renderer.SetScale(transform.scale);
 	renderer.SetSourcePos(rectPos);
 	renderer.OverrideTargetPixelSize(Vector2(3, 3));
@@ -59,7 +59,7 @@ Car::Car(int length, Vector2 rectPos, Vector2 pos, Vector2 size, float spd, Coll
 void Car::Update()
 {
 	SetPosition(transform.position + Vector2(speed, 0));
-	renderer.SetPosition(collider.GetTopLeft());
+	renderer.SetPosition(transform.position);
 	CH->OnPlayerCollision(&collider);
 
 	/*durationCar = (clock() - startCar) / CLOCKS_PER_SEC;

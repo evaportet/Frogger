@@ -17,11 +17,15 @@
       <CrocodileChance>30</CrocodileChance>
       <SnakeChance>30</SnakeChance>
     </LogRiver>
-    <LogRiver minLength="2" maxLength="3">
+    <!-- <LogRiver minLength="2" maxLength="3"> -->
+      <!-- <SpawnRate min="2" max="4"/> -->
+      <!-- <CrocodileChance>30</CrocodileChance> -->
+      <!-- <SnakeChance>30</SnakeChance> -->
+    <!-- </LogRiver> -->
+	<TurtlesRiver minLength="2" maxLength="3">
       <SpawnRate min="2" max="4"/>
-      <CrocodileChance>30</CrocodileChance>
-      <SnakeChance>30</SnakeChance>
-    </LogRiver>
+      <DiveChance>30</DiveChance>
+    </TurtlesRiver>
     <LogRiver minLength="2" maxLength="3">
       <SpawnRate min="2" max="4"/>
       <CrocodileChance>30</CrocodileChance>

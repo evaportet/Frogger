@@ -10,8 +10,8 @@ Collider::Collider()
 Collider::Collider(Vector2 center, Vector2 s, ColliderType t)
 {
 	centerPivot = center;
-	topLeft.x = center.x - s.x / 2;
-	topLeft.y = center.y - s.y / 2;
+	topLeft.x = center.x - s.x / 2.f;
+	topLeft.y = center.y - s.y / 2.f;
 	size = s;
 	type = t;
 }
@@ -19,8 +19,8 @@ Collider::Collider(Vector2 center, Vector2 s, ColliderType t)
 void Collider::SetTopLeft(Vector2 newPos)
 {
 	topLeft = newPos;
-	centerPivot.x = newPos.x + size.x / 2;
-	centerPivot.y = newPos.y + size.y / 2;
+	centerPivot.x = newPos.x + size.x / 2.f;
+	centerPivot.y = newPos.y + size.y / 2.f;
 }
 
 void Collider::SetType(ColliderType t)
@@ -31,8 +31,8 @@ void Collider::SetType(ColliderType t)
 void Collider::SetCenter(Vector2 newCenter)
 {
 	centerPivot = newCenter;
-	topLeft.x = newCenter.x - size.x / 2;
-	topLeft.y = newCenter.y - size.y / 2;
+	topLeft.x = newCenter.x - size.x / 2.f;
+	topLeft.y = newCenter.y - size.y / 2.f;
 }
 
 Vector2 Collider::GetTopLeft()

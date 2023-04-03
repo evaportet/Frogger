@@ -13,9 +13,12 @@ class Frog : public GameObject
 private:
 	Vector2 spawnPos;
 	bool moves;
+	bool OnMovingSuface;
 	bool hasFood;
 	int lives;
 	Food* food;
+	float movingPlatf_speed;
+
 	void Movement();
 
 public:

@@ -1,6 +1,5 @@
 #pragma once
 #include "Collider.h"
-//#include "Frog.h"
 #include <vector>
 #include"RenderManager.h"
 #include <list>
@@ -17,6 +16,7 @@ private:
 	Collider* PlayerCollider;
 	vector<Collider*> Colliders;
 	list<CollisionResult> playerHits;
+	float platformSpeed;
 public:
 	void StorePlayerHits();
 	bool Collides(Collider* A, Collider* B);
@@ -31,4 +31,6 @@ public:
 	bool InBounds(Collider* element);
 	list<CollisionResult> GetPlayerHits();
 	void ClearPlayerHits();
+	void StoreAttachedVel(float v);
+	float GetAttachedVel();
 };

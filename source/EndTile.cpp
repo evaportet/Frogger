@@ -17,10 +17,10 @@ EndTile::EndTile(Vector2 pos)
 	transform.scale = Vector2(16, 16);
 	transform.rotation = 0;
 
-	collider = Collider(pos, transform.scale, ColliderType::END);
+	collider = Collider(pos, transform.scale * 3.f, ColliderType::END);
 
 	renderer.Load("resources/Assets/EndTiles.png");
-	renderer.SetPosition(collider.GetTopLeft());
+	renderer.SetPosition(collider.GetCenterPivot());
 	renderer.SetScale(transform.scale);
 	renderer.SetSourcePos(Vector2(100,0));
 	renderer.OverrideTargetPixelSize(Vector2(3, 3));

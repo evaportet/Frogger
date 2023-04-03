@@ -11,7 +11,7 @@ Log::Log(int length, Vector2 pos, float spd)
 	transform.scale = Vector2(48, 16);
 	transform.rotation = 0;
 
-	collider = Collider(pos, Vector2(transform.scale.x, transform.scale.y), ColliderType::LOG);
+	collider = Collider(pos, transform.scale * 2.f, ColliderType::PLATFORM);
 	CH->AddCollider(&collider);
 	speed = spd;
 	SetSpeed(spd);
@@ -28,9 +28,11 @@ void Log::Update()
 	SetPosition(transform.position + Vector2(speed, 0));
 	renderer.SetPosition(transform.position);
 	
+	CH->OnPlayerCollision(&collider);
 	if (CH->PlayerCollision(&collider))
 	{
-		CH->OnPlayerCollision(&collider);
+		//printf_s("VVVVVVV");
+		CH->StoreAttachedVel(speed);
 	}
 	
 

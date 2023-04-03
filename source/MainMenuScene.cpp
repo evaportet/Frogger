@@ -9,7 +9,7 @@ MainMenuScene::MainMenuScene()
 	rankingButton = Button(158, 23, RM->windowWidth / 2-158, 150 + 70 *1, "RANKING");
 	audioButton = Button(158, 23, RM->windowWidth / 2- 158, 150 + 70 * 2, "AUDIO");
 	exitButton = Button(158, 23, RM->windowWidth / 2- 158, 150 + 70 * 3, "EXIT");
-	background = Tile(Vector2(RM->windowWidth, RM->windowHeight), Vector2(RM->windowWidth / 2, RM->windowHeight / 2), ColliderType::SAVE, "resources/Assets/Background.png");
+	background = Tile(Vector2(RM->windowWidth, RM->windowHeight), Vector2(RM->windowWidth / 2, RM->windowHeight / 2), ColliderType::SAFE, "resources/Assets/Background.png");
 }
 
 void MainMenuScene::Update(float dt)

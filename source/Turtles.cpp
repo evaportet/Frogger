@@ -14,11 +14,12 @@ Turtles::Turtles(int length, Vector2 pos, float spd)
 	transform.scale = Vector2(16 * length, 16);
 	transform.rotation = 0;
 
-	collider = Collider(pos, transform.scale, ColliderType::LOG);
+	collider = Collider(pos, transform.scale * 2.f, ColliderType::PLATFORM);
+	CH->AddCollider(&collider);
 	speed = spd;
-
+	SetSpeed(spd);
 	renderer.Load("resources/assets/Turtles.png");
-	renderer.SetPosition(collider.GetTopLeft());
+	renderer.SetPosition(collider.GetCenterPivot());
 	renderer.SetScale(transform.scale);
 	renderer.OverrideTargetPixelSize(Vector2(3, 3));
 }
@@ -29,8 +30,12 @@ void Turtles::Update()
 	SetPosition(transform.position + Vector2(speed, 0));
 	renderer.SetPosition(transform.position + Vector2(speed, 0));
 	CH->OnPlayerCollision(&collider);
+	if (CH->PlayerCollision(&collider))
+	{
+		CH->StoreAttachedVel(speed);
+	}
 
-	if (durationTurtles >= FRAMERATE)
+	/*if (durationTurtles >= FRAMERATE)
 	{
 		transform.position.x += speed;
 		Vector2 newTopLeft = collider.GetTopLeft();
@@ -38,7 +43,7 @@ void Turtles::Update()
 		collider.SetTopLeft(newTopLeft);
 
 		startTurtles = clock();
-	}
+	}*/
 }
 
 void Turtles::Render()

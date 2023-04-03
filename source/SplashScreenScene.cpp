@@ -24,7 +24,7 @@ void SplashScreenScene::Render()
 
 void SplashScreenScene::OnEnter()
 {
-	frogger = Tile(Vector2(RM->windowWidth, RM->windowHeight), Vector2(RM->windowWidth/2, RM->windowHeight/2), ColliderType::SAVE, "resources/Assets/SplashScreen.png");
+	frogger = Tile(Vector2(RM->windowWidth, RM->windowHeight), Vector2(RM->windowWidth/2, RM->windowHeight/2), ColliderType::SAFE, "resources/Assets/SplashScreen.png");
 	
 }
 
