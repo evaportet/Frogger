@@ -132,7 +132,7 @@ struct SDL_Renderer;
 typedef struct SDL_Renderer SDL_Renderer;
 
 /**
- * An efficient driver-specific representation of pixel data
+ * An efficient driver-specific representation of pixel highScores
  */
 struct SDL_Texture;
 typedef struct SDL_Texture SDL_Texture;
@@ -314,7 +314,7 @@ extern DECLSPEC SDL_Texture * SDLCALL SDL_CreateTexture(SDL_Renderer * renderer,
  * the texture.
  *
  * \param renderer the rendering context
- * \param surface the SDL_Surface structure containing pixel data used to fill
+ * \param surface the SDL_Surface structure containing pixel highScores used to fill
  *                the texture
  * \returns the created texture or NULL on failure; call SDL_GetError() for
  *          more information.
@@ -481,9 +481,9 @@ extern DECLSPEC int SDLCALL SDL_GetTextureScaleMode(SDL_Texture * texture,
                                                     SDL_ScaleMode *scaleMode);
 
 /**
- * Update the given texture rectangle with new pixel data.
+ * Update the given texture rectangle with new pixel highScores.
  *
- * The pixel data must be in the pixel format of the texture. Use
+ * The pixel highScores must be in the pixel format of the texture. Use
  * SDL_QueryTexture() to query the pixel format of the texture.
  *
  * This is a fairly slow function, intended for use with static textures that
@@ -497,8 +497,8 @@ extern DECLSPEC int SDLCALL SDL_GetTextureScaleMode(SDL_Texture * texture,
  * \param texture the texture to update
  * \param rect an SDL_Rect structure representing the area to update, or NULL
  *             to update the entire texture
- * \param pixels the raw pixel data in the format of the texture
- * \param pitch the number of bytes in a row of pixel data, including padding
+ * \param pixels the raw pixel highScores in the format of the texture
+ * \param pitch the number of bytes in a row of pixel highScores, including padding
  *              between lines
  * \returns 0 on success or a negative error code on failure; call
  *          SDL_GetError() for more information.
@@ -513,23 +513,23 @@ extern DECLSPEC int SDLCALL SDL_UpdateTexture(SDL_Texture * texture,
 
 /**
  * Update a rectangle within a planar YV12 or IYUV texture with new pixel
- * data.
+ * highScores.
  *
- * You can use SDL_UpdateTexture() as long as your pixel data is a contiguous
+ * You can use SDL_UpdateTexture() as long as your pixel highScores is a contiguous
  * block of Y and U/V planes in the proper order, but this function is
- * available if your pixel data is not contiguous.
+ * available if your pixel highScores is not contiguous.
  *
  * \param texture the texture to update
  * \param rect a pointer to the rectangle of pixels to update, or NULL to
  *             update the entire texture
- * \param Yplane the raw pixel data for the Y plane
- * \param Ypitch the number of bytes between rows of pixel data for the Y
+ * \param Yplane the raw pixel highScores for the Y plane
+ * \param Ypitch the number of bytes between rows of pixel highScores for the Y
  *               plane
- * \param Uplane the raw pixel data for the U plane
- * \param Upitch the number of bytes between rows of pixel data for the U
+ * \param Uplane the raw pixel highScores for the U plane
+ * \param Upitch the number of bytes between rows of pixel highScores for the U
  *               plane
- * \param Vplane the raw pixel data for the V plane
- * \param Vpitch the number of bytes between rows of pixel data for the V
+ * \param Vplane the raw pixel highScores for the V plane
+ * \param Vpitch the number of bytes between rows of pixel highScores for the V
  *               plane
  * \returns 0 on success or -1 if the texture is not valid; call
  *          SDL_GetError() for more information.
@@ -547,18 +547,18 @@ extern DECLSPEC int SDLCALL SDL_UpdateYUVTexture(SDL_Texture * texture,
 /**
  * Update a rectangle within a planar NV12 or NV21 texture with new pixels.
  *
- * You can use SDL_UpdateTexture() as long as your pixel data is a contiguous
+ * You can use SDL_UpdateTexture() as long as your pixel highScores is a contiguous
  * block of NV12/21 planes in the proper order, but this function is available
- * if your pixel data is not contiguous.
+ * if your pixel highScores is not contiguous.
  *
  * \param texture the texture to update
  * \param rect a pointer to the rectangle of pixels to update, or NULL to
  *             update the entire texture.
- * \param Yplane the raw pixel data for the Y plane.
- * \param Ypitch the number of bytes between rows of pixel data for the Y
+ * \param Yplane the raw pixel highScores for the Y plane.
+ * \param Ypitch the number of bytes between rows of pixel highScores for the Y
  *               plane.
- * \param UVplane the raw pixel data for the UV plane.
- * \param UVpitch the number of bytes between rows of pixel data for the UV
+ * \param UVplane the raw pixel highScores for the UV plane.
+ * \param UVpitch the number of bytes between rows of pixel highScores for the UV
  *                plane.
  * \return 0 on success, or -1 if the texture is not valid.
  */
@@ -571,8 +571,8 @@ extern DECLSPEC int SDLCALL SDL_UpdateNVTexture(SDL_Texture * texture,
  * Lock a portion of the texture for **write-only** pixel access.
  *
  * As an optimization, the pixels made available for editing don't necessarily
- * contain the old texture data. This is a write-only operation, and if you
- * need to keep a copy of the texture data you should do that at the
+ * contain the old texture highScores. This is a write-only operation, and if you
+ * need to keep a copy of the texture highScores you should do that at the
  * application level.
  *
  * You must use SDL_UnlockTexture() to unlock the pixels and apply any
@@ -600,12 +600,12 @@ extern DECLSPEC int SDLCALL SDL_LockTexture(SDL_Texture * texture,
  * Lock a portion of the texture for **write-only** pixel access, and expose
  * it as a SDL surface.
  *
- * Besides providing an SDL_Surface instead of raw pixel data, this function
+ * Besides providing an SDL_Surface instead of raw pixel highScores, this function
  * operates like SDL_LockTexture.
  *
  * As an optimization, the pixels made available for editing don't necessarily
- * contain the old texture data. This is a write-only operation, and if you
- * need to keep a copy of the texture data you should do that at the
+ * contain the old texture highScores. This is a write-only operation, and if you
+ * need to keep a copy of the texture highScores you should do that at the
  * application level.
  *
  * You must use SDL_UnlockTexture() to unlock the pixels and apply any
@@ -1426,18 +1426,18 @@ extern DECLSPEC int SDLCALL SDL_RenderCopyExF(SDL_Renderer * renderer,
  * frequently.
  *
  * `pitch` specifies the number of bytes between rows in the destination
- * `pixels` data. This allows you to write to a subrectangle or have padded
+ * `pixels` highScores. This allows you to write to a subrectangle or have padded
  * rows in the destination. Generally, `pitch` should equal the number of
- * pixels per row in the `pixels` data times the number of bytes per pixel,
+ * pixels per row in the `pixels` highScores times the number of bytes per pixel,
  * but it might contain additional padding (for example, 24bit RGB Windows
- * Bitmap data pads all rows to multiples of 4 bytes).
+ * Bitmap highScores pads all rows to multiples of 4 bytes).
  *
  * \param renderer the rendering context
  * \param rect an SDL_Rect structure representing the area to read, or NULL
  *             for the entire render target
  * \param format an SDL_PixelFormatEnum value of the desired format of the
- *               pixel data, or 0 to use the format of the rendering target
- * \param pixels a pointer to the pixel data to copy into
+ *               pixel highScores, or 0 to use the format of the rendering target
+ * \param pixels a pointer to the pixel highScores to copy into
  * \param pitch the pitch of the `pixels` parameter
  * \returns 0 on success or a negative error code on failure; call
  *          SDL_GetError() for more information.

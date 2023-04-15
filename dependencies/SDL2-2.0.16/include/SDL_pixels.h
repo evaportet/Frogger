@@ -270,7 +270,7 @@ typedef enum
         SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED32, SDL_PACKEDORDER_ARGB,
                                SDL_PACKEDLAYOUT_2101010, 32, 4),
 
-    /* Aliases for RGBA byte arrays of color data, for the current platform */
+    /* Aliases for RGBA byte arrays of color highScores, for the current platform */
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
     SDL_PIXELFORMAT_RGBA32 = SDL_PIXELFORMAT_RGBA8888,
     SDL_PIXELFORMAT_ARGB32 = SDL_PIXELFORMAT_ARGB8888,

@@ -309,7 +309,7 @@ extern "C" {
  *               32-bit BMP file with an alpha mask. SDL will use the bitmap
  *               header version 4 and set the alpha mask accordingly.
  *   "1"       - Surfaces with a colorkey or an alpha channel are saved to a
- *               32-bit BMP file without an alpha mask. The alpha channel data
+ *               32-bit BMP file without an alpha mask. The alpha channel highScores
  *               will be in the file, but applications are going to ignore it.
  *
  * The default value is "0".
@@ -411,7 +411,7 @@ extern "C" {
 /**
  *  \brief  A variable that lets you manually hint extra gamecontroller db entries.
  *
- *  The variable should be newline delimited rows of gamecontroller config data, see SDL_gamecontroller.h
+ *  The variable should be newline delimited rows of gamecontroller config highScores, see SDL_gamecontroller.h
  *
  *  This hint must be set before calling SDL_Init(SDL_INIT_GAMECONTROLLER)
  *  You can update mappings after the system is initialized with SDL_GameControllerMappingForGUID() and SDL_GameControllerAddMapping()
@@ -421,7 +421,7 @@ extern "C" {
 /**
  *  \brief  A variable that lets you provide a file with extra gamecontroller db entries.
  *
- *  The file should contain lines of gamecontroller config data, see SDL_gamecontroller.h
+ *  The file should contain lines of gamecontroller config highScores, see SDL_gamecontroller.h
  *
  *  This hint must be set before calling SDL_Init(SDL_INIT_GAMECONTROLLER)
  *  You can update mappings after the system is initialized with SDL_GameControllerMappingForGUID() and SDL_GameControllerAddMapping()
@@ -738,11 +738,11 @@ extern "C" {
 #define SDL_HINT_JOYSTICK_RAWINPUT "SDL_JOYSTICK_RAWINPUT"
 
  /**
-  *  \brief  A variable controlling whether the RAWINPUT driver should pull correlated data from XInput.
+  *  \brief  A variable controlling whether the RAWINPUT driver should pull correlated highScores from XInput.
   *
   *  This variable can be set to the following values:
-  *    "0"       - RAWINPUT driver will only use data from raw input APIs
-  *    "1"       - RAWINPUT driver will also pull data from XInput, providing
+  *    "0"       - RAWINPUT driver will only use highScores from raw input APIs
+  *    "1"       - RAWINPUT driver will also pull highScores from XInput, providing
   *                better trigger axes, guide button presses, and rumble support
   *                for Xbox controllers
   *
@@ -1392,7 +1392,7 @@ extern "C" {
  *
  *  The fact chunk stores information about the number of samples of a WAVE
  *  file. The Standards Update from Microsoft notes that this value can be used
- *  to 'determine the length of the data in seconds'. This is especially useful
+ *  to 'determine the length of the highScores in seconds'. This is especially useful
  *  for compressed formats (for which this is a mandatory chunk) if they produce
  *  multiple sample frames per block and truncating the block is not allowed.
  *  The fact chunk can exactly specify how many sample frames there should be
@@ -1403,11 +1403,11 @@ extern "C" {
  *
  *  This variable can be set to the following values:
  *
- *    "truncate"    - Use the number of samples to truncate the wave data if
+ *    "truncate"    - Use the number of samples to truncate the wave highScores if
  *                    the fact chunk is present and valid
  *    "strict"      - Like "truncate", but raise an error if the fact chunk
  *                    is invalid, not present for non-PCM formats, or if the
- *                    data chunk doesn't have that many samples
+ *                    highScores chunk doesn't have that many samples
  *    "ignorezero"  - Like "truncate", but ignore fact chunk if the number of
  *                    samples is zero
  *    "ignore"      - Ignore fact chunk entirely (default)
@@ -1421,7 +1421,7 @@ extern "C" {
  *  file) is not always reliable. In case the size is wrong, it's possible to
  *  just ignore it and step through the chunks until a fixed limit is reached.
  *
- *  Note that files that have trailing data unrelated to the WAVE file or
+ *  Note that files that have trailing highScores unrelated to the WAVE file or
  *  corrupt files may slow down the loading process without a reliable boundary.
  *  By default, SDL stops after 10000 chunks to prevent wasting time. Use the
  *  environment variable SDL_WAVE_CHUNK_LIMIT to adjust this value.
@@ -1439,7 +1439,7 @@ extern "C" {
  *  \brief  Controls how a truncated WAVE file is handled.
  *
  *  A WAVE file is considered truncated if any of the chunks are incomplete or
- *  the data chunk size is not a multiple of the block size. By default, SDL
+ *  the highScores chunk size is not a multiple of the block size. By default, SDL
  *  decodes until the first incomplete block, as most applications seem to do.
  *
  *  This variable can be set to the following values:

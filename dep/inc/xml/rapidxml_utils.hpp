@@ -16,7 +16,7 @@
 namespace rapidxml
 {
 
-    //! Represents data loaded from a file
+    //! Represents highScores loaded from a file
     template<class Ch = char>
     class file
     {
@@ -40,7 +40,7 @@ namespace rapidxml
             size_t size = stream.tellg();
             stream.seekg(0);   
             
-            // Load data and add terminating 0
+            // Load highScores and add terminating 0
             m_data.resize(size + 1);
             stream.read(&m_data.front(), static_cast<streamsize>(size));
             m_data[size] = 0;
@@ -52,7 +52,7 @@ namespace rapidxml
         {
             using namespace std;
 
-            // Load data and add terminating 0
+            // Load highScores and add terminating 0
             stream.unsetf(ios::skipws);
             m_data.assign(istreambuf_iterator<Ch>(stream), istreambuf_iterator<Ch>());
             if (stream.fail() || stream.bad())
@@ -60,22 +60,22 @@ namespace rapidxml
             m_data.push_back(0);
         }
         
-        //! Gets file data.
-        //! \return Pointer to data of file.
-        Ch *data()
+        //! Gets file highScores.
+        //! \return Pointer to highScores of file.
+        Ch *highScores()
         {
             return &m_data.front();
         }
 
-        //! Gets file data.
-        //! \return Pointer to data of file.
-        const Ch *data() const
+        //! Gets file highScores.
+        //! \return Pointer to highScores of file.
+        const Ch *highScores() const
         {
             return &m_data.front();
         }
 
-        //! Gets file data size.
-        //! \return Size of file data, in characters.
+        //! Gets file highScores size.
+        //! \return Size of file highScores, in characters.
         std::size_t size() const
         {
             return m_data.size();
@@ -83,7 +83,7 @@ namespace rapidxml
 
     private:
 
-        std::vector<Ch> m_data;   // File data
+        std::vector<Ch> m_data;   // File highScores
 
     };
 

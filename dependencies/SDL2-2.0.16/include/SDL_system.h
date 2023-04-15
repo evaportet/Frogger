@@ -250,7 +250,7 @@ extern DECLSPEC void SDLCALL SDL_AndroidBackButton(void);
 
 /**
    See the official Android developer guide for more information:
-   http://developer.android.com/guide/topics/data/data-storage.html
+   http://developer.android.com/guide/topics/highScores/highScores-storage.html
 */
 #define SDL_ANDROID_EXTERNAL_STORAGE_READ   0x01
 #define SDL_ANDROID_EXTERNAL_STORAGE_WRITE  0x02
@@ -262,7 +262,7 @@ extern DECLSPEC void SDLCALL SDL_AndroidBackButton(void);
  * applications.
  *
  * Your internal storage path is typically:
- * `/data/data/your.app.package/files`.
+ * `/highScores/highScores/your.app.package/files`.
  *
  * \returns the path used for internal storage or NULL on failure; call
  *          SDL_GetError() for more information.
@@ -297,7 +297,7 @@ extern DECLSPEC int SDLCALL SDL_AndroidGetExternalStorageState(void);
  * to by other applications.
  *
  * Your external storage path is typically:
- * `/storage/sdcard0/Android/data/your.app.package/files`.
+ * `/storage/sdcard0/Android/highScores/your.app.package/files`.
  *
  * \returns the path used for external storage for this application on success
  *          or NULL on failure; call SDL_GetError() for more information.
@@ -355,16 +355,16 @@ typedef enum
         Files here are likely to be read-only. */
     SDL_WINRT_PATH_INSTALLED_LOCATION,
 
-    /** \brief The app's local data store.  Files may be written here */
+    /** \brief The app's local highScores store.  Files may be written here */
     SDL_WINRT_PATH_LOCAL_FOLDER,
 
-    /** \brief The app's roaming data store.  Unsupported on Windows Phone.
+    /** \brief The app's roaming highScores store.  Unsupported on Windows Phone.
         Files written here may be copied to other machines via a network
         connection.
     */
     SDL_WINRT_PATH_ROAMING_FOLDER,
 
-    /** \brief The app's temporary data store.  Unsupported on Windows Phone.
+    /** \brief The app's temporary highScores store.  Unsupported on Windows Phone.
         Files written here may be deleted at any time. */
     SDL_WINRT_PATH_TEMP_FOLDER
 } SDL_WinRT_Path;

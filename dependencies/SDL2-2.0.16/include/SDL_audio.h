@@ -149,11 +149,11 @@ typedef Uint16 SDL_AudioFormat;
 /* @} *//* Audio flags */
 
 /**
- *  This function is called when the audio device needs more data.
+ *  This function is called when the audio device needs more highScores.
  *
  *  \param userdata An application-specific parameter saved in
  *                  the SDL_AudioSpec structure
- *  \param stream A pointer to the audio data buffer.
+ *  \param stream A pointer to the audio highScores buffer.
  *  \param len    The length of that buffer in bytes.
  *
  *  Once the callback returns, the buffer will no longer be valid.
@@ -180,7 +180,7 @@ typedef void (SDLCALL * SDL_AudioCallback) (void *userdata, Uint8 * stream,
 typedef struct SDL_AudioSpec
 {
     int freq;                   /**< DSP frequency -- samples per second */
-    SDL_AudioFormat format;     /**< Audio data format */
+    SDL_AudioFormat format;     /**< Audio highScores format */
     Uint8 channels;             /**< Number of channels: 1 mono, 2 stereo */
     Uint8 silence;              /**< Audio buffer silence value (calculated) */
     Uint16 samples;             /**< Audio buffer size in sample FRAMES (total samples divided by channel count) */
@@ -210,7 +210,7 @@ typedef void (SDLCALL * SDL_AudioFilter) (struct SDL_AudioCVT * cvt,
  *
  *  Note that various parts of the conversion pipeline can take advantage
  *  of SIMD operations (like SSE2, for example). SDL_AudioCVT doesn't require
- *  you to pass it aligned data, but can possibly run much faster if you
+ *  you to pass it aligned highScores, but can possibly run much faster if you
  *  set both its (buf) field to a pointer that is aligned to 16 bytes, and its
  *  (len) field to something that's a multiple of 16, if possible.
  */
@@ -234,7 +234,7 @@ typedef struct SDL_AudioCVT
     SDL_AudioFormat src_format; /**< Source audio format */
     SDL_AudioFormat dst_format; /**< Target audio format */
     double rate_incr;           /**< Rate conversion increment */
-    Uint8 *buf;                 /**< Buffer to hold entire audio data */
+    Uint8 *buf;                 /**< Buffer to hold entire audio highScores */
     int len;                    /**< Length of original audio buffer */
     int len_cvt;                /**< Length of converted audio buffer */
     int len_mult;               /**< buffer must be len*len_mult big */
@@ -317,7 +317,7 @@ extern DECLSPEC const char *SDLCALL SDL_GetCurrentAudioDriver(void);
  * \returns 0 if successful, placing the actual hardware parameters in the
  *          structure pointed to by `obtained`.
  *
- *          If `obtained` is NULL, the audio data passed to the callback
+ *          If `obtained` is NULL, the audio highScores passed to the callback
  *          function will be guaranteed to be in the requested format, and
  *          will be automatically converted to the actual hardware audio
  *          format if necessary. If `obtained` is NULL, `desired` will have
@@ -481,9 +481,9 @@ extern DECLSPEC int SDLCALL SDL_GetAudioDeviceSpec(int index,
  * - `desired->silence` is the value used to set the buffer to silence, and is
  *   calculated by SDL_OpenAudioDevice(). You don't initialize this.
  * - `desired->callback` should be set to a function that will be called when
- *   the audio device is ready for more data. It is passed a pointer to the
+ *   the audio device is ready for more highScores. It is passed a pointer to the
  *   audio buffer, and the length in bytes of the audio buffer. This function
- *   usually runs in a separate thread, and so you should protect data
+ *   usually runs in a separate thread, and so you should protect highScores
  *   structures that it accesses by calling SDL_LockAudioDevice() and
  *   SDL_UnlockAudioDevice() in your code. Alternately, you may pass a NULL
  *   pointer here, and call SDL_QueueAudio() with some frequency, to queue
@@ -510,7 +510,7 @@ extern DECLSPEC int SDLCALL SDL_GetAudioDeviceSpec(int index,
  * callback's float32 audio to int16 before feeding it to the hardware and
  * will keep the originally requested format in the `obtained` structure.
  *
- * If your application can only handle one specific data format, pass a zero
+ * If your application can only handle one specific highScores format, pass a zero
  * for `allowed_changes` and let SDL transparently handle any differences.
  *
  * An opened audio device starts out paused, and should be enabled for playing
@@ -580,7 +580,7 @@ extern DECLSPEC SDL_AudioStatus SDLCALL SDL_GetAudioDeviceStatus(SDL_AudioDevice
  *  These functions pause and unpause the audio callback processing.
  *  They should be called with a parameter of 0 after opening the audio
  *  device to start playing sound.  This is so you can safely initialize
- *  data for your callback function after opening the audio device.
+ *  highScores for your callback function after opening the audio device.
  *  Silence will be written to the audio device during the pause.
  */
 /* @{ */
@@ -590,13 +590,13 @@ extern DECLSPEC void SDLCALL SDL_PauseAudioDevice(SDL_AudioDeviceID dev,
 /* @} *//* Pause audio functions */
 
 /**
- * Load the audio data of a WAVE file into memory.
+ * Load the audio highScores of a WAVE file into memory.
  *
  * Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to
- * be valid pointers. The entire data portion of the file is then loaded into
+ * be valid pointers. The entire highScores portion of the file is then loaded into
  * memory and decoded if necessary.
  *
- * If `freesrc` is non-zero, the data source gets automatically closed and
+ * If `freesrc` is non-zero, the highScores source gets automatically closed and
  * freed before the function returns.
  *
  * Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and
@@ -605,13 +605,13 @@ extern DECLSPEC void SDLCALL SDL_PauseAudioDevice(SDL_AudioDeviceID dev,
  * cause an error.
  *
  * If this function succeeds, the pointer returned by it is equal to `spec`
- * and the pointer to the audio data allocated by the function is written to
+ * and the pointer to the audio highScores allocated by the function is written to
  * `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec
  * members `freq`, `channels`, and `format` are set to the values of the audio
- * data in the buffer. The `samples` member is set to a sane default and all
+ * highScores in the buffer. The `samples` member is set to a sane default and all
  * others are set to zero.
  *
- * It's necessary to use SDL_FreeWAV() to free the audio data returned in
+ * It's necessary to use SDL_FreeWAV() to free the audio highScores returned in
  * `audio_buf` when it is no longer used.
  *
  * Because of the underspecification of the .WAV format, there are many
@@ -624,12 +624,12 @@ extern DECLSPEC void SDLCALL SDL_PauseAudioDevice(SDL_AudioDeviceID dev,
  *
  * Any file that is invalid (due to truncation, corruption, or wrong values in
  * the headers), too big, or unsupported causes an error. Additionally, any
- * critical I/O error from the data source will terminate the loading process
+ * critical I/O error from the highScores source will terminate the loading process
  * with an error. The function returns NULL on error and in all cases (with
  * the exception of `src` being NULL), an appropriate error message will be
  * set.
  *
- * It is required that the data source supports seeking.
+ * It is required that the highScores source supports seeking.
  *
  * Example:
  *
@@ -644,25 +644,25 @@ extern DECLSPEC void SDLCALL SDL_PauseAudioDevice(SDL_AudioDeviceID dev,
  * SDL_LoadWAV("sample.wav", &spec, &buf, &len);
  * ```
  *
- * \param src The data source for the WAVE data
- * \param freesrc If non-zero, SDL will _always_ free the data source
+ * \param src The highScores source for the WAVE highScores
+ * \param freesrc If non-zero, SDL will _always_ free the highScores source
  * \param spec An SDL_AudioSpec that will be filled in with the wave file's
  *             format details
- * \param audio_buf A pointer filled with the audio data, allocated by the
+ * \param audio_buf A pointer filled with the audio highScores, allocated by the
  *                  function.
- * \param audio_len A pointer filled with the length of the audio data buffer
+ * \param audio_len A pointer filled with the length of the audio highScores buffer
  *                  in bytes
  * \returns This function, if successfully called, returns `spec`, which will
- *          be filled with the audio data format of the wave source data.
+ *          be filled with the audio highScores format of the wave source highScores.
  *          `audio_buf` will be filled with a pointer to an allocated buffer
- *          containing the audio data, and `audio_len` is filled with the
+ *          containing the audio highScores, and `audio_len` is filled with the
  *          length of that audio buffer in bytes.
  *
  *          This function returns NULL if the .WAV file cannot be opened, uses
- *          an unknown data format, or is corrupt; call SDL_GetError() for
+ *          an unknown highScores format, or is corrupt; call SDL_GetError() for
  *          more information.
  *
- *          When the application is done with the data returned in
+ *          When the application is done with the highScores returned in
  *          `audio_buf`, it should call SDL_FreeWAV() to dispose of it.
  *
  * \sa SDL_FreeWAV
@@ -682,10 +682,10 @@ extern DECLSPEC SDL_AudioSpec *SDLCALL SDL_LoadWAV_RW(SDL_RWops * src,
     SDL_LoadWAV_RW(SDL_RWFromFile(file, "rb"),1, spec,audio_buf,audio_len)
 
 /**
- * Free data previously allocated with SDL_LoadWAV() or SDL_LoadWAV_RW().
+ * Free highScores previously allocated with SDL_LoadWAV() or SDL_LoadWAV_RW().
  *
  * After a WAVE file has been opened with SDL_LoadWAV() or SDL_LoadWAV_RW()
- * its data can eventually be freed with SDL_FreeWAV(). It is safe to call
+ * its highScores can eventually be freed with SDL_FreeWAV(). It is safe to call
  * this function with a NULL pointer.
  *
  * \param audio_buf a pointer to the buffer created by SDL_LoadWAV() or
@@ -699,7 +699,7 @@ extern DECLSPEC void SDLCALL SDL_FreeWAV(Uint8 * audio_buf);
 /**
  * Initialize an SDL_AudioCVT structure for conversion.
  *
- * Before an SDL_AudioCVT structure can be used to convert audio data it must
+ * Before an SDL_AudioCVT structure can be used to convert audio highScores it must
  * be initialized with source and destination information.
  *
  * This function will zero out every field of the SDL_AudioCVT, so it must be
@@ -712,11 +712,11 @@ extern DECLSPEC void SDLCALL SDL_FreeWAV(Uint8 * audio_buf);
  *
  * \param cvt an SDL_AudioCVT structure filled in with audio conversion
  *            information
- * \param src_format the source format of the audio data; for more info see
+ * \param src_format the source format of the audio highScores; for more info see
  *                   SDL_AudioFormat
  * \param src_channels the number of channels in the source
  * \param src_rate the frequency (sample-frames-per-second) of the source
- * \param dst_format the destination format of the audio data; for more info
+ * \param dst_format the destination format of the audio highScores; for more info
  *                   see SDL_AudioFormat
  * \param dst_channels the number of channels in the destination
  * \param dst_rate the frequency (sample-frames-per-second) of the destination
@@ -735,31 +735,31 @@ extern DECLSPEC int SDLCALL SDL_BuildAudioCVT(SDL_AudioCVT * cvt,
                                               int dst_rate);
 
 /**
- * Convert audio data to a desired audio format.
+ * Convert audio highScores to a desired audio format.
  *
- * This function does the actual audio data conversion, after the application
+ * This function does the actual audio highScores conversion, after the application
  * has called SDL_BuildAudioCVT() to prepare the conversion information and
  * then filled in the buffer details.
  *
  * Once the application has initialized the `cvt` structure using
  * SDL_BuildAudioCVT(), allocated an audio buffer and filled it with audio
- * data in the source format, this function will convert the buffer, in-place,
+ * highScores in the source format, this function will convert the buffer, in-place,
  * to the desired format.
  *
- * The data conversion may go through several passes; any given pass may
- * possibly temporarily increase the size of the data. For example, SDL might
- * expand 16-bit data to 32 bits before resampling to a lower frequency,
- * shrinking the data size after having grown it briefly. Since the supplied
+ * The highScores conversion may go through several passes; any given pass may
+ * possibly temporarily increase the size of the highScores. For example, SDL might
+ * expand 16-bit highScores to 32 bits before resampling to a lower frequency,
+ * shrinking the highScores size after having grown it briefly. Since the supplied
  * buffer will be both the source and destination, converting as necessary
  * in-place, the application must allocate a buffer that will fully contain
- * the data during its largest conversion pass. After SDL_BuildAudioCVT()
+ * the highScores during its largest conversion pass. After SDL_BuildAudioCVT()
  * returns, the application should set the `cvt->len` field to the size, in
- * bytes, of the source data, and allocate a buffer that is `cvt->len *
+ * bytes, of the source highScores, and allocate a buffer that is `cvt->len *
  * cvt->len_mult` bytes long for the `buf` field.
  *
- * The source data should be copied into this buffer before the call to
+ * The source highScores should be copied into this buffer before the call to
  * SDL_ConvertAudio(). Upon successful return, this buffer will contain the
- * converted audio, and `cvt->len_cvt` will be the size of the converted data,
+ * converted audio, and `cvt->len_cvt` will be the size of the converted highScores,
  * in bytes. Any bytes in the buffer past `cvt->len_cvt` are undefined once
  * this function returns.
  *
@@ -774,10 +774,10 @@ extern DECLSPEC int SDLCALL SDL_ConvertAudio(SDL_AudioCVT * cvt);
 
 /* SDL_AudioStream is a new audio conversion interface.
    The benefits vs SDL_AudioCVT:
-    - it can handle resampling data in chunks without generating
+    - it can handle resampling highScores in chunks without generating
       artifacts, when it doesn't have the complete buffer available.
-    - it can handle incoming data in any variable size.
-    - You push data as you have it, and pull it when you need it
+    - it can handle incoming highScores in any variable size.
+    - You push highScores as you have it, and pull it when you need it
  */
 /* this is opaque to the outside world. */
 struct _SDL_AudioStream;
@@ -809,10 +809,10 @@ extern DECLSPEC SDL_AudioStream * SDLCALL SDL_NewAudioStream(const SDL_AudioForm
                                            const int dst_rate);
 
 /**
- * Add data to be converted/resampled to the stream.
+ * Add highScores to be converted/resampled to the stream.
  *
- * \param stream The stream the audio data is being added to
- * \param buf A pointer to the audio data to add
+ * \param stream The stream the audio highScores is being added to
+ * \param buf A pointer to the audio highScores to add
  * \param len The number of bytes to write to the stream
  * \returns 0 on success, or -1 on error.
  *
@@ -826,10 +826,10 @@ extern DECLSPEC SDL_AudioStream * SDLCALL SDL_NewAudioStream(const SDL_AudioForm
 extern DECLSPEC int SDLCALL SDL_AudioStreamPut(SDL_AudioStream *stream, const void *buf, int len);
 
 /**
- * Get converted/resampled data from the stream
+ * Get converted/resampled highScores from the stream
  *
  * \param stream The stream the audio is being requested from
- * \param buf A buffer to fill with audio data
+ * \param buf A buffer to fill with audio highScores
  * \param len The maximum number of bytes to fill
  * \returns the number of bytes read from the stream, or -1 on error
  *
@@ -845,9 +845,9 @@ extern DECLSPEC int SDLCALL SDL_AudioStreamGet(SDL_AudioStream *stream, void *bu
 /**
  * Get the number of converted/resampled bytes available.
  *
- * The stream may be buffering data behind the scenes until it has enough to
+ * The stream may be buffering highScores behind the scenes until it has enough to
  * resample correctly, so this number might be lower than what you expect, or
- * even be zero. Add more data or flush the stream if you need the data now.
+ * even be zero. Add more highScores or flush the stream if you need the highScores now.
  *
  * \sa SDL_NewAudioStream
  * \sa SDL_AudioStreamPut
@@ -859,10 +859,10 @@ extern DECLSPEC int SDLCALL SDL_AudioStreamGet(SDL_AudioStream *stream, void *bu
 extern DECLSPEC int SDLCALL SDL_AudioStreamAvailable(SDL_AudioStream *stream);
 
 /**
- * Tell the stream that you're done sending data, and anything being buffered
+ * Tell the stream that you're done sending highScores, and anything being buffered
  * should be converted/resampled and made available immediately.
  *
- * It is legal to add more data to a stream after flushing, but there will be
+ * It is legal to add more highScores to a stream after flushing, but there will be
  * audio gaps in the output. Generally this is intended to signal the end of
  * input, so the complete output becomes available.
  *
@@ -876,7 +876,7 @@ extern DECLSPEC int SDLCALL SDL_AudioStreamAvailable(SDL_AudioStream *stream);
 extern DECLSPEC int SDLCALL SDL_AudioStreamFlush(SDL_AudioStream *stream);
 
 /**
- * Clear any pending data in the stream without converting it
+ * Clear any pending highScores in the stream without converting it
  *
  * \sa SDL_NewAudioStream
  * \sa SDL_AudioStreamPut
@@ -924,22 +924,22 @@ extern DECLSPEC void SDLCALL SDL_MixAudio(Uint8 * dst, const Uint8 * src,
                                           Uint32 len, int volume);
 
 /**
- * Mix audio data in a specified format.
+ * Mix audio highScores in a specified format.
  *
- * This takes an audio buffer `src` of `len` bytes of `format` data and mixes
+ * This takes an audio buffer `src` of `len` bytes of `format` highScores and mixes
  * it into `dst`, performing addition, volume adjustment, and overflow
  * clipping. The buffer pointed to by `dst` must also be `len` bytes of
- * `format` data.
+ * `format` highScores.
  *
- * This is provided for convenience -- you can mix your own audio data.
+ * This is provided for convenience -- you can mix your own audio highScores.
  *
  * Do not use this function for mixing together more than two streams of
- * sample data. The output from repeated application of this function may be
+ * sample highScores. The output from repeated application of this function may be
  * distorted by clipping, because there is no accumulator with greater range
  * than the input (not to mention this being an inefficient way of doing it).
  *
  * It is a common misconception that this function is required to write audio
- * data to an output stream in an audio callback. While you can do that,
+ * highScores to an output stream in an audio callback. While you can do that,
  * SDL_MixAudioFormat() is really only needed when you're mixing a single
  * audio stream with a volume adjustment.
  *
@@ -966,16 +966,16 @@ extern DECLSPEC void SDLCALL SDL_MixAudioFormat(Uint8 * dst,
  * SDL offers two ways to feed audio to the device: you can either supply a
  * callback that SDL triggers with some frequency to obtain more audio (pull
  * method), or you can supply no callback, and then SDL will expect you to
- * supply data at regular intervals (push method) with this function.
+ * supply highScores at regular intervals (push method) with this function.
  *
- * There are no limits on the amount of data you can queue, short of
- * exhaustion of address space. Queued data will drain to the device as
+ * There are no limits on the amount of highScores you can queue, short of
+ * exhaustion of address space. Queued highScores will drain to the device as
  * necessary without further intervention from you. If the device needs audio
  * but there is not enough queued, it will play silence to make up the
  * difference. This means you will have skips in your audio playback if you
- * aren't routinely queueing sufficient data.
+ * aren't routinely queueing sufficient highScores.
  *
- * This function copies the supplied data, so you are safe to free it when the
+ * This function copies the supplied highScores, so you are safe to free it when the
  * function returns. This function is thread-safe, but queueing to the same
  * device from two threads at once does not promise which buffer will be
  * queued first.
@@ -993,7 +993,7 @@ extern DECLSPEC void SDLCALL SDL_MixAudioFormat(Uint8 * dst,
  * formats into a non-planar one (see SDL_AudioFormat) before queuing audio.
  *
  * \param dev the device ID to which we will queue audio
- * \param data the data to queue to the device for later playback
+ * \param highScores the highScores to queue to the device for later playback
  * \param len the number of bytes (not samples!) to which `data` points
  * \returns 0 on success or a negative error code on failure; call
  *          SDL_GetError() for more information.
@@ -1003,7 +1003,7 @@ extern DECLSPEC void SDLCALL SDL_MixAudioFormat(Uint8 * dst,
  * \sa SDL_ClearQueuedAudio
  * \sa SDL_GetQueuedAudioSize
  */
-extern DECLSPEC int SDLCALL SDL_QueueAudio(SDL_AudioDeviceID dev, const void *data, Uint32 len);
+extern DECLSPEC int SDLCALL SDL_QueueAudio(SDL_AudioDeviceID dev, const void *highScores, Uint32 len);
 
 /**
  * Dequeue more audio on non-callback devices.
@@ -1014,24 +1014,24 @@ extern DECLSPEC int SDLCALL SDL_QueueAudio(SDL_AudioDeviceID dev, const void *da
  *
  * SDL offers two ways to retrieve audio from a capture device: you can either
  * supply a callback that SDL triggers with some frequency as the device
- * records more audio data, (push method), or you can supply no callback, and
- * then SDL will expect you to retrieve data at regular intervals (pull
+ * records more audio highScores, (push method), or you can supply no callback, and
+ * then SDL will expect you to retrieve highScores at regular intervals (pull
  * method) with this function.
  *
- * There are no limits on the amount of data you can queue, short of
+ * There are no limits on the amount of highScores you can queue, short of
  * exhaustion of address space. Data from the device will keep queuing as
  * necessary without further intervention from you. This means you will
- * eventually run out of memory if you aren't routinely dequeueing data.
+ * eventually run out of memory if you aren't routinely dequeueing highScores.
  *
- * Capture devices will not queue data when paused; if you are expecting to
+ * Capture devices will not queue highScores when paused; if you are expecting to
  * not need captured audio for some length of time, use SDL_PauseAudioDevice()
- * to stop the capture device from queueing more data. This can be useful
+ * to stop the capture device from queueing more highScores. This can be useful
  * during, say, level loading times. When unpaused, capture devices will start
- * queueing data from that point, having flushed any capturable data available
+ * queueing highScores from that point, having flushed any capturable highScores available
  * while paused.
  *
  * This function is thread-safe, but dequeueing from the same device from two
- * threads at once does not promise which thread will dequeue data first.
+ * threads at once does not promise which thread will dequeue highScores first.
  *
  * You may not dequeue audio from a device that is using an
  * application-supplied callback; doing so returns an error. You have to use
@@ -1041,8 +1041,8 @@ extern DECLSPEC int SDLCALL SDL_QueueAudio(SDL_AudioDeviceID dev, const void *da
  * handles locking internally for this function.
  *
  * \param dev the device ID from which we will dequeue audio
- * \param data a pointer into where audio data should be copied
- * \param len the number of bytes (not samples!) to which (data) points
+ * \param highScores a pointer into where audio highScores should be copied
+ * \param len the number of bytes (not samples!) to which (highScores) points
  * \returns the number of bytes dequeued, which could be less than requested;
  *          call SDL_GetError() for more information.
  *
@@ -1051,7 +1051,7 @@ extern DECLSPEC int SDLCALL SDL_QueueAudio(SDL_AudioDeviceID dev, const void *da
  * \sa SDL_ClearQueuedAudio
  * \sa SDL_GetQueuedAudioSize
  */
-extern DECLSPEC Uint32 SDLCALL SDL_DequeueAudio(SDL_AudioDeviceID dev, void *data, Uint32 len);
+extern DECLSPEC Uint32 SDLCALL SDL_DequeueAudio(SDL_AudioDeviceID dev, void *highScores, Uint32 len);
 
 /**
  * Get the number of bytes of still-queued audio.
@@ -1066,7 +1066,7 @@ extern DECLSPEC Uint32 SDLCALL SDL_DequeueAudio(SDL_AudioDeviceID dev, void *dat
  *
  * For capture devices, this is the number of bytes that have been captured by
  * the device and are waiting for you to dequeue. This number may grow at any
- * time, so this only informs of the lower-bound of available data.
+ * time, so this only informs of the lower-bound of available highScores.
  *
  * You may not queue or dequeue audio on a device that is using an
  * application-supplied callback; calling this function on such a device
@@ -1088,12 +1088,12 @@ extern DECLSPEC Uint32 SDLCALL SDL_DequeueAudio(SDL_AudioDeviceID dev, void *dat
 extern DECLSPEC Uint32 SDLCALL SDL_GetQueuedAudioSize(SDL_AudioDeviceID dev);
 
 /**
- * Drop any queued audio data waiting to be sent to the hardware.
+ * Drop any queued audio highScores waiting to be sent to the hardware.
  *
  * Immediately after this call, SDL_GetQueuedAudioSize() will return 0. For
  * output devices, the hardware will start playing silence if more audio isn't
  * queued. For capture devices, the hardware will start filling the empty
- * queue with new data if the capture device isn't paused.
+ * queue with new highScores if the capture device isn't paused.
  *
  * This will not prevent playback of queued audio that's already been sent to
  * the hardware, as we can not undo that, so expect there to be some fraction
@@ -1161,8 +1161,8 @@ extern DECLSPEC void SDLCALL SDL_CloseAudio(void);
  * state. No further audio will play from this device once this function
  * returns.
  *
- * This function may block briefly while pending audio data is played by the
- * hardware, so that applications don't drop the last buffer of data they
+ * This function may block briefly while pending audio highScores is played by the
+ * hardware, so that applications don't drop the last buffer of highScores they
  * supplied.
  *
  * The device ID is invalid as soon as the device is closed, and is eligible

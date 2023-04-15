@@ -14,10 +14,10 @@ MainMenuScene::MainMenuScene()
 
 void MainMenuScene::Update(float dt)
 {
-	playButton.Update();
-	rankingButton.Update();
-	audioButton.Update();
-	exitButton.Update();
+	playButton.Update(dt);
+	rankingButton.Update(dt);
+	audioButton.Update(dt);
+	exitButton.Update(dt);
 
 	if (playButton.isPressed)
 	{
@@ -34,7 +34,7 @@ void MainMenuScene::Update(float dt)
 
 	else if (rankingButton.isPressed)
 	{
-		//SM->SetScene("ranking");
+		SM->SetScene("Ranking");
 		rankingButton.isPressed=false;
 	}
 

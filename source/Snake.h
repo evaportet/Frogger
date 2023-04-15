@@ -7,6 +7,6 @@ private:
 	Log* log;
 public:
 	Snake(Log* atachedLog, Vector2 pos, float spd);
-	void Update() override;
+	void Update(float dt) override;
 	void Render() override;
 };

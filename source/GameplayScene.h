@@ -10,8 +10,11 @@
 #include "Tile.h"
 #include "EndTile.h"
 #include "Spawner.h"
+#include "UItext.h"
+#include "Button.h"
 #include <cassert>
 #include <vector>
+#include "HighScoreManager.h"
 
 class GameplayScene : public Scene {
 private:
@@ -22,8 +25,22 @@ private:
 	Frog player;
 	Collider water;
 	int level;
-	float time;
-	int score;
+	float levelTime;
+	UIText scoreText;
+
+	ImageRenderer timeRect;
+	Vector2 timeSizeAux;
+	float time_StartXSize;
+	bool isPaused;
+
+	//Pause menu
+	ImageRenderer pauseBckGrnd;
+	Button retryButton;
+	Button exitButton;
+	UIText gameOverTxt;
+	//
+
+	void ResetScene();
 	
 public:
 	GameplayScene();

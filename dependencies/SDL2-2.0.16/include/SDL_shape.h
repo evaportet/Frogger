@@ -128,7 +128,7 @@ extern DECLSPEC int SDLCALL SDL_SetWindowShape(SDL_Window *window,SDL_Surface *s
  * \param shape_mode An empty shape-mode structure to fill, or NULL to check
  *                   whether the window has a shape.
  * \return 0 if the window has a shape and, provided shape_mode was not NULL,
- *         shape_mode has been filled with the mode data,
+ *         shape_mode has been filled with the mode highScores,
  *         SDL_NONSHAPEABLE_WINDOW if the SDL_Window given is not a shaped
  *         window, or SDL_WINDOW_LACKS_SHAPE if the SDL_Window given is a
  *         shapeable window currently lacking a shape.

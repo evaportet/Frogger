@@ -17,7 +17,7 @@ DivingTurtles::DivingTurtles(int length, Vector2 pos, float spd, float srfD, flo
 	speed = spd;
 }
 
-void DivingTurtles::Update()
+void DivingTurtles::Update(float dt)
 {
 	currentDuration = (clock() - startDiving) / CLOCKS_PER_SEC;
 	CH->OnPlayerCollision(&collider);

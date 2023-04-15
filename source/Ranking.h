@@ -1,16 +1,20 @@
 #pragma once
-#include"Scene.h"
+#include<iostream>
+#include<string>
+#include<fstream>
+#include<map>
+#include<queue>
+#include<Windows.h>
+#include<vector>
 
-class Ranking : public Scene
-{
-private:
-	void LoadScores();
+class Ranking {
 public:
-	Ranking() = default;
 
-	void Update(float dt)override;;
-	void Render(SDL_Renderer*)override;;
-	void OnEnter() override;
-	void OnExit() override;;
+	std::map<std::string, int> highScores;
 
+	Ranking();
+	Ranking(std::string fileName);
+
+	void PrintRanking(Ranking &playerRanking);
+	void InsertName(Ranking& ranking, int score, std::string fileName);
 };

@@ -66,7 +66,7 @@ extern "C" {
  * The pointer returned is owned by the caller. Please call SDL_free() on the
  * pointer when done with it.
  *
- * \returns an absolute path in UTF-8 encoding to the application data
+ * \returns an absolute path in UTF-8 encoding to the application highScores
  *          directory. NULL will be returned on error or when the platform
  *          doesn't implement this functionality, call SDL_GetError() for more
  *          information.

@@ -7,7 +7,7 @@ class Log : public GameObject
 public:
 	Log();
 	Log(int length, Vector2 pos, float spd);
-	void Update() override;
+	void Update(float dt) override;
 	void Render() override;
 	//bool CheckIfInBoundaries() override;
 	//Vector2 spawnPos;

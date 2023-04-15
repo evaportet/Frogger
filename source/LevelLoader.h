@@ -18,5 +18,5 @@ class LevelLoader {
 public:
 	LevelLoader() = default;
 	//static std::vector<Spawner*> LoadLevel(std::string path);
-	static bool LoadLevel(std::string path, std::vector<Spawner*>& spawners, std::vector<Tile*>& tiles);
+	static bool LoadLevel(std::string path, std::vector<Spawner*>& spawners, std::vector<Tile*>& tiles, float& levelTime);
 };

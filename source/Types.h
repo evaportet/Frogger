@@ -11,6 +11,7 @@ enum class ColliderType {
 	SAFE,
 	PLATFORM,
 	WATER,
+	BONUS_FLY,
 	WINDOW
 };
 
@@ -19,6 +20,7 @@ enum class CollisionResult {
 	BORDER,
 	END,
 	FOOD,
+	BONUS_FLY,
 	SAFE,
 	ON_PLATFORM,
 	DROWNED,
@@ -39,6 +41,7 @@ enum class SpawnerType {
 	FARMING,
 	RACING1,
 	LOG,
+	FOOD,
 	TURTLES,
 	NONE
 };

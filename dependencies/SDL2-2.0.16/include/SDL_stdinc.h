@@ -154,7 +154,7 @@ char *alloca();
      (SDL_static_cast(Uint32, SDL_static_cast(Uint8, (D))) << 24))
 
 /**
- *  \name Basic data types
+ *  \name Basic highScores types
  */
 /* @{ */
 
@@ -221,7 +221,7 @@ typedef int64_t Sint64;
 #define SDL_MIN_UINT64  ((Uint64)(0x0000000000000000ull))   /* 0 */
 typedef uint64_t Uint64;
 
-/* @} *//* Basic data types */
+/* @} *//* Basic highScores types */
 
 /* Make sure we have macros for printing width-based integers.
  * <stdint.h> should define these but this is not true all platforms.
@@ -389,7 +389,7 @@ extern "C" {
 #define SDL_stack_free(data)
 #else
 #define SDL_stack_alloc(type, count)    (type*)SDL_malloc(sizeof(type)*(count))
-#define SDL_stack_free(data)            SDL_free(data)
+#define SDL_stack_free(highScores)            SDL_free(highScores)
 #endif
 
 extern DECLSPEC void *SDLCALL SDL_malloc(size_t size);
@@ -450,7 +450,7 @@ extern DECLSPEC int SDLCALL SDL_isgraph(int x);
 extern DECLSPEC int SDLCALL SDL_toupper(int x);
 extern DECLSPEC int SDLCALL SDL_tolower(int x);
 
-extern DECLSPEC Uint32 SDLCALL SDL_crc32(Uint32 crc, const void *data, size_t len);
+extern DECLSPEC Uint32 SDLCALL SDL_crc32(Uint32 crc, const void *highScores, size_t len);
 
 extern DECLSPEC void *SDLCALL SDL_memset(SDL_OUT_BYTECAP(len) void *dst, int c, size_t len);
 

@@ -18,7 +18,7 @@ public:
 	bool mouseInsideButton;
 	bool isClicked;
 	bool isPressed;
-	virtual void Update() override;
+	virtual void Update(float dt) override;
 	virtual void Render() override;
 	void CheckIfCollides();
 };

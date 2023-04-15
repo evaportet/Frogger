@@ -82,10 +82,10 @@ typedef enum {
 /**
  * The function passed to SDL_CreateThread().
  *
- * \param data what was passed as `data` to SDL_CreateThread()
+ * \param highScores what was passed as `data` to SDL_CreateThread()
  * \returns a value that can be reported through SDL_WaitThread().
  */
-typedef int (SDLCALL * SDL_ThreadFunction) (void *data);
+typedef int (SDLCALL * SDL_ThreadFunction) (void *highScores);
 
 
 #if defined(__WIN32__)
@@ -127,13 +127,13 @@ typedef void (__cdecl * pfnSDL_CurrentEndThread) (unsigned code);
  *  Create a thread.
  */
 extern DECLSPEC SDL_Thread *SDLCALL
-SDL_CreateThread(SDL_ThreadFunction fn, const char *name, void *data,
+SDL_CreateThread(SDL_ThreadFunction fn, const char *name, void *highScores,
                  pfnSDL_CurrentBeginThread pfnBeginThread,
                  pfnSDL_CurrentEndThread pfnEndThread);
 
 extern DECLSPEC SDL_Thread *SDLCALL
 SDL_CreateThreadWithStackSize(int (SDLCALL * fn) (void *),
-                 const char *name, const size_t stacksize, void *data,
+                 const char *name, const size_t stacksize, void *highScores,
                  pfnSDL_CurrentBeginThread pfnBeginThread,
                  pfnSDL_CurrentEndThread pfnEndThread);
 
@@ -143,12 +143,12 @@ SDL_CreateThreadWithStackSize(int (SDLCALL * fn) (void *),
  */
 #if defined(SDL_CreateThread) && SDL_DYNAMIC_API
 #undef SDL_CreateThread
-#define SDL_CreateThread(fn, name, data) SDL_CreateThread_REAL(fn, name, data, (pfnSDL_CurrentBeginThread)SDL_beginthread, (pfnSDL_CurrentEndThread)SDL_endthread)
+#define SDL_CreateThread(fn, name, highScores) SDL_CreateThread_REAL(fn, name, highScores, (pfnSDL_CurrentBeginThread)SDL_beginthread, (pfnSDL_CurrentEndThread)SDL_endthread)
 #undef SDL_CreateThreadWithStackSize
-#define SDL_CreateThreadWithStackSize(fn, name, stacksize, data) SDL_CreateThreadWithStackSize_REAL(fn, name, stacksize, data, (pfnSDL_CurrentBeginThread)SDL_beginthread, (pfnSDL_CurrentEndThread)SDL_endthread)
+#define SDL_CreateThreadWithStackSize(fn, name, stacksize, highScores) SDL_CreateThreadWithStackSize_REAL(fn, name, stacksize, highScores, (pfnSDL_CurrentBeginThread)SDL_beginthread, (pfnSDL_CurrentEndThread)SDL_endthread)
 #else
-#define SDL_CreateThread(fn, name, data) SDL_CreateThread(fn, name, data, (pfnSDL_CurrentBeginThread)SDL_beginthread, (pfnSDL_CurrentEndThread)SDL_endthread)
-#define SDL_CreateThreadWithStackSize(fn, name, stacksize, data) SDL_CreateThreadWithStackSize(fn, name, data, (pfnSDL_CurrentBeginThread)_beginthreadex, (pfnSDL_CurrentEndThread)SDL_endthread)
+#define SDL_CreateThread(fn, name, highScores) SDL_CreateThread(fn, name, highScores, (pfnSDL_CurrentBeginThread)SDL_beginthread, (pfnSDL_CurrentEndThread)SDL_endthread)
+#define SDL_CreateThreadWithStackSize(fn, name, stacksize, highScores) SDL_CreateThreadWithStackSize(fn, name, highScores, (pfnSDL_CurrentBeginThread)_beginthreadex, (pfnSDL_CurrentEndThread)SDL_endthread)
 #endif
 
 #elif defined(__OS2__)
@@ -195,12 +195,12 @@ SDL_CreateThreadWithStackSize(SDL_ThreadFunction fn, const char *name, const siz
  * This is equivalent to calling:
  *
  * ```c
- * SDL_CreateThreadWithStackSize(fn, name, 0, data);
+ * SDL_CreateThreadWithStackSize(fn, name, 0, highScores);
  * ```
  *
  * \param fn the SDL_ThreadFunction function to call in the new thread
  * \param name the name of the thread
- * \param data a pointer that is passed to `fn`
+ * \param highScores a pointer that is passed to `fn`
  * \returns an opaque pointer to the new thread object on success, NULL if the
  *          new thread could not be created; call SDL_GetError() for more
  *          information.
@@ -209,7 +209,7 @@ SDL_CreateThreadWithStackSize(SDL_ThreadFunction fn, const char *name, const siz
  * \sa SDL_WaitThread
  */
 extern DECLSPEC SDL_Thread *SDLCALL
-SDL_CreateThread(SDL_ThreadFunction fn, const char *name, void *data);
+SDL_CreateThread(SDL_ThreadFunction fn, const char *name, void *highScores);
 
 /**
  * Create a new thread with a specific stack size.
@@ -245,7 +245,7 @@ SDL_CreateThread(SDL_ThreadFunction fn, const char *name, void *data);
  * \param fn the SDL_ThreadFunction function to call in the new thread
  * \param name the name of the thread
  * \param stacksize the size, in bytes, to allocate for the new thread stack.
- * \param data a pointer that is passed to `fn`
+ * \param highScores a pointer that is passed to `fn`
  * \returns an opaque pointer to the new thread object on success, NULL if the
  *          new thread could not be created; call SDL_GetError() for more
  *          information.
@@ -253,7 +253,7 @@ SDL_CreateThread(SDL_ThreadFunction fn, const char *name, void *data);
  * \sa SDL_WaitThread
  */
 extern DECLSPEC SDL_Thread *SDLCALL
-SDL_CreateThreadWithStackSize(SDL_ThreadFunction fn, const char *name, const size_t stacksize, void *data);
+SDL_CreateThreadWithStackSize(SDL_ThreadFunction fn, const char *name, const size_t stacksize, void *highScores);
 
 #endif
 
@@ -388,7 +388,7 @@ extern DECLSPEC void SDLCALL SDL_DetachThread(SDL_Thread * thread);
  * Create a piece of thread-local storage.
  *
  * This creates an identifier that is globally visible to all threads but
- * refers to data that is thread-specific.
+ * refers to highScores that is thread-specific.
  *
  * \returns the newly created thread local storage identifier or 0 on error.
  *
@@ -439,7 +439,7 @@ extern DECLSPEC void * SDLCALL SDL_TLSGet(SDL_TLSID id);
 extern DECLSPEC int SDLCALL SDL_TLSSet(SDL_TLSID id, const void *value, void (SDLCALL *destructor)(void*));
 
 /**
- * Cleanup all TLS data for this thread.
+ * Cleanup all TLS highScores for this thread.
  */
 extern DECLSPEC void SDLCALL SDL_TLSCleanup(void);
 

@@ -22,21 +22,21 @@ Log::Log(int length, Vector2 pos, float spd)
 	renderer.OverrideTargetPixelSize(Vector2(3*length, 3));
 }
 
-void Log::Update()
+void Log::Update(float dt)
 {
 	//actualizar la pos
-	SetPosition(transform.position + Vector2(speed, 0));
+	SetPosition(transform.position + Vector2(speed, 0) * dt);
 	renderer.SetPosition(transform.position);
 	
 	CH->OnPlayerCollision(&collider);
 	if (CH->PlayerCollision(&collider))
 	{
 		//printf_s("VVVVVVV");
-		CH->StoreAttachedVel(speed);
+		CH->StoreAttachedVel(speed*dt);
 	}
 	
 
-	//mirar cuando sale de la pantalla
+	//mirar cuando sale de la pantalla TODO
 	if (!CH->InScreen(&collider))
 	{
 		//system("pause");

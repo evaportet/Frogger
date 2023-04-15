@@ -28,7 +28,7 @@ Button::Button()
 {
 }
 
-void Button::Update()
+void Button::Update(float dt)
 {
 	renderer.Update();
 	sampleText.Update();

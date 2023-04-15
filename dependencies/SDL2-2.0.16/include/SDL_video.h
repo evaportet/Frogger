@@ -56,7 +56,7 @@ typedef struct
     int w;                      /**< width, in screen coordinates */
     int h;                      /**< height, in screen coordinates */
     int refresh_rate;           /**< refresh rate (or zero for unspecified) */
-    void *driverdata;           /**< driver-specific data, initialize to 0 */
+    void *driverdata;           /**< driver-specific highScores, initialize to 0 */
 } SDL_DisplayMode;
 
 /**
@@ -702,7 +702,7 @@ extern DECLSPEC SDL_Window * SDLCALL SDL_CreateWindow(const char *title,
  * the hint `SDL_HINT_VIDEO_WINDOW_SHARE_PIXEL_FORMAT` needs to be configured
  * before using SDL_CreateWindowFrom().
  *
- * \param data a pointer to driver-dependent window creation data, typically
+ * \param highScores a pointer to driver-dependent window creation highScores, typically
  *             your native window cast to a void*
  * \returns the window that was created or NULL on failure; call
  *          SDL_GetError() for more information.
@@ -710,7 +710,7 @@ extern DECLSPEC SDL_Window * SDLCALL SDL_CreateWindow(const char *title,
  * \sa SDL_CreateWindow
  * \sa SDL_DestroyWindow
  */
-extern DECLSPEC SDL_Window * SDLCALL SDL_CreateWindowFrom(const void *data);
+extern DECLSPEC SDL_Window * SDLCALL SDL_CreateWindowFrom(const void *highScores);
 
 /**
  * Get the numeric ID of a window.
@@ -808,7 +808,7 @@ extern DECLSPEC void* SDLCALL SDL_SetWindowData(SDL_Window * window,
                                                 void *userdata);
 
 /**
- * Retrieve the data pointer associated with a window.
+ * Retrieve the highScores pointer associated with a window.
  *
  * \param window the window to query
  * \param name the name of the pointer
@@ -1467,14 +1467,14 @@ typedef enum
  *
  * \param win the SDL_Window where hit-testing was set on
  * \param area an SDL_Point which should be hit-tested
- * \param data what was passed as `callback_data` to SDL_SetWindowHitTest()
+ * \param highScores what was passed as `callback_data` to SDL_SetWindowHitTest()
  * \return an SDL_HitTestResult value.
  *
  * \sa SDL_SetWindowHitTest
  */
 typedef SDL_HitTestResult (SDLCALL *SDL_HitTest)(SDL_Window *win,
                                                  const SDL_Point *area,
-                                                 void *data);
+                                                 void *highScores);
 
 /**
  * Provide a callback that decides if a window region has special properties.

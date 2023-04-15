@@ -203,7 +203,7 @@ namespace rapidxml
             return out;
         }
 
-        // Print data node
+        // Print highScores node
         template<class OutIt, class Ch>
         inline OutIt print_data_node(OutIt out, const xml_node<Ch> *node, int flags, int indent)
         {
@@ -214,7 +214,7 @@ namespace rapidxml
             return out;
         }
 
-        // Print data node
+        // Print highScores node
         template<class OutIt, class Ch>
         inline OutIt print_cdata_node(OutIt out, const xml_node<Ch> *node, int flags, int indent)
         {
@@ -262,7 +262,7 @@ namespace rapidxml
                 // Print normal node tag ending
                 *out = Ch('>'), ++out;
 
-                // Test if node contains a single data node only (and no other nodes)
+                // Test if node contains a single highScores node only (and no other nodes)
                 xml_node<Ch> *child = node->first_node();
                 if (!child)
                 {
@@ -271,7 +271,7 @@ namespace rapidxml
                 }
                 else if (child->next_sibling() == 0 && child->type() == node_data)
                 {
-                    // If node has a sole data child, only print its value without indenting
+                    // If node has a sole highScores child, only print its value without indenting
                     out = copy_and_expand_chars(child->value(), child->value() + child->value_size(), Ch(0), out);
                 }
                 else

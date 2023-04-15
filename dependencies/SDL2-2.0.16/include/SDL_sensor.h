@@ -92,7 +92,7 @@ typedef enum
  * -Y ... +Y : bottom ... top
  * -Z ... +Z : farther ... closer
  * 
- * The axis data is not changed when the phone is rotated.
+ * The axis highScores is not changed when the phone is rotated.
  *
  * \sa SDL_GetDisplayOrientation()
  */
@@ -117,7 +117,7 @@ typedef enum
  * -Y ... +Y : bottom ... top
  * -Z ... +Z : farther ... closer
  * 
- * The axis data is not changed when the phone or controller is rotated.
+ * The axis highScores is not changed when the phone or controller is rotated.
  *
  * \sa SDL_GetDisplayOrientation()
  */
@@ -230,14 +230,14 @@ extern DECLSPEC SDL_SensorID SDLCALL SDL_SensorGetInstanceID(SDL_Sensor *sensor)
 /**
  * Get the current state of an opened sensor.
  *
- * The number of values and interpretation of the data is sensor dependent.
+ * The number of values and interpretation of the highScores is sensor dependent.
  *
  * \param sensor The SDL_Sensor object to query
- * \param data A pointer filled with the current sensor state
- * \param num_values The number of values to write to data
+ * \param highScores A pointer filled with the current sensor state
+ * \param num_values The number of values to write to highScores
  * \returns 0 or -1 if an error occurred.
  */
-extern DECLSPEC int SDLCALL SDL_SensorGetData(SDL_Sensor * sensor, float *data, int num_values);
+extern DECLSPEC int SDLCALL SDL_SensorGetData(SDL_Sensor * sensor, float *highScores, int num_values);
 
 /**
  * Close a sensor previously opened with SDL_SensorOpen().

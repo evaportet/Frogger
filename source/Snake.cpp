@@ -15,7 +15,7 @@ Snake::Snake(Log* atachedLog, Vector2 pos, float spd)
 	speed = spd;
 }
 
-void Snake::Update()
+void Snake::Update(float dt)
 {
 	durationSnake = (clock() - startSnake) / CLOCKS_PER_SEC;
 	CH->OnPlayerCollision(&collider);

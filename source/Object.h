@@ -11,7 +11,7 @@ public:
 	float speed;
 	Object() = default;
 	virtual void Render() = 0;
-	virtual void Update() = 0;
+	virtual void Update(float dt) = 0;
 	Transform GetTransform();
 	Collider GetCollider();
 	float GetSpeed();

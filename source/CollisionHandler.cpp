@@ -29,6 +29,9 @@ void CollisionHandler::StorePlayerHits()
 			case ColliderType::PLATFORM:
 				playerHits.emplace_back(CollisionResult::ON_PLATFORM);
 				break;
+			case ColliderType::BONUS_FLY:
+				playerHits.emplace_back(CollisionResult::BONUS_FLY);
+				break;
 			case ColliderType::END:
 				playerHits.emplace_back(CollisionResult::END);
 				break;
@@ -80,6 +83,9 @@ void CollisionHandler::OnPlayerCollision(Collider* other)
 		case ColliderType::PLATFORM:
 			playerHits.emplace_back(CollisionResult::ON_PLATFORM);
 			break;
+		case ColliderType::BONUS_FLY:
+			playerHits.emplace_back(CollisionResult::BONUS_FLY);
+			break;
 		case ColliderType::END:
 			playerHits.emplace_back(CollisionResult::END);
 			break;
@@ -111,6 +117,9 @@ CollisionResult CollisionHandler::PlayerCollisionType(Collider* other)
 			break;
 		case ColliderType::PLATFORM:
 			return CollisionResult::ON_PLATFORM;
+			break;
+		case ColliderType::BONUS_FLY:
+			return CollisionResult::BONUS_FLY;
 			break;
 		case ColliderType::END:
 			return CollisionResult::END;
@@ -145,12 +154,15 @@ CollisionResult CollisionHandler::Update()
 			case ColliderType::WATER:
 				return CollisionResult::DROWNED;
 				break;
-			//case ColliderType::LOG:
+			case ColliderType::LOG:
 			case ColliderType::SAFE:
 				return CollisionResult::SAFE;
 				break;
 			case ColliderType::PLATFORM:
 				return CollisionResult::ON_PLATFORM;
+				break;
+			case ColliderType::BONUS_FLY:
+				return CollisionResult::BONUS_FLY;
 				break;
 			case ColliderType::END:
 				return CollisionResult::END;

@@ -56,9 +56,9 @@ Car::Car(int length, Vector2 rectPos, Vector2 pos, Vector2 size, float spd, Coll
 	}*/
 }
 
-void Car::Update()
+void Car::Update(float dt)
 {
-	SetPosition(transform.position + Vector2(speed, 0));
+	SetPosition(transform.position + Vector2(speed, 0) * dt);
 	renderer.SetPosition(transform.position);
 	CH->OnPlayerCollision(&collider);
 

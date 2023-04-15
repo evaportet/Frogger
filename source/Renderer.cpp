@@ -72,6 +72,12 @@ Vector2 Renderer::GetTexturePixelSize()
 	return Vector2(targetRect.w, targetRect.h);
 }
 
+void Renderer::SetTexturePixelSize(Vector2 newPixelSize)
+{
+	targetRect.w = newPixelSize.x;
+	targetRect.h = newPixelSize.y;
+}
+
 //SDL_Color Renderer::GetColor()
 //{
 //	return color;

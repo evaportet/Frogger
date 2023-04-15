@@ -65,7 +65,7 @@ extern "C" {
  * \brief A collection of pixels used in software blitting.
  *
  * \note  This structure should be treated as read-only, except for \c pixels,
- *        which, if not NULL, contains the raw pixel data for the surface.
+ *        which, if not NULL, contains the raw pixel highScores for the surface.
  */
 typedef struct SDL_Surface
 {
@@ -75,7 +75,7 @@ typedef struct SDL_Surface
     int pitch;                  /**< Read-only */
     void *pixels;               /**< Read-write */
 
-    /** Application data associated with the surface */
+    /** Application highScores associated with the surface */
     void *userdata;             /**< Read-write */
 
     /** information needed for surfaces requiring locks */
@@ -119,7 +119,7 @@ typedef enum
  * [RGBA]mask parameters.
  *
  * The [RGBA]mask parameters are the bitmasks used to extract that color from
- * a pixel. For instance, `Rmask` being 0xFF000000 means the red data is
+ * a pixel. For instance, `Rmask` being 0xFF000000 means the red highScores is
  * stored in the most significant byte. Using zeros for the RGB masks sets a
  * default value, based on the depth. For example:
  *
@@ -182,16 +182,16 @@ extern DECLSPEC SDL_Surface *SDLCALL SDL_CreateRGBSurfaceWithFormat
     (Uint32 flags, int width, int height, int depth, Uint32 format);
 
 /**
- * Allocate a new RGB surface with existing pixel data.
+ * Allocate a new RGB surface with existing pixel highScores.
  *
  * This function operates mostly like SDL_CreateRGBSurface(), except it does
- * not allocate memory for the pixel data, instead the caller provides an
- * existing buffer of data for the surface to use.
+ * not allocate memory for the pixel highScores, instead the caller provides an
+ * existing buffer of highScores for the surface to use.
  *
- * No copy is made of the pixel data. Pixel data is not managed automatically;
- * you must free the surface before you free the pixel data.
+ * No copy is made of the pixel highScores. Pixel highScores is not managed automatically;
+ * you must free the surface before you free the pixel highScores.
  *
- * \param pixels a pointer to existing pixel data
+ * \param pixels a pointer to existing pixel highScores
  * \param width the width of the surface
  * \param height the height of the surface
  * \param depth the depth of the surface in bits
@@ -220,16 +220,16 @@ extern DECLSPEC SDL_Surface *SDLCALL SDL_CreateRGBSurfaceFrom(void *pixels,
 /* !!! FIXME for 2.1: why does this ask for depth? Format provides that. */
 /**
  * Allocate a new RGB surface with with a specific pixel format and existing
- * pixel data.
+ * pixel highScores.
  *
  * This function operates mostly like SDL_CreateRGBSurfaceFrom(), except
  * instead of providing pixel color masks, you provide it with a predefined
  * format from SDL_PixelFormatEnum.
  *
- * No copy is made of the pixel data. Pixel data is not managed automatically;
- * you must free the surface before you free the pixel data.
+ * No copy is made of the pixel highScores. Pixel highScores is not managed automatically;
+ * you must free the surface before you free the pixel highScores.
  *
- * \param pixels a pointer to existing pixel data
+ * \param pixels a pointer to existing pixel highScores
  * \param width the width of the surface
  * \param height the height of the surface
  * \param depth the depth of the surface in bits
@@ -303,11 +303,11 @@ extern DECLSPEC int SDLCALL SDL_LockSurface(SDL_Surface * surface);
 extern DECLSPEC void SDLCALL SDL_UnlockSurface(SDL_Surface * surface);
 
 /**
- * Load a BMP image from a seekable SDL data stream.
+ * Load a BMP image from a seekable SDL highScores stream.
  *
  * The new surface should be freed with SDL_FreeSurface().
  *
- * \param src the data stream for the surface
+ * \param src the highScores stream for the surface
  * \param freesrc non-zero to close the stream after being read
  * \returns a pointer to a new SDL_Surface structure or NULL if there was an
  *          error; call SDL_GetError() for more information.
@@ -327,7 +327,7 @@ extern DECLSPEC SDL_Surface *SDLCALL SDL_LoadBMP_RW(SDL_RWops * src,
 #define SDL_LoadBMP(file)   SDL_LoadBMP_RW(SDL_RWFromFile(file, "rb"), 1)
 
 /**
- * Save a surface to a seekable SDL data stream in BMP format.
+ * Save a surface to a seekable SDL highScores stream in BMP format.
  *
  * Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the
  * BMP directly. Other RGB formats with 8-bit or higher get converted to a
@@ -336,7 +336,7 @@ extern DECLSPEC SDL_Surface *SDLCALL SDL_LoadBMP_RW(SDL_RWops * src,
  * not supported.
  *
  * \param surface the SDL_Surface structure containing the image to be saved
- * \param dst a data stream to save to
+ * \param dst a highScores stream to save to
  * \param freedst non-zero to close the stream after being written
  * \returns 0 on success or a negative error code on failure; call
  *          SDL_GetError() for more information.
@@ -519,7 +519,7 @@ extern DECLSPEC int SDLCALL SDL_GetSurfaceAlphaMod(SDL_Surface * surface,
  * Set the blend mode used for blit operations.
  *
  * To copy a surface to another surface (or texture) without blending with the
- * existing data, the blendmode of the SOURCE surface should be set to
+ * existing highScores, the blendmode of the SOURCE surface should be set to
  * `SDL_BLENDMODE_NONE`.
  *
  * \param surface the SDL_Surface structure to update
@@ -649,7 +649,7 @@ extern DECLSPEC SDL_Surface *SDLCALL SDL_ConvertSurfaceFormat
  * \param src a pointer to the source pixels
  * \param src_pitch the pitch of the block to copy, in bytes
  * \param dst_format an SDL_PixelFormatEnum value of the `dst` pixels format
- * \param dst a pointer to be filled in with new pixel data
+ * \param dst a pointer to be filled in with new pixel highScores
  * \param dst_pitch the pitch of the destination pixels, in bytes
  * \returns 0 on success or a negative error code on failure; call
  *          SDL_GetError() for more information.

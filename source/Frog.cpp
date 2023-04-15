@@ -11,37 +11,60 @@ Frog::Frog(Vector2 size, Vector2 pos, ColliderType ct, std::string path)
 	transform.scale = size;
 	transform.rotation = 0;
 
-	collider = Collider(pos, size * 1.5f, ct);
+	collider = Collider(pos, size * 1.75f, ct);
 	CH->SetPlayerCollider(&collider);
 	renderer.Load(path);
 	renderer.SetScale(transform.scale);
-	renderer.SetPosition(pos);
 	renderer.SetSourcePos(Vector2(0, 0));
 	renderer.OverrideTargetPixelSize(Vector2(3, 3));
+	renderer.SetPosition(pos);
 	renderer.SetRotation(transform.rotation);
 
-	food = nullptr;
+	//food = nullptr;
 	hasFood = false;
 	moves = false;
 	OnMovingSuface = false;
 	lives = 3;
+	score = 0;
+	lastTopY = pos.y;
+}
+
+void Frog::SetScore(int newS)
+{
+	score = newS;
+}
+
+int Frog::GetScore()
+{
+	return score;
+}
+
+int Frog::GetLives()
+{
+	return lives;
 }
 
 void Frog::Respawn()
 {
-	//frogTransform.position()
+	ResetSprite();
 	SetPosition(spawnPos);
-	renderer.SetPosition(spawnPos + Vector2(0, 20));
+	renderer.SetPosition(spawnPos);
 	SetRotation(0);
 	renderer.SetRotation(0);
+	hasFood = false;
+}
+
+void Frog::Die()
+{
 	lives--;
+	Respawn();
 }
 
 void Frog::Movement()
 {
 	Vector2 newMovement;
-	const int MOVEMENT_STEP = 37;
-	const int BOUND_OFFSET = 60;
+	const int MOVEMENT_STEP = 42;
+	const int BOUND_OFFSET = 65;
 
 	if (OnMovingSuface)
 	{
@@ -60,6 +83,10 @@ void Frog::Movement()
 			renderer.SetPosition(newMovement);
 			SetRotation(0);
 			renderer.SetRotation(0);
+			if (newMovement.y < lastTopY) {
+				score += 10;
+				lastTopY = newMovement.y;
+			}
 		}
 	}
 
@@ -100,15 +127,29 @@ void Frog::Movement()
 	}
 }
 
+void Frog::ChangeToHasFoodSprt()
+{
+	renderer.SetSourcePos(Vector2(0, 16));
+}
+
+void Frog::ResetSprite()
+{
+	renderer.SetSourcePos(Vector2(0, 0));
+}
+
 bool Frog::IsMoving()
 {
 	return false;
 }
 
-void Frog::Update()
+void Frog::Update(float dt)
 {
 	Movement();
 	CH->SetPlayerCollider(&collider);
+	if (!CH->InBounds(&collider))
+	{
+		Die();
+	}
 	//CH->StorePlayerHits();
 	HandleHits(CH->GetPlayerHits());
 }
@@ -131,24 +172,43 @@ void Frog::HandleHits(std::list<CollisionResult> hits)
 		case CollisionResult::DIE:
 			//Respawn || GameOver
 			AM->PlaySFX("Dead", 0);
-			Respawn();
+			Die();
+			CH->ClearPlayerHits();
+			return;
 			break;
 		case CollisionResult::DROWNED:
 			if (OnMovingSuface) break;
 			//Respawn || GameOver
 			AM->PlaySFX("Dead", 0);
-			Respawn();
+			printf_s("F");
+			Die();
+			CH->ClearPlayerHits();
+			return;
 			break;
 		case CollisionResult::BORDER:
 			//BlockMovement
 			break;
-		case CollisionResult::END:
+		case CollisionResult::BONUS_FLY:
 			AM->PlaySFX("GetEnd", 0);
+			score += 100;
+			if (hasFood) score += 100;
 			Respawn();
+			CH->ClearPlayerHits();
+			return;
+			break;
+		case CollisionResult::END:
 			//Respawn || Win
+			AM->PlaySFX("GetEnd", 0);
+			if (hasFood) score += 100;
+			printf_s("Donee");
+			Respawn();
+			CH->ClearPlayerHits();
+			return;
 			break;
 		case CollisionResult::FOOD:
 			//Add food
+			hasFood = true;
+			ChangeToHasFoodSprt();
 			break;
 		case CollisionResult::ON_PLATFORM:
 			OnMovingSuface = true;

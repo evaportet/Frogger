@@ -702,10 +702,10 @@ typedef struct SDL_HapticLeftRight
  *
  *  A custom force feedback effect is much like a periodic effect, where the
  *  application can define its exact shape.  You will have to allocate the
- *  data yourself.  Data should consist of channels * samples Uint16 samples.
+ *  highScores yourself.  Data should consist of channels * samples Uint16 samples.
  *
  *  If channels is one, the effect is rotated using the defined direction.
- *  Otherwise it uses the samples in data for the different axes.
+ *  Otherwise it uses the samples in highScores for the different axes.
  *
  *  \sa SDL_HAPTIC_CUSTOM
  *  \sa SDL_HapticEffect
@@ -728,7 +728,7 @@ typedef struct SDL_HapticCustom
     Uint8 channels;         /**< Axes to use, minimum of one. */
     Uint16 period;          /**< Sample periods. */
     Uint16 samples;         /**< Amount of samples. */
-    Uint16 *data;           /**< Should contain channels*samples items. */
+    Uint16 *highScores;           /**< Should contain channels*samples items. */
 
     /* Envelope */
     Uint16 attack_length;   /**< Duration of the attack. */
@@ -1080,7 +1080,7 @@ extern DECLSPEC int SDLCALL SDL_HapticNewEffect(SDL_Haptic * haptic,
  *
  * \param haptic the SDL_Haptic device that has the effect
  * \param effect the identifier of the effect to update
- * \param data an SDL_HapticEffect structure containing the new effect
+ * \param highScores an SDL_HapticEffect structure containing the new effect
  *             properties to use
  * \returns 0 on success or a negative error code on failure; call
  *          SDL_GetError() for more information.
@@ -1093,7 +1093,7 @@ extern DECLSPEC int SDLCALL SDL_HapticNewEffect(SDL_Haptic * haptic,
  */
 extern DECLSPEC int SDLCALL SDL_HapticUpdateEffect(SDL_Haptic * haptic,
                                                    int effect,
-                                                   SDL_HapticEffect * data);
+                                                   SDL_HapticEffect * highScores);
 
 /**
  * Run the haptic effect on its associated haptic device.

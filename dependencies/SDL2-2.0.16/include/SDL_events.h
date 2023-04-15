@@ -181,7 +181,7 @@ typedef struct SDL_CommonEvent
 } SDL_CommonEvent;
 
 /**
- *  \brief Display state change event data (event.display.*)
+ *  \brief Display state change event highScores (event.display.*)
  */
 typedef struct SDL_DisplayEvent
 {
@@ -192,11 +192,11 @@ typedef struct SDL_DisplayEvent
     Uint8 padding1;
     Uint8 padding2;
     Uint8 padding3;
-    Sint32 data1;       /**< event dependent data */
+    Sint32 data1;       /**< event dependent highScores */
 } SDL_DisplayEvent;
 
 /**
- *  \brief Window state change event data (event.window.*)
+ *  \brief Window state change event highScores (event.window.*)
  */
 typedef struct SDL_WindowEvent
 {
@@ -207,8 +207,8 @@ typedef struct SDL_WindowEvent
     Uint8 padding1;
     Uint8 padding2;
     Uint8 padding3;
-    Sint32 data1;       /**< event dependent data */
-    Sint32 data2;       /**< event dependent data */
+    Sint32 data1;       /**< event dependent highScores */
+    Sint32 data2;       /**< event dependent highScores */
 } SDL_WindowEvent;
 
 /**
@@ -443,7 +443,7 @@ typedef struct SDL_ControllerSensorEvent
     Uint32 timestamp;   /**< In milliseconds, populated using SDL_GetTicks() */
     SDL_JoystickID which; /**< The joystick instance id */
     Sint32 sensor;      /**< The type of the sensor, one of the values of ::SDL_SensorType */
-    float data[3];      /**< Up to 3 values from the sensor, as defined in SDL_sensor.h */
+    float highScores[3];      /**< Up to 3 values from the sensor, as defined in SDL_sensor.h */
 } SDL_ControllerSensorEvent;
 
 /**
@@ -534,7 +534,7 @@ typedef struct SDL_SensorEvent
     Uint32 type;        /**< ::SDL_SENSORUPDATE */
     Uint32 timestamp;   /**< In milliseconds, populated using SDL_GetTicks() */
     Sint32 which;       /**< The instance ID of the sensor */
-    float data[6];      /**< Up to 6 values from the sensor - additional values can be queried using SDL_SensorGetData() */
+    float highScores[6];      /**< Up to 6 values from the sensor - additional values can be queried using SDL_SensorGetData() */
 } SDL_SensorEvent;
 
 /**
@@ -564,8 +564,8 @@ typedef struct SDL_UserEvent
     Uint32 timestamp;   /**< In milliseconds, populated using SDL_GetTicks() */
     Uint32 windowID;    /**< The associated window if any */
     Sint32 code;        /**< User defined event code */
-    void *data1;        /**< User defined data pointer */
-    void *data2;        /**< User defined data pointer */
+    void *data1;        /**< User defined highScores pointer */
+    void *data2;        /**< User defined highScores pointer */
 } SDL_UserEvent;
 
 
@@ -582,7 +582,7 @@ typedef struct SDL_SysWMEvent
 {
     Uint32 type;        /**< ::SDL_SYSWMEVENT */
     Uint32 timestamp;   /**< In milliseconds, populated using SDL_GetTicks() */
-    SDL_SysWMmsg *msg;  /**< driver dependent data, defined in SDL_syswm.h */
+    SDL_SysWMmsg *msg;  /**< driver dependent highScores, defined in SDL_syswm.h */
 } SDL_SysWMEvent;
 
 /**
@@ -591,34 +591,34 @@ typedef struct SDL_SysWMEvent
 typedef union SDL_Event
 {
     Uint32 type;                            /**< Event type, shared with all events */
-    SDL_CommonEvent common;                 /**< Common event data */
-    SDL_DisplayEvent display;               /**< Display event data */
-    SDL_WindowEvent window;                 /**< Window event data */
-    SDL_KeyboardEvent key;                  /**< Keyboard event data */
-    SDL_TextEditingEvent edit;              /**< Text editing event data */
-    SDL_TextInputEvent text;                /**< Text input event data */
-    SDL_MouseMotionEvent motion;            /**< Mouse motion event data */
-    SDL_MouseButtonEvent button;            /**< Mouse button event data */
-    SDL_MouseWheelEvent wheel;              /**< Mouse wheel event data */
-    SDL_JoyAxisEvent jaxis;                 /**< Joystick axis event data */
-    SDL_JoyBallEvent jball;                 /**< Joystick ball event data */
-    SDL_JoyHatEvent jhat;                   /**< Joystick hat event data */
-    SDL_JoyButtonEvent jbutton;             /**< Joystick button event data */
-    SDL_JoyDeviceEvent jdevice;             /**< Joystick device change event data */
-    SDL_ControllerAxisEvent caxis;          /**< Game Controller axis event data */
-    SDL_ControllerButtonEvent cbutton;      /**< Game Controller button event data */
-    SDL_ControllerDeviceEvent cdevice;      /**< Game Controller device event data */
-    SDL_ControllerTouchpadEvent ctouchpad;  /**< Game Controller touchpad event data */
-    SDL_ControllerSensorEvent csensor;      /**< Game Controller sensor event data */
-    SDL_AudioDeviceEvent adevice;           /**< Audio device event data */
-    SDL_SensorEvent sensor;                 /**< Sensor event data */
-    SDL_QuitEvent quit;                     /**< Quit request event data */
-    SDL_UserEvent user;                     /**< Custom event data */
-    SDL_SysWMEvent syswm;                   /**< System dependent window event data */
-    SDL_TouchFingerEvent tfinger;           /**< Touch finger event data */
-    SDL_MultiGestureEvent mgesture;         /**< Gesture event data */
-    SDL_DollarGestureEvent dgesture;        /**< Gesture event data */
-    SDL_DropEvent drop;                     /**< Drag and drop event data */
+    SDL_CommonEvent common;                 /**< Common event highScores */
+    SDL_DisplayEvent display;               /**< Display event highScores */
+    SDL_WindowEvent window;                 /**< Window event highScores */
+    SDL_KeyboardEvent key;                  /**< Keyboard event highScores */
+    SDL_TextEditingEvent edit;              /**< Text editing event highScores */
+    SDL_TextInputEvent text;                /**< Text input event highScores */
+    SDL_MouseMotionEvent motion;            /**< Mouse motion event highScores */
+    SDL_MouseButtonEvent button;            /**< Mouse button event highScores */
+    SDL_MouseWheelEvent wheel;              /**< Mouse wheel event highScores */
+    SDL_JoyAxisEvent jaxis;                 /**< Joystick axis event highScores */
+    SDL_JoyBallEvent jball;                 /**< Joystick ball event highScores */
+    SDL_JoyHatEvent jhat;                   /**< Joystick hat event highScores */
+    SDL_JoyButtonEvent jbutton;             /**< Joystick button event highScores */
+    SDL_JoyDeviceEvent jdevice;             /**< Joystick device change event highScores */
+    SDL_ControllerAxisEvent caxis;          /**< Game Controller axis event highScores */
+    SDL_ControllerButtonEvent cbutton;      /**< Game Controller button event highScores */
+    SDL_ControllerDeviceEvent cdevice;      /**< Game Controller device event highScores */
+    SDL_ControllerTouchpadEvent ctouchpad;  /**< Game Controller touchpad event highScores */
+    SDL_ControllerSensorEvent csensor;      /**< Game Controller sensor event highScores */
+    SDL_AudioDeviceEvent adevice;           /**< Audio device event highScores */
+    SDL_SensorEvent sensor;                 /**< Sensor event highScores */
+    SDL_QuitEvent quit;                     /**< Quit request event highScores */
+    SDL_UserEvent user;                     /**< Custom event highScores */
+    SDL_SysWMEvent syswm;                   /**< System dependent window event highScores */
+    SDL_TouchFingerEvent tfinger;           /**< Touch finger event highScores */
+    SDL_MultiGestureEvent mgesture;         /**< Gesture event highScores */
+    SDL_DollarGestureEvent dgesture;        /**< Gesture event highScores */
+    SDL_DropEvent drop;                     /**< Drag and drop event highScores */
 
     /* This is necessary for ABI compatibility between Visual C++ and GCC.
        Visual C++ will respect the push pack pragma and use 52 bytes (size of

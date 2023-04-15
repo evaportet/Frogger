@@ -12,21 +12,31 @@ class Frog : public GameObject
 {
 private:
 	Vector2 spawnPos;
+	int lastTopY;
 	bool moves;
 	bool OnMovingSuface;
 	bool hasFood;
 	int lives;
-	Food* food;
+	int score;
+	//Food* food;
 	float movingPlatf_speed;
 
 	void Movement();
+	void ChangeToHasFoodSprt();
+	void ResetSprite();
 
 public:
 	Frog();
 	Frog(Vector2 size, Vector2 pos, ColliderType ct, std::string path);
+
+	void SetScore(int newS);
+	int GetScore();
+	int GetLives();
+
 	void Respawn();
+	void Die();
 	bool IsMoving();
-	void Update()override; 
+	void Update(float dt)override; 
 	void Render()override; 
 	void AddFood(Food* food); 
 	void HandleHits(std::list<CollisionResult> hits);

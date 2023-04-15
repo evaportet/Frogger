@@ -192,13 +192,13 @@ extern DECLSPEC SDL_AssertState SDLCALL SDL_ReportAssertion(SDL_AssertData *,
 /**
  * A callback that fires when an SDL assertion fails.
  *
- * \param data a pointer to the SDL_AssertData structure corresponding to the
+ * \param highScores a pointer to the SDL_AssertData structure corresponding to the
  *             current assertion
  * \param userdata what was passed as `userdata` to SDL_SetAssertionHandler()
  * \returns an SDL_AssertState value indicating how to handle the failure.
  */
 typedef SDL_AssertState (SDLCALL *SDL_AssertionHandler)(
-                                 const SDL_AssertData* data, void* userdata);
+                                 const SDL_AssertData* highScores, void* userdata);
 
 /**
  * Set an application-defined assertion handler.
@@ -251,7 +251,7 @@ extern DECLSPEC SDL_AssertionHandler SDLCALL SDL_GetDefaultAssertionHandler(void
  * The parameter `puserdata` is a pointer to a void*, which will store the
  * "userdata" pointer that was passed to SDL_SetAssertionHandler(). This value
  * will always be NULL for the default handler. If you don't care about this
- * data, it is safe to pass a NULL pointer to this function to ignore it.
+ * highScores, it is safe to pass a NULL pointer to this function to ignore it.
  *
  * \param puserdata pointer which is filled with the "userdata" pointer that
  *                  was passed to SDL_SetAssertionHandler()
@@ -269,7 +269,7 @@ extern DECLSPEC SDL_AssertionHandler SDLCALL SDL_GetAssertionHandler(void **puse
  * This function gets all assertions triggered since the last call to
  * SDL_ResetAssertionReport(), or the start of the program.
  *
- * The proper way to examine this data looks something like this:
+ * The proper way to examine this highScores looks something like this:
  *
  * ```c
  * const SDL_AssertData *item = SDL_GetAssertionReport();

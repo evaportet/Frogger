@@ -1,5 +1,8 @@
 #include "Spawner.h"
 
+bool Spawner::foodSpawned = false;
+float Spawner::foodCooldown = 0.f;
+
 Spawner::Spawner(float spwnRatio, SpawnerType t, Vector2 startPos, Vector2 startSpd) : elapsedTime(0.f)
 {
 	type = t;
@@ -32,7 +35,7 @@ Spawner::Spawner(float spwnRatio, SpawnerType t, Vector2 startPos, Vector2 start
 	} break;
 	case SpawnerType::LOG: {
 		Log* newTile = new Log(1, startPos, startSpd.x);
-		gameObjects.emplace_back(newTile);
+		gameObjects.emplace_back(newTile);		
 	}break;
 	case SpawnerType::TURTLES: {
 		Turtles* newTile = new Turtles(1, startPos, startSpd.x);
@@ -47,9 +50,11 @@ Spawner::Spawner(float spwnRatio, SpawnerType t, Vector2 startPos, Vector2 start
 	}
 }
 
-void Spawner::Update()
+void Spawner::Update(float dt)
 {
-	elapsedTime += TM->GetDeltaTimeSeconds();
+	elapsedTime += dt;
+
+	if (!foodSpawned) foodCooldown += dt;
 
 	if (elapsedTime >= spawnRatio)
 	{
@@ -80,6 +85,13 @@ void Spawner::Update()
 		case SpawnerType::LOG: {
 			Log* newTile = new Log(1, startPosition, startSpeed.x);
 			gameObjects.emplace_back(newTile);
+			if (!foodSpawned && foodCooldown >= 15.f)
+			{
+				Food* newFood = new Food(newTile, startPosition, startSpeed.x);
+				gameObjects.emplace_back(newFood);
+				foodSpawned = true;
+				foodCooldown = 0.f;
+			}
 		}break;
 		case SpawnerType::TURTLES: {
 			Turtles* newTile = new Turtles(1, startPosition, startSpeed.x);
@@ -97,11 +109,30 @@ void Spawner::Update()
 
 	for (int i = 0; i < gameObjects.size(); i++)
 	{
-		gameObjects[i]->Update();
+		gameObjects[i]->Update(dt);
+
+		if (gameObjects[i]->collider.GetType() == ColliderType::FOOD) {
+			Food* theFood = dynamic_cast<Food*>(gameObjects[i]);
+			if (theFood->IsPicked())
+			{
+				delete gameObjects[i];
+				gameObjects.erase(gameObjects.cbegin() + i);
+				i--;
+				foodSpawned = false;
+				foodCooldown = 0.f;
+				continue;
+			}
+		}
+
 		if (!CH->InScreen(&(gameObjects[i]->collider)))
 		{
+			if (gameObjects[i]->collider.GetType() == ColliderType::FOOD) {
+				foodSpawned = false;
+				foodCooldown = 15.f;
+			}
 			delete gameObjects[i];
 			gameObjects.erase(gameObjects.cbegin() + i);
+			i--;
 		}
 	}
 }

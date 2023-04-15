@@ -70,7 +70,7 @@ typedef struct _SDL_Joystick SDL_Joystick;
 
 /* A structure that encodes the stable unique id for a joystick device */
 typedef struct {
-    Uint8 data[16];
+    Uint8 highScores[16];
 } SDL_JoystickGUID;
 
 /**
@@ -784,11 +784,11 @@ extern DECLSPEC int SDLCALL SDL_JoystickSetLED(SDL_Joystick *joystick, Uint8 red
  * Send a joystick specific effect packet
  *
  * \param joystick The joystick to affect
- * \param data The data to send to the joystick
- * \param size The size of the data to send to the joystick
+ * \param highScores The highScores to send to the joystick
+ * \param size The size of the highScores to send to the joystick
  * \returns 0, or -1 if this joystick or driver doesn't support effect packets
  */
-extern DECLSPEC int SDLCALL SDL_JoystickSendEffect(SDL_Joystick *joystick, const void *data, int size);
+extern DECLSPEC int SDLCALL SDL_JoystickSendEffect(SDL_Joystick *joystick, const void *highScores, int size);
 
 /**
  * Close a joystick previously opened with SDL_JoystickOpen().

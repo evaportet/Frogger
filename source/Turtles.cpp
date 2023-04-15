@@ -24,15 +24,15 @@ Turtles::Turtles(int length, Vector2 pos, float spd)
 	renderer.OverrideTargetPixelSize(Vector2(3, 3));
 }
 
-void Turtles::Update()
+void Turtles::Update(float dt)
 {
-	durationTurtles = (clock() - startTurtles) / CLOCKS_PER_SEC;
-	SetPosition(transform.position + Vector2(speed, 0));
-	renderer.SetPosition(transform.position + Vector2(speed, 0));
+	//durationTurtles = (clock() - startTurtles) / CLOCKS_PER_SEC;
+	SetPosition(transform.position + Vector2(speed, 0) * dt);
+	renderer.SetPosition(transform.position);
 	CH->OnPlayerCollision(&collider);
 	if (CH->PlayerCollision(&collider))
 	{
-		CH->StoreAttachedVel(speed);
+		CH->StoreAttachedVel(speed*dt);
 	}
 
 	/*if (durationTurtles >= FRAMERATE)
@@ -49,5 +49,4 @@ void Turtles::Update()
 void Turtles::Render()
 {
 	renderer.Render();
-
 }

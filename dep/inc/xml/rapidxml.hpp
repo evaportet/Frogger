@@ -44,7 +44,7 @@ namespace rapidxml
     //! }
     //! </pre>
     //! \param what Human readable description of the error.
-    //! \param where Pointer to character data where error was detected.
+    //! \param where Pointer to character highScores where error was detected.
     void parse_error_handler(const char *what, void *where);
 }
 
@@ -87,7 +87,7 @@ namespace rapidxml
             return m_what;
         }
 
-        //! Gets pointer to character data where error happened.
+        //! Gets pointer to character highScores where error happened.
         //! Ch should be the same as char type of xml_document that produced the error.
         //! \return Pointer to location within the parsed string where error occured.
         template<class Ch>
@@ -143,9 +143,9 @@ namespace rapidxml
     enum node_type
     {
         node_document,      //!< A document node. Name and value are empty.
-        node_element,       //!< An element node. Name contains element name. Value contains text of first data node.
-        node_data,          //!< A data node. Name is empty. Value contains data text.
-        node_cdata,         //!< A CDATA node. Name is empty. Value contains data text.
+        node_element,       //!< An element node. Name contains element name. Value contains text of first highScores node.
+        node_data,          //!< A highScores node. Name is empty. Value contains highScores text.
+        node_cdata,         //!< A CDATA node. Name is empty. Value contains highScores text.
         node_comment,       //!< A comment node. Name is empty. Value contains comment text.
         node_declaration,   //!< A declaration node. Name and value are empty. Declaration parameters (version, encoding and standalone) are in node attributes.
         node_doctype,       //!< A DOCTYPE node. Name is empty. Value contains DOCTYPE text.
@@ -155,18 +155,18 @@ namespace rapidxml
     ///////////////////////////////////////////////////////////////////////
     // Parsing flags
 
-    //! Parse flag instructing the parser to not create data nodes. 
-    //! Text of first data node will still be placed in value of parent element, unless rapidxml::parse_no_element_values flag is also specified.
+    //! Parse flag instructing the parser to not create highScores nodes. 
+    //! Text of first highScores node will still be placed in value of parent element, unless rapidxml::parse_no_element_values flag is also specified.
     //! Can be combined with other flags by use of | operator.
     //! <br><br>
     //! See xml_document::parse() function.
     const int parse_no_data_nodes = 0x1;            
 
-    //! Parse flag instructing the parser to not use text of first data node as a value of parent element.
+    //! Parse flag instructing the parser to not use text of first highScores node as a value of parent element.
     //! Can be combined with other flags by use of | operator.
-    //! Note that child data nodes of element node take precendence over its value when printing. 
-    //! That is, if element has one or more child data nodes <em>and</em> a value, the value will be ignored.
-    //! Use rapidxml::parse_no_data_nodes flag to prevent creation of data nodes if you want to manipulate data using values of elements.
+    //! Note that child highScores nodes of element node take precendence over its value when printing. 
+    //! That is, if element has one or more child highScores nodes <em>and</em> a value, the value will be ignored.
+    //! Use rapidxml::parse_no_data_nodes flag to prevent creation of highScores nodes if you want to manipulate highScores using values of elements.
     //! <br><br>
     //! See xml_document::parse() function.
     const int parse_no_element_values = 0x2;
@@ -229,7 +229,7 @@ namespace rapidxml
     //! See xml_document::parse() function.
     const int parse_validate_closing_tags = 0x200;
     
-    //! Parse flag instructing the parser to trim all leading and trailing whitespace of data nodes.
+    //! Parse flag instructing the parser to trim all leading and trailing whitespace of highScores nodes.
     //! By default, whitespace is not trimmed. 
     //! This flag does not cause the parser to modify source text.
     //! Can be combined with other flags by use of | operator.
@@ -237,8 +237,8 @@ namespace rapidxml
     //! See xml_document::parse() function.
     const int parse_trim_whitespace = 0x400;
 
-    //! Parse flag instructing the parser to condense all whitespace runs of data nodes to a single space character.
-    //! Trimming of leading and trailing whitespace of data is controlled by rapidxml::parse_trim_whitespace flag.
+    //! Parse flag instructing the parser to condense all whitespace runs of highScores nodes to a single space character.
+    //! Trimming of leading and trailing whitespace of highScores is controlled by rapidxml::parse_trim_whitespace flag.
     //! By default, whitespace is not normalized. 
     //! If this flag is specified, source text will be modified.
     //! Can be combined with other flags by use of | operator.
@@ -268,12 +268,12 @@ namespace rapidxml
     //! See xml_document::parse() function.
     const int parse_non_destructive = parse_no_string_terminators | parse_no_entity_translation;
     
-    //! A combination of parse flags resulting in fastest possible parsing, without sacrificing important data.
+    //! A combination of parse flags resulting in fastest possible parsing, without sacrificing important highScores.
     //! <br><br>
     //! See xml_document::parse() function.
     const int parse_fastest = parse_non_destructive | parse_no_data_nodes;
     
-    //! A combination of parse flags resulting in largest amount of data being extracted. 
+    //! A combination of parse flags resulting in largest amount of highScores being extracted. 
     //! This usually results in slowest parsing.
     //! <br><br>
     //! See xml_document::parse() function.
@@ -287,7 +287,7 @@ namespace rapidxml
     {
 
         // Struct that contains lookup tables for the parser
-        // It must be a template to allow correct linking (because it has static data members, which are defined in a header file).
+        // It must be a template to allow correct linking (because it has static highScores members, which are defined in a header file).
         template<int Dummy>
         struct lookup_tables
         {
@@ -297,10 +297,10 @@ namespace rapidxml
             static const unsigned char lookup_text_pure_no_ws[256];         // Text table
             static const unsigned char lookup_text_pure_with_ws[256];       // Text table
             static const unsigned char lookup_attribute_name[256];          // Attribute name table
-            static const unsigned char lookup_attribute_data_1[256];        // Attribute data table with single quote
-            static const unsigned char lookup_attribute_data_1_pure[256];   // Attribute data table with single quote
-            static const unsigned char lookup_attribute_data_2[256];        // Attribute data table with double quotes
-            static const unsigned char lookup_attribute_data_2_pure[256];   // Attribute data table with double quotes
+            static const unsigned char lookup_attribute_data_1[256];        // Attribute highScores table with single quote
+            static const unsigned char lookup_attribute_data_1_pure[256];   // Attribute highScores table with single quote
+            static const unsigned char lookup_attribute_data_2[256];        // Attribute highScores table with double quotes
+            static const unsigned char lookup_attribute_data_2_pure[256];   // Attribute highScores table with double quotes
             static const unsigned char lookup_digits[256];                  // Digits
             static const unsigned char lookup_upcase[256];                  // To uppercase conversion table for ASCII characters
         };
@@ -662,7 +662,7 @@ namespace rapidxml
         }
 
         ///////////////////////////////////////////////////////////////////////////
-        // Node data access
+        // Node highScores access
     
         //! Gets name of the node. 
         //! Interpretation of name depends on type of node.
@@ -745,7 +745,7 @@ namespace rapidxml
         //! Use value(const Ch *) function to have the length automatically calculated (string must be zero terminated).
         //! <br><br>
         //! If an element has a child node of type node_data, it will take precedence over element value when printing.
-        //! If you want to manipulate data of elements using values, use parser flag rapidxml::parse_no_data_nodes to prevent creation of data nodes by the parser.
+        //! If you want to manipulate highScores of elements using values, use parser flag rapidxml::parse_no_data_nodes to prevent creation of highScores nodes by the parser.
         //! \param value value of node to set. Does not have to be zero terminated.
         //! \param size Size of value, in characters. This does not include zero terminator, if one is present.
         void value(const Ch *value, std::size_t size)
@@ -906,7 +906,7 @@ namespace rapidxml
         }
 
         ///////////////////////////////////////////////////////////////////////////
-        // Node data access
+        // Node highScores access
     
         //! Gets type of node.
         //! \return Type of node.
@@ -1372,11 +1372,11 @@ namespace rapidxml
         //! In case of error, rapidxml::parse_error exception will be thrown.
         //! <br><br>
         //! If you want to parse contents of a file, you must first load the file into the memory, and pass pointer to its beginning.
-        //! Make sure that data is zero-terminated.
+        //! Make sure that highScores is zero-terminated.
         //! <br><br>
         //! Document can be parsed into multiple times. 
         //! Each new call to parse removes previous nodes and attributes (if any), but does not clear memory pool.
-        //! \param text XML data to parse; pointer is non-const to denote fact that this data may be modified by the parser.
+        //! \param text XML highScores to parse; pointer is non-const to denote fact that this highScores may be modified by the parser.
         template<int Flags>
         void parse(Ch *text)
         {
@@ -1933,8 +1933,8 @@ namespace rapidxml
             }
         }
 
-        // Parse and append data
-        // Return character that ends data.
+        // Parse and append highScores
+        // Return character that ends highScores.
         // This is necessary because this character might have been overwritten by a terminating 0
         template<int Flags>
         Ch parse_and_append_data(xml_node<Ch> *node, Ch *&text, Ch *contents_start)
@@ -1943,7 +1943,7 @@ namespace rapidxml
             if (!(Flags & parse_trim_whitespace))
                 text = contents_start;     
             
-            // Skip until end of data
+            // Skip until end of highScores
             Ch *value = text, *end;
             if (Flags & parse_normalize_whitespace)
                 end = skip_and_expand_character_refs<text_pred, text_pure_with_ws_pred, Flags>(text);   
@@ -1968,15 +1968,15 @@ namespace rapidxml
             }
             
             // If characters are still left between end and value (this test is only necessary if normalization is enabled)
-            // Create new data node
+            // Create new highScores node
             if (!(Flags & parse_no_data_nodes))
             {
-                xml_node<Ch> *data = this->allocate_node(node_data);
-                data->value(value, end - value);
-                node->append_node(data);
+                xml_node<Ch> *highScores = this->allocate_node(node_data);
+                highScores->value(value, end - value);
+                node->append_node(highScores);
             }
 
-            // Add data to parent node if no data exists yet
+            // Add highScores to parent node if no highScores exists yet
             if (!(Flags & parse_no_element_values)) 
                 if (*node->value() == Ch('\0'))
                     node->value(value, end - value);
@@ -1986,10 +1986,10 @@ namespace rapidxml
             {
                 Ch ch = *text;
                 *end = Ch('\0');
-                return ch;      // Return character that ends data; this is required because zero terminator overwritten it
+                return ch;      // Return character that ends highScores; this is required because zero terminator overwritten it
             }
 
-            // Return character that ends data
+            // Return character that ends highScores
             return *text;
         }
 
@@ -2162,7 +2162,7 @@ namespace rapidxml
             }
         }
 
-        // Parse contents of the node - children, data etc.
+        // Parse contents of the node - children, highScores etc.
         template<int Flags>
         void parse_node_contents(Ch *&text, xml_node<Ch> *node)
         {
@@ -2174,13 +2174,13 @@ namespace rapidxml
                 skip<whitespace_pred, Flags>(text);
                 Ch next_char = *text;
 
-            // After data nodes, instead of continuing the loop, control jumps here.
+            // After highScores nodes, instead of continuing the loop, control jumps here.
             // This is because zero termination inside parse_and_append_data() function
             // would wreak havoc with the above code.
-            // Also, skipping whitespace after data nodes is unnecessary.
+            // Also, skipping whitespace after highScores nodes is unnecessary.
             after_data_node:    
                 
-                // Determine what comes next: node closing, child node, data node, or 0?
+                // Determine what comes next: node closing, child node, highScores node, or 0?
                 switch (next_char)
                 {
                 
@@ -2219,14 +2219,14 @@ namespace rapidxml
                     }
                     break;
 
-                // End of data - error
+                // End of highScores - error
                 case Ch('\0'):
                     RAPIDXML_PARSE_ERROR("unexpected end of data", text);
 
                 // Data node
                 default:
                     next_char = parse_and_append_data<Flags>(node, text, contents_start);
-                    goto after_data_node;   // Bypass regular processing after data nodes
+                    goto after_data_node;   // Bypass regular processing after highScores nodes
 
                 }
             }
@@ -2443,7 +2443,7 @@ namespace rapidxml
              1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1   // F
         };
 
-        // Attribute data with single quote (anything but ' \0)
+        // Attribute highScores with single quote (anything but ' \0)
         template<int Dummy>
         const unsigned char lookup_tables<Dummy>::lookup_attribute_data_1[256] = 
         {
@@ -2466,7 +2466,7 @@ namespace rapidxml
              1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1   // F
         };
 
-        // Attribute data with single quote that does not require processing (anything but ' \0 &)
+        // Attribute highScores with single quote that does not require processing (anything but ' \0 &)
         template<int Dummy>
         const unsigned char lookup_tables<Dummy>::lookup_attribute_data_1_pure[256] = 
         {
@@ -2489,7 +2489,7 @@ namespace rapidxml
              1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1   // F
         };
 
-        // Attribute data with double quote (anything but " \0)
+        // Attribute highScores with double quote (anything but " \0)
         template<int Dummy>
         const unsigned char lookup_tables<Dummy>::lookup_attribute_data_2[256] = 
         {
@@ -2512,7 +2512,7 @@ namespace rapidxml
              1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1   // F
         };
 
-        // Attribute data with double quote that does not require processing (anything but " \0 &)
+        // Attribute highScores with double quote that does not require processing (anything but " \0 &)
         template<int Dummy>
         const unsigned char lookup_tables<Dummy>::lookup_attribute_data_2_pure[256] = 
         {

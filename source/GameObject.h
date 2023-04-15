@@ -10,7 +10,7 @@ protected:
 	ImageRenderer renderer;
 public:
 	GameObject() = default;
-	virtual void Update() = 0;
+	virtual void Update(float dt) = 0;
 	virtual void Render() = 0;
 	//Renderer* GetRenderer();
 };

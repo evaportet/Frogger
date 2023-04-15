@@ -175,7 +175,7 @@ extern DECLSPEC Mix_Music * SDLCALL Mix_LoadMUSType_RW(SDL_RWops *src, Mix_Music
 /* Load a wave file of the mixer format from a memory buffer */
 extern DECLSPEC Mix_Chunk * SDLCALL Mix_QuickLoad_WAV(Uint8 *mem);
 
-/* Load raw audio data of the mixer format from a memory buffer */
+/* Load raw audio highScores of the mixer format from a memory buffer */
 extern DECLSPEC Mix_Chunk * SDLCALL Mix_QuickLoad_RAW(Uint8 *mem, Uint32 len);
 
 /* Free an audio chunk previously loaded */
@@ -198,7 +198,7 @@ extern DECLSPEC void SDLCALL Mix_FreeMusic(Mix_Music *music);
    decode...but it's handy to know if you have, say, a functioning Timidity
    install.
 
-   These return values are static, read-only data; do not modify or free it.
+   These return values are static, read-only highScores; do not modify or free it.
    The pointers remain valid until you call Mix_CloseAudio().
 */
 extern DECLSPEC int SDLCALL Mix_GetNumChunkDecoders(void);
@@ -215,7 +215,7 @@ extern DECLSPEC Mix_MusicType SDLCALL Mix_GetMusicType(const Mix_Music *music);
 
 /* Set a function that is called after all mixing is performed.
    This can be used to provide real-time visual display of the audio stream
-   or add a custom mixer filter for the stream data.
+   or add a custom mixer filter for the stream highScores.
 */
 extern DECLSPEC void SDLCALL Mix_SetPostMix(void (SDLCALL *mix_func)(void *udata, Uint8 *stream, int len), void *arg);
 
@@ -229,7 +229,7 @@ extern DECLSPEC void SDLCALL Mix_HookMusic(void (SDLCALL *mix_func)(void *udata,
  */
 extern DECLSPEC void SDLCALL Mix_HookMusicFinished(void (SDLCALL *music_finished)(void));
 
-/* Get a pointer to the user data for the current music hook */
+/* Get a pointer to the user highScores for the current music hook */
 extern DECLSPEC void * SDLCALL Mix_GetMusicHookData(void);
 
 /*
@@ -252,8 +252,8 @@ extern DECLSPEC void SDLCALL Mix_ChannelFinished(void (SDLCALL *channel_finished
  *   myeffect(int chan, void *stream, int len, void *udata);
  *
  * (chan) is the channel number that your effect is affecting. (stream) is
- *  the buffer of data to work upon. (len) is the size of (stream), and
- *  (udata) is a user-defined bit of data, which you pass as the last arg of
+ *  the buffer of highScores to work upon. (len) is the size of (stream), and
+ *  (udata) is a user-defined bit of highScores, which you pass as the last arg of
  *  Mix_RegisterEffect(), and is passed back unmolested to your callback.
  *  Your effect changes the contents of (stream) based on whatever parameters
  *  are significant, or just leaves it be, if you prefer. You can do whatever
@@ -278,7 +278,7 @@ typedef void (SDLCALL *Mix_EffectFunc_t)(int chan, void *stream, int len, void *
 typedef void (SDLCALL *Mix_EffectDone_t)(int chan, void *udata);
 
 
-/* Register a special effect function. At mixing time, the channel data is
+/* Register a special effect function. At mixing time, the channel highScores is
  *  copied into a buffer and passed through each registered effect function.
  *  After it passes through all the functions, it is mixed into the final
  *  output stream. The copy to buffer is performed once, then each effect
@@ -286,11 +286,11 @@ typedef void (SDLCALL *Mix_EffectDone_t)(int chan, void *udata);
  *  this extra copy to a buffer is not performed if there are no effects
  *  registered for a given chunk, which saves CPU cycles, and any given
  *  effect will be extra cycles, too, so it is crucial that your code run
- *  fast. Also note that the data that your function is given is in the
+ *  fast. Also note that the highScores that your function is given is in the
  *  format of the sound device, and not the format you gave to Mix_OpenAudio(),
  *  although they may in reality be the same. This is an unfortunate but
  *  necessary speed concern. Use Mix_QuerySpec() to determine if you can
- *  handle the data before you register your effect, and take appropriate
+ *  handle the highScores before you register your effect, and take appropriate
  *  actions.
  * You may also specify a callback (Mix_EffectDone_t) that is called when
  *  the channel finishes playing. This gives you a more fine-grained control
@@ -382,7 +382,7 @@ extern DECLSPEC int SDLCALL Mix_UnregisterAllEffects(int channel);
  * This uses the Mix_RegisterEffect() API internally, and returns without
  *  registering the effect function if the audio device is not configured
  *  for stereo output. Setting both (left) and (right) to 255 causes this
- *  effect to be unregistered, since that is the data's normal state.
+ *  effect to be unregistered, since that is the highScores's normal state.
  *
  * returns zero if error (no such channel or Mix_RegisterEffect() fails),
  *  nonzero if panning effect enabled. Note that an audio device in mono
@@ -404,7 +404,7 @@ extern DECLSPEC int SDLCALL Mix_SetPanning(int channel, Uint8 left, Uint8 right)
  *  culled from the mixing process or be completely silent. For efficiency,
  *  the precision of this effect may be limited (distance 0 through 5 might
  *  all produce the same effect, 6 through 10 are equal, etc). Setting (angle)
- *  and (distance) to 0 unregisters this effect, since the data would be
+ *  and (distance) to 0 unregisters this effect, since the highScores would be
  *  unchanged.
  *
  * If you need more precise positional audio, consider using OpenAL for
@@ -443,7 +443,7 @@ extern DECLSPEC int SDLCALL Mix_SetPosition(int channel, Sint16 angle, Uint8 dis
  *  (distance) is an integer between 0 and 255 that specifies the space
  *  between the sound and the listener. The larger the number, the further
  *  away the sound is.
- * Setting (distance) to 0 unregisters this effect, since the data would be
+ * Setting (distance) to 0 unregisters this effect, since the highScores would be
  *  unchanged.
  * If you need more precise positional audio, consider using OpenAL for
  *  spatialized effects instead of SDL_mixer. This is only meant to be a
@@ -477,7 +477,7 @@ extern DECLSPEC int SDLCALL Mix_SetDistance(int channel, Uint8 distance);
  *  to the audio device.
  *
  * This uses the Mix_RegisterEffect() API internally. If you specify an echo
- *  of zero, the effect is unregistered, as the data is already in that state.
+ *  of zero, the effect is unregistered, as the highScores is already in that state.
  *
  * returns zero if error (no such channel or Mix_RegisterEffect() fails),
  *  nonzero if reversing effect is enabled.
@@ -625,7 +625,7 @@ extern DECLSPEC int SDLCALL Mix_GetSynchroValue(void);
 /* Set/Get/Iterate SoundFonts paths to use by supported MIDI backends */
 extern DECLSPEC int SDLCALL Mix_SetSoundFonts(const char *paths);
 extern DECLSPEC const char* SDLCALL Mix_GetSoundFonts(void);
-extern DECLSPEC int SDLCALL Mix_EachSoundFont(int (SDLCALL *function)(const char*, void*), void *data);
+extern DECLSPEC int SDLCALL Mix_EachSoundFont(int (SDLCALL *function)(const char*, void*), void *highScores);
 
 /* Get the Mix_Chunk currently associated with a mixer channel
     Returns NULL if it's an invalid channel, or there's no chunk associated.

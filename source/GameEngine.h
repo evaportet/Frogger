@@ -5,6 +5,8 @@
 #include"SceneManager.h"
 #include"SplashScreenScene.h"
 #include"MainMenuScene.h"
+#include"RankingScene.h"
+#include"HighScoreManager.h"
 #include"GameplayScene.h"
 #include"RenderManager.h"
 #include"AudioManager.h"

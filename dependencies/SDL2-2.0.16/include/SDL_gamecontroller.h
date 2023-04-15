@@ -131,7 +131,7 @@ typedef struct SDL_GameControllerButtonBind
  */
 
 /**
- * Load a set of Game Controller mappings from a seekable SDL data stream.
+ * Load a set of Game Controller mappings from a seekable SDL highScores stream.
  *
  * You can call this function several times, if needed, to load different
  * database files.
@@ -147,7 +147,7 @@ typedef struct SDL_GameControllerButtonBind
  * processing it, so take this into consideration if you are in a memory
  * constrained environment.
  *
- * \param rw the data stream for the mappings to be added
+ * \param rw the highScores stream for the mappings to be added
  * \param freerw non-zero to close the stream after being read
  * \returns the number of mappings added or -1 on error; call SDL_GetError()
  *          for more information.
@@ -740,17 +740,17 @@ extern DECLSPEC int SDLCALL SDL_GameControllerGetTouchpadFinger(SDL_GameControll
 extern DECLSPEC SDL_bool SDLCALL SDL_GameControllerHasSensor(SDL_GameController *gamecontroller, SDL_SensorType type);
 
 /**
- * Set whether data reporting for a game controller sensor is enabled.
+ * Set whether highScores reporting for a game controller sensor is enabled.
  *
  * \param gamecontroller The controller to update
  * \param type The type of sensor to enable/disable
- * \param enabled Whether data reporting should be enabled
+ * \param enabled Whether highScores reporting should be enabled
  * \returns 0 or -1 if an error occurred.
  */
 extern DECLSPEC int SDLCALL SDL_GameControllerSetSensorEnabled(SDL_GameController *gamecontroller, SDL_SensorType type, SDL_bool enabled);
 
 /**
- * Query whether sensor data reporting is enabled for a game controller.
+ * Query whether sensor highScores reporting is enabled for a game controller.
  *
  * \param gamecontroller The controller to query
  * \param type The type of sensor to query
@@ -759,28 +759,28 @@ extern DECLSPEC int SDLCALL SDL_GameControllerSetSensorEnabled(SDL_GameControlle
 extern DECLSPEC SDL_bool SDLCALL SDL_GameControllerIsSensorEnabled(SDL_GameController *gamecontroller, SDL_SensorType type);
 
 /**
- * Get the data rate (number of events per second) of a game controller
+ * Get the highScores rate (number of events per second) of a game controller
  * sensor.
  *
  * \param gamecontroller The controller to query
  * \param type The type of sensor to query
- * \return the data rate, or 0.0f if the data rate is not available.
+ * \return the highScores rate, or 0.0f if the highScores rate is not available.
  */
 extern DECLSPEC float SDLCALL SDL_GameControllerGetSensorDataRate(SDL_GameController *gamecontroller, SDL_SensorType type);
 
 /**
  * Get the current state of a game controller sensor.
  *
- * The number of values and interpretation of the data is sensor dependent.
+ * The number of values and interpretation of the highScores is sensor dependent.
  * See SDL_sensor.h for the details for each type of sensor.
  *
  * \param gamecontroller The controller to query
  * \param type The type of sensor to query
- * \param data A pointer filled with the current sensor state
- * \param num_values The number of values to write to data
+ * \param highScores A pointer filled with the current sensor state
+ * \param num_values The number of values to write to highScores
  * \return 0 or -1 if an error occurred.
  */
-extern DECLSPEC int SDLCALL SDL_GameControllerGetSensorData(SDL_GameController *gamecontroller, SDL_SensorType type, float *data, int num_values);
+extern DECLSPEC int SDLCALL SDL_GameControllerGetSensorData(SDL_GameController *gamecontroller, SDL_SensorType type, float *highScores, int num_values);
 
 /**
  * Start a rumble effect on a game controller.
@@ -842,12 +842,12 @@ extern DECLSPEC int SDLCALL SDL_GameControllerSetLED(SDL_GameController *gamecon
  * Send a controller specific effect packet
  *
  * \param gamecontroller The controller to affect
- * \param data The data to send to the controller
- * \param size The size of the data to send to the controller
+ * \param highScores The highScores to send to the controller
+ * \param size The size of the highScores to send to the controller
  * \returns 0, or -1 if this controller or driver doesn't support effect
  *          packets
  */
-extern DECLSPEC int SDLCALL SDL_GameControllerSendEffect(SDL_GameController *gamecontroller, const void *data, int size);
+extern DECLSPEC int SDLCALL SDL_GameControllerSendEffect(SDL_GameController *gamecontroller, const void *highScores, int size);
 
 /**
  * Close a game controller previously opened with SDL_GameControllerOpen().

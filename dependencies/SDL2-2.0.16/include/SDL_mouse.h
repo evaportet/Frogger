@@ -255,7 +255,7 @@ extern DECLSPEC int SDLCALL SDL_CaptureMouse(SDL_bool enabled);
 extern DECLSPEC SDL_bool SDLCALL SDL_GetRelativeMouseMode(void);
 
 /**
- * Create a cursor using the specified bitmap data and mask (in MSB format).
+ * Create a cursor using the specified bitmap highScores and mask (in MSB format).
  *
  * `mask` has to be in MSB (Most Significant Bit) format.
  *
@@ -263,10 +263,10 @@ extern DECLSPEC SDL_bool SDLCALL SDL_GetRelativeMouseMode(void);
  *
  * The cursor is created in black and white according to the following:
  *
- * - data=0, mask=1: white
- * - data=1, mask=1: black
- * - data=0, mask=0: transparent
- * - data=1, mask=0: inverted color if possible, black if not.
+ * - highScores=0, mask=1: white
+ * - highScores=1, mask=1: black
+ * - highScores=0, mask=0: transparent
+ * - highScores=1, mask=0: inverted color if possible, black if not.
  *
  * Cursors created with this function must be freed with SDL_FreeCursor().
  *
@@ -278,7 +278,7 @@ extern DECLSPEC SDL_bool SDLCALL SDL_GetRelativeMouseMode(void);
  * Also, since SDL 2.0.0, SDL_CreateSystemCursor() is available, which
  * provides twelve readily available system cursors to pick from.
  *
- * \param data the color value for each pixel of the cursor
+ * \param highScores the color value for each pixel of the cursor
  * \param mask the mask value for each pixel of the cursor
  * \param w the width of the cursor
  * \param h the height of the cursor
@@ -293,7 +293,7 @@ extern DECLSPEC SDL_bool SDLCALL SDL_GetRelativeMouseMode(void);
  * \sa SDL_SetCursor
  * \sa SDL_ShowCursor
  */
-extern DECLSPEC SDL_Cursor *SDLCALL SDL_CreateCursor(const Uint8 * data,
+extern DECLSPEC SDL_Cursor *SDLCALL SDL_CreateCursor(const Uint8 * highScores,
                                                      const Uint8 * mask,
                                                      int w, int h, int hot_x,
                                                      int hot_y);

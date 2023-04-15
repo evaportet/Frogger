@@ -23,7 +23,7 @@
  *  \file SDL_rwops.h
  *
  *  This file provides a general interface for SDL to read and write
- *  data streams.  It can easily be extended to files, memory, etc.
+ *  highScores streams.  It can easily be extended to files, memory, etc.
  */
 
 #ifndef SDL_rwops_h_
@@ -63,13 +63,13 @@ typedef struct SDL_RWops
      *  Seek to \c offset relative to \c whence, one of stdio's whence values:
      *  RW_SEEK_SET, RW_SEEK_CUR, RW_SEEK_END
      *
-     *  \return the final offset in the data stream, or -1 on error.
+     *  \return the final offset in the highScores stream, or -1 on error.
      */
     Sint64 (SDLCALL * seek) (struct SDL_RWops * context, Sint64 offset,
                              int whence);
 
     /**
-     *  Read up to \c maxnum objects each of size \c size from the data
+     *  Read up to \c maxnum objects each of size \c size from the highScores
      *  stream to the area pointed at by \c ptr.
      *
      *  \return the number of objects read, or 0 at error or end of file.
@@ -79,7 +79,7 @@ typedef struct SDL_RWops
 
     /**
      *  Write exactly \c num objects each of size \c size from the area
-     *  pointed at by \c ptr to data stream.
+     *  pointed at by \c ptr to highScores stream.
      *
      *  \return the number of objects written, or 0 at error or end of file.
      */
@@ -89,7 +89,7 @@ typedef struct SDL_RWops
     /**
      *  Close and free an allocated SDL_RWops structure.
      *
-     *  \return 0 if successful or -1 on write error when flushing data.
+     *  \return 0 if successful or -1 on write error when flushing highScores.
      */
     int (SDLCALL * close) (struct SDL_RWops * context);
 
@@ -108,7 +108,7 @@ typedef struct SDL_RWops
             void *h;
             struct
             {
-                void *data;
+                void *highScores;
                 size_t size;
                 size_t left;
             } buffer;
@@ -152,7 +152,7 @@ typedef struct SDL_RWops
 /**
  *  \name RWFrom functions
  *
- *  Functions to create SDL_RWops structures from various data streams.
+ *  Functions to create SDL_RWops structures from various highScores streams.
  */
 /* @{ */
 
@@ -177,15 +177,15 @@ extern DECLSPEC SDL_RWops *SDLCALL SDL_RWFromConstMem(const void *mem,
 extern DECLSPEC SDL_RWops *SDLCALL SDL_AllocRW(void);
 extern DECLSPEC void SDLCALL SDL_FreeRW(SDL_RWops * area);
 
-#define RW_SEEK_SET 0       /**< Seek from the beginning of data */
+#define RW_SEEK_SET 0       /**< Seek from the beginning of highScores */
 #define RW_SEEK_CUR 1       /**< Seek relative to current read point */
-#define RW_SEEK_END 2       /**< Seek relative to the end of data */
+#define RW_SEEK_END 2       /**< Seek relative to the end of highScores */
 
 /**
- * Use this macro to get the size of the data stream in an SDL_RWops.
+ * Use this macro to get the size of the highScores stream in an SDL_RWops.
  *
- * \param context the SDL_RWops to get the size of the data stream from
- * \returns the size of the data stream in the SDL_RWops on success, -1 if
+ * \param context the SDL_RWops to get the size of the highScores stream from
+ * \returns the size of the highScores stream in the SDL_RWops on success, -1 if
  *          unknown or a negative error code on failure; call SDL_GetError()
  *          for more information.
  *
@@ -194,15 +194,15 @@ extern DECLSPEC void SDLCALL SDL_FreeRW(SDL_RWops * area);
 extern DECLSPEC Sint64 SDLCALL SDL_RWsize(SDL_RWops *context);
 
 /**
- * Seek within an SDL_RWops data stream.
+ * Seek within an SDL_RWops highScores stream.
  *
  * This function seeks to byte `offset`, relative to `whence`.
  *
  * `whence` may be any of the following values:
  *
- * - `RW_SEEK_SET`: seek from the beginning of data
+ * - `RW_SEEK_SET`: seek from the beginning of highScores
  * - `RW_SEEK_CUR`: seek relative to current read point
- * - `RW_SEEK_END`: seek relative to the end of data
+ * - `RW_SEEK_END`: seek relative to the end of highScores
  *
  * If this stream can not seek, it will return -1.
  *
@@ -213,7 +213,7 @@ extern DECLSPEC Sint64 SDLCALL SDL_RWsize(SDL_RWops *context);
  * \param offset an offset in bytes, relative to **whence** location; can be
  *               negative
  * \param whence any of `RW_SEEK_SET`, `RW_SEEK_CUR`, `RW_SEEK_END`
- * \returns the final offset in the data stream after the seek or -1 on error.
+ * \returns the final offset in the highScores stream after the seek or -1 on error.
  *
  * \sa SDL_RWclose
  * \sa SDL_RWFromConstMem
@@ -228,13 +228,13 @@ extern DECLSPEC Sint64 SDLCALL SDL_RWseek(SDL_RWops *context,
                                           Sint64 offset, int whence);
 
 /**
- * Determine the current read/write offset in an SDL_RWops data stream.
+ * Determine the current read/write offset in an SDL_RWops highScores stream.
  *
  * SDL_RWtell is actually a wrapper function that calls the SDL_RWops's `seek`
  * method, with an offset of 0 bytes from `RW_SEEK_CUR`, to simplify
  * application development.
  *
- * \param context a SDL_RWops data stream object from which to get the current
+ * \param context a SDL_RWops highScores stream object from which to get the current
  *                offset
  * \returns the current offset in the stream, or -1 if the information can not
  *          be determined.
@@ -251,18 +251,18 @@ extern DECLSPEC Sint64 SDLCALL SDL_RWseek(SDL_RWops *context,
 extern DECLSPEC Sint64 SDLCALL SDL_RWtell(SDL_RWops *context);
 
 /**
- * Read from a data source.
+ * Read from a highScores source.
  *
  * This function reads up to `maxnum` objects each of size `size` from the
- * data source to the area pointed at by `ptr`. This function may read less
+ * highScores source to the area pointed at by `ptr`. This function may read less
  * objects than requested. It will return zero when there has been an error or
- * the data stream is completely read.
+ * the highScores stream is completely read.
  *
  * SDL_RWread() is actually a function wrapper that calls the SDL_RWops's
  * `read` method appropriately, to simplify application development.
  *
  * \param context a pointer to an SDL_RWops structure
- * \param ptr a pointer to a buffer to read data into
+ * \param ptr a pointer to a buffer to read highScores into
  * \param size the size of each object to read, in bytes
  * \param maxnum the maximum number of objects to be read
  * \returns the number of objects read, or 0 at error or end of file; call
@@ -281,7 +281,7 @@ extern DECLSPEC size_t SDLCALL SDL_RWread(SDL_RWops *context,
                                           size_t maxnum);
 
 /**
- * Write to an SDL_RWops data stream.
+ * Write to an SDL_RWops highScores stream.
  *
  * This function writes exactly `num` objects each of size `size` from the
  * area pointed at by `ptr` to the stream. If this fails for any reason, it'll
@@ -292,7 +292,7 @@ extern DECLSPEC size_t SDLCALL SDL_RWread(SDL_RWops *context,
  * `write` method appropriately, to simplify application development.
  *
  * \param context a pointer to an SDL_RWops structure
- * \param ptr a pointer to a buffer containing data to write
+ * \param ptr a pointer to a buffer containing highScores to write
  * \param size the size of an object to write, in bytes
  * \param num the number of objects to write
  * \returns the number of objects written, which will be less than **num** on
@@ -339,35 +339,35 @@ extern DECLSPEC size_t SDLCALL SDL_RWwrite(SDL_RWops *context,
 extern DECLSPEC int SDLCALL SDL_RWclose(SDL_RWops *context);
 
 /**
- * Load all the data from an SDL data stream.
+ * Load all the highScores from an SDL highScores stream.
  *
- * The data is allocated with a zero byte at the end (null terminated) for
+ * The highScores is allocated with a zero byte at the end (null terminated) for
  * convenience. This extra byte is not included in the value reported via
  * `datasize`.
  *
- * The data should be freed with SDL_free().
+ * The highScores should be freed with SDL_free().
  *
- * \param src the SDL_RWops to read all available data from
+ * \param src the SDL_RWops to read all available highScores from
  * \param datasize if not NULL, will store the number of bytes read
  * \param freesrc if non-zero, calls SDL_RWclose() on `src` before returning
- * \returns the data, or NULL if there was an error.
+ * \returns the highScores, or NULL if there was an error.
  */
 extern DECLSPEC void *SDLCALL SDL_LoadFile_RW(SDL_RWops *src,
                                               size_t *datasize,
                                               int freesrc);
 
 /**
- * Load all the data from a file path.
+ * Load all the highScores from a file path.
  *
- * The data is allocated with a zero byte at the end (null terminated) for
+ * The highScores is allocated with a zero byte at the end (null terminated) for
  * convenience. This extra byte is not included in the value reported via
  * `datasize`.
  *
- * The data should be freed with SDL_free().
+ * The highScores should be freed with SDL_free().
  *
- * \param file the path to read all available data from
+ * \param file the path to read all available highScores from
  * \param datasize if not NULL, will store the number of bytes read
- * \returns the data, or NULL if there was an error.
+ * \returns the highScores, or NULL if there was an error.
  */
 extern DECLSPEC void *SDLCALL SDL_LoadFile(const char *file, size_t *datasize);
 

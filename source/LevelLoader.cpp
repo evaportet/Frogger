@@ -1,6 +1,6 @@
 #include "LevelLoader.h"
 
-bool LevelLoader::LoadLevel(std::string path, std::vector<Spawner*>& spawns, std::vector<Tile*>& tiles)
+bool LevelLoader::LoadLevel(std::string path, std::vector<Spawner*>& spawns, std::vector<Tile*>& tiles, float& levelTime)
 {
 	rapidxml::xml_document<> doc;
 	std::ifstream file("resources/Files/sample_level.xml");
@@ -10,12 +10,10 @@ bool LevelLoader::LoadLevel(std::string path, std::vector<Spawner*>& spawns, std
 	std::string content(buffer.str());
 	doc.parse<0>(&content[0]);
 
-	std::vector<Spawner*> level;
-
 	rapidxml::xml_node<>* pRoot = doc.first_node();
 	rapidxml::xml_node<>* pNode = pRoot->first_node();
 
-	float time = std::stof(pNode->value());
+	levelTime = std::stof(pNode->value());
 
 	pNode = pNode->next_sibling(); //Layout
 	pNode = pNode->first_node();
@@ -58,20 +56,20 @@ bool LevelLoader::LoadLevel(std::string path, std::vector<Spawner*>& spawns, std
 				}
 				else if (strcmp(pSubNode->name(), "SnakeChance") == 0)
 				{
-					snakeChance = std::stoi(pSubNode->value());
-					
+					snakeChance = std::stoi(pSubNode->value());					
 				}
 
 			}
 			//Log spawner		//120 + 37*i
-			Spawner* logSpawner = new Spawner(float(min + rand() % max), SpawnerType::LOG, Vector2(RM->windowWidth - 90, 75 + 16*2.75f*i), Vector2(-2 / 70.f, 0));
+			Spawner* logSpawner = new Spawner(float(min + rand() % max), SpawnerType::LOG, Vector2(RM->windowWidth - 90, 65 + 16*2.75f*i), Vector2(-80, 0));
 			//Spawner* logSpawner = new Spawner(float(min + rand() % max), SpawnerType::LOG, Vector2(RM->windowWidth - 90, 240), Vector2(-2 / 70.f, 0));
 			spawns.emplace_back(logSpawner);
 			//Spawner* logSpawner2 = new Spawner(float(min + rand() % max), SpawnerType::LOG, Vector2(RM->windowWidth - 90, 195), Vector2(-2 / 70.f, 0));
 			//spawns.emplace_back(logSpawner2);
 			//Spawner* logSpawner3 = new Spawner(float(min + rand() % max), SpawnerType::LOG, Vector2(RM->windowWidth - 90, 95), Vector2(-2 / 70.f, 0));
 			//spawns.emplace_back(logSpawner3);
-
+			//Spawner* foodSpawner = new Spawner(float(min + rand() % max), SpawnerType::FOOD, Vector2(RM->windowWidth - 90, 75 + 16 * 2.75f * i), Vector2(-2 / 70.f, 0));
+			//spawns.emplace_back(foodSpawner);
 
 		}
 		else if (strcmp(pNode->name(), "TurtlesRiver") == 0)
@@ -99,7 +97,7 @@ bool LevelLoader::LoadLevel(std::string path, std::vector<Spawner*>& spawns, std
 			}
 			//set turtles spawner
 			//Spawner* turtleSpawner = new Spawner(float(min + rand() % max), SpawnerType::TURTLES, Vector2(RM->windowWidth-90 , 290), Vector2(-1 / 70.f, 0));
-			Spawner* turtleSpawner = new Spawner(float(min + rand() % max), SpawnerType::TURTLES, Vector2(RM->windowWidth-90, 85 + 16*2.65f*i), Vector2(-1 / 70.f, 0));
+			Spawner* turtleSpawner = new Spawner(float(min + rand() % max), SpawnerType::TURTLES, Vector2(RM->windowWidth-90, 70 + 16*2.65f*i), Vector2(-50, 0));
 			spawns.emplace_back(turtleSpawner);
 			/*Spawner* turtleSpawner2 = new Spawner(float(min + rand() % max), SpawnerType::TURTLES, Vector2(RM->windowWidth - 90, 140), Vector2(-1 / 70.f, 0));
 			spawns.emplace_back(turtleSpawner2);*/
@@ -147,11 +145,11 @@ bool LevelLoader::LoadLevel(std::string path, std::vector<Spawner*>& spawns, std
 				}
 				else if (strcmp(pSubNode->name(), "Speed") == 0)
 				{
-					speed = std::stoi(pSubNode->value());
+					speed = std::stoi(pSubNode->value()) * 50;
 				}
 			}
 			//set spawner
-			Spawner* carSpawner = new Spawner(float(min + rand() % max), type, Vector2(50, 120 + 37*i), Vector2(speed/70.f, 0));
+			Spawner* carSpawner = new Spawner(float(min + rand() % max), type, Vector2(50, 120 + 37*i), Vector2(speed, 0));
 			spawns.emplace_back(carSpawner);
 			//set road tiles
 			/*Tile* road = new Tile(Vector2(RM->windowWidth, 14), Vector2(100, 16 + 16 * i), ColliderType::SAFE, "resources/Assets/Log.png");

@@ -21,9 +21,9 @@ Tile::Tile(Vector2 size, Vector2 pos, ColliderType ct, std::string path)
 	renderer.SetRotation(transform.rotation);
 }
 
-void Tile::Update()
+void Tile::Update(float dt)
 {
-	SetPosition(transform.position + Vector2(speed, 0));
+	SetPosition(transform.position + Vector2(speed, 0)*dt);
 	renderer.SetPosition(collider.GetTopLeft());
 }
 

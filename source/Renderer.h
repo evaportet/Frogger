@@ -34,5 +34,6 @@ public:
 	//SDL_Color GetColor();
 	/*float GetAlpha();*/
 	Vector2 GetTexturePixelSize();
+	void SetTexturePixelSize(Vector2 newPixelSize);
 
 };

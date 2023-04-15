@@ -5,7 +5,7 @@ TimeManager* TimeManager::Instance = nullptr;
 const float TimeManager::FPS = 60.f;
 const float TimeManager::TICK = 1.f / 60.f;
 
-TimeManager::TimeManager() : deltaTime(0.f), elapsedTime(0.f)
+TimeManager::TimeManager() : deltaTime(0.f), elapsedTime(SDL_GetTicks())
 {
 
 }

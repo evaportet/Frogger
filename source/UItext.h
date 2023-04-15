@@ -7,9 +7,11 @@ class UIText : public Renderer {
 private:
 	TTF_Font* font;
 	std::string text;
+	//std::string fontPath;
+	SDL_Color color;
 
 public:
-	UIText(int _width, int _height, int x, int y/*, std::string text*/);
+	UIText(int _width, int _height, int x, int y, std::string text = "", SDL_Color color = {0,0,0});
 	UIText();
 
 	void Update()override;

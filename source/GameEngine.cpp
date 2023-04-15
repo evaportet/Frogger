@@ -15,6 +15,8 @@ void GameEngine::Init()
     RM;
     //Collisions
     CH;
+    //High score
+    HSM;
 
     //Load Audio
     //AudioManager::GetInstance()->LoadClip("randomSFX");
@@ -24,6 +26,7 @@ void GameEngine::Init()
     SM->AddScene("SplashScreen", new SplashScreenScene());
     SM->AddScene("MainMenu", new MainMenuScene());
     SM->AddScene("Gameplay", new GameplayScene());
+    SM->AddScene("Ranking", new RankingScene());
     SM->SetScene("SplashScreen");
 }
 
@@ -45,7 +48,7 @@ void GameEngine::Run()
         };
 
         isRunning = !IM->GetQuitEvent();
-        SM->GetCurrentScene()->Update(TM->GetDeltaTimeMS());
+        SM->GetCurrentScene()->Update(TM->GetDeltaTimeSeconds());
         if (SM->GetHasChangedScene())
         {
             SM->ResetChangedScene();

@@ -53,7 +53,7 @@ typedef enum
 } SDL_MessageBoxButtonFlags;
 
 /**
- * Individual button data.
+ * Individual button highScores.
  */
 typedef struct
 {

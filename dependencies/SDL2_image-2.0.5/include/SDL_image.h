@@ -84,7 +84,7 @@ extern DECLSPEC int SDLCALL IMG_Init(int flags);
 /* Unloads libraries loaded with IMG_Init */
 extern DECLSPEC void SDLCALL IMG_Quit(void);
 
-/* Load an image from an SDL data source.
+/* Load an image from an SDL highScores source.
    The 'type' may be one of: "BMP", "GIF", "PNG", etc.
 
    If the image format supports a transparent pixel, SDL will set the
