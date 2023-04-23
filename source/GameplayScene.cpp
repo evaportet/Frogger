@@ -65,7 +65,7 @@ GameplayScene::GameplayScene()
 	LevelLoader::LoadLevel("resources/Files/sample_level.xml", spawners, row_tiles, levelTime);
 	
 	scoreText = UIText(18, 30, 160, RM->windowHeight - 45, "Score: 0", {255,255,255});
-	scoreText.Load("resources/Fonts/Hyperspace.ttf");
+	scoreText.Load("resources/Fonts/Pixellari.ttf");
 
 	timeRect = ImageRenderer();
 	timeRect.Load("resources/Assets/TimeBar.png");
@@ -76,7 +76,7 @@ GameplayScene::GameplayScene()
 	timeSizeAux = timeRect.GetTexturePixelSize();
 	time_StartXSize = timeSizeAux.x;
 
-	//pause menu
+	//end menu
 	pauseBckGrnd = ImageRenderer();
 	pauseBckGrnd.Load("resources/Assets/Button.png");
 	pauseBckGrnd.SetSourcePos(Vector2(0.f, 0.f));
@@ -86,7 +86,7 @@ GameplayScene::GameplayScene()
 	retryButton = Button(110, 25, RM->windowWidth / 2 - 285, RM->windowHeight / 2 + 25, "Retry");
 	exitButton = Button(110, 25, RM->windowWidth / 2 + 60, RM->windowHeight / 2 + 25, "Exit");
 	gameOverTxt = UIText(55, 65, RM->windowWidth / 2 - 250, RM->windowHeight/2 - 90, "GAME OVER");
-	gameOverTxt.Load("resources/Fonts/Hyperspace.ttf");
+	gameOverTxt.Load("resources/Fonts/Pixellari.ttf");
 	gameOverTxt.SetRotation(0);
 }
 
@@ -107,7 +107,7 @@ void GameplayScene::Update(float dt)
 		if (exitButton.isPressed)
 		{
 			exitButton.isPressed = false;
-			HSM->InsertScore("Player 1", player.GetScore());
+			HSM->InsertScore("Player: ", player.GetScore());
 			SM->SetScene("MainMenu");
 		}
 		
@@ -157,10 +157,17 @@ void GameplayScene::Update(float dt)
 		//system("pause");
 	}
 
+	if (endPositions[0].GetState() == EndState::FULL)
+	{
+		timeSizeAux.x = time_StartXSize;
+		timeRect.SetTexturePixelSize(timeSizeAux);
+	}
+
 	if (timeSizeAux.x <= 0.f)
 	{
 		player.Die();
 		timeSizeAux.x = time_StartXSize;
+		timeRect.SetTexturePixelSize(timeSizeAux);
 	}
 
 	if (player.GetLives() <= 0)

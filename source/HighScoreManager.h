@@ -23,13 +23,11 @@ public:
 	static HighScoreManager* GetInstance() {
 		if (Instance == nullptr)
 			Instance = new HighScoreManager();
-		return Instance; }
+		return Instance; 
+	}
 
 private:
-	HighScoreManager()
-	{
-		LoadScoreFromFile();
-	};
+	HighScoreManager();
 
 	std::map<std::string, int> highScores;
 };

@@ -11,7 +11,7 @@ RankingScene::RankingScene()
 	backToMenu = Button(90, 25, RM->windowWidth - 205, 35, "Back");
 
 	rankingText = UIText(70, 60, 40, 25, "RANKING", { 255,255,255 });
-	rankingText.Load("resources/Fonts/Hyperspace.ttf");
+	rankingText.Load("resources/Fonts/Pixellari.ttf");
 
 	//highScores = HSM->GetScoresMap();
 
