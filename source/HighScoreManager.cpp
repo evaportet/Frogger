@@ -2,6 +2,12 @@
 
 HighScoreManager* HighScoreManager::Instance = nullptr;
 
+
+HighScoreManager::HighScoreManager()
+{
+	LoadScoreFromFile();
+};
+
 void HighScoreManager::LoadScoreFromFile()
 {
 	//in file (load)
